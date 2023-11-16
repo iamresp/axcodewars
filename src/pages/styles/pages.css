@@ -1,0 +1,36 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+
+.battle-container {
+  margin: auto;
+  max-width: 1200px;
+  border-radius: 20px;
+  padding: 50px;
+  background: #fff;
+}
+
+.battle-task-title {
+  margin-bottom: 50px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  font-size: 38px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.battle-task-description {
+  margin: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #666;
+  border-radius: 18px;
+  width: 800px;
+  min-height: 100px;
+  background: rgb(251 222 204);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 19px;
+}
