@@ -5,12 +5,12 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import InputCustom from '../InputCustom';
-import AnswerForm from '../AnswerForm';
+import { InputCustom } from '../../shared/components/InputCustom/InputCustom';
+import { AnswerForm } from '../../features/AnswerForm/AnswerForm';
 import { CreateTask } from './CreateTask';
-import api from './../../shared/service/axios/axiosClient';
-import {useAuth} from "../../shared/hooks/useAuth";
-import {CircularProgress} from "@mui/material";
+import api from '../../shared/service/axios/axiosClient';
+import { useAuth } from '../../shared/hooks/useAuth';
+import { CircularProgress } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -21,14 +21,14 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
-export default function ModalCustom({ open, close, taskFoo }) {
+export function CreateTaskModal({ open, close, taskFoo }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [taskCase, setTaskCase] = useState([{ args: '', result: '' }]);
-  const { isAuth, user, isLoading} = useAuth()
+  const { isAuth, user, isLoading } = useAuth();
 
   const handleClose = () => {
     close(false);
@@ -48,9 +48,9 @@ export default function ModalCustom({ open, close, taskFoo }) {
         {
           description,
           title,
-          results,
+          results
         },
-          {headers: {'Authorization': `Bearer ${user.token}`}}
+        { headers: { Authorization: `Bearer ${user.token}` } }
       )
       .then(() => {
         handleClose();
@@ -59,7 +59,7 @@ export default function ModalCustom({ open, close, taskFoo }) {
   };
 
   if (isLoading) {
-    return <CircularProgress />
+    return <CircularProgress />;
   }
 
   return (
@@ -73,8 +73,8 @@ export default function ModalCustom({ open, close, taskFoo }) {
         slots={{ backdrop: Backdrop }}
         slotProps={{
           backdrop: {
-            timeout: 500,
-          },
+            timeout: 500
+          }
         }}
       >
         <Fade in={open} style={{ width: 'fit-content' }}>

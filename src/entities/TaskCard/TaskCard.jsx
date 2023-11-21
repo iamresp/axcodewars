@@ -5,17 +5,13 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function TaskCard({
-  title = 'Test',
-  description = 'Test',
-  onClick,
-}) {
+export function TaskCard({ title = 'Test', description = 'Test', onClick }) {
   return (
     <Card
       style={{
         justifyContent: 'space-between',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'column'
       }}
       onClick={onClick}
       sx={{ width: 250 }}

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function InputCustom({
+export function InputCustom({
   value,
   onChange,
   label = 'Текст',
@@ -9,7 +9,7 @@ export default function InputCustom({
   name,
   required,
   style,
-  textarea,
+  textarea
 }) {
   const handleChange = (e) => {
     onChange(e.target.value);
@@ -18,7 +18,7 @@ export default function InputCustom({
   return (
     <Box
       sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
+        '& > :not(style)': { m: 1, width: '25ch' }
       }}
       noValidate
       autoComplete='off'

@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
-import api from '../shared/service/axios/axiosClient';
-import Loading from '../components/Loading';
-import { useAuth } from '../shared/hooks/useAuth';
+import api from '../../shared/service/axios/axiosClient';
+import { Loading } from '../../shared/components/Loading';
+import { useAuth } from '../../shared/hooks/useAuth';
 import {
   Alert,
   Button,
   CircularProgress,
   Grid,
-  Typography,
+  Typography
 } from '@mui/material';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import TimerCustom from '../components/TimerCustom';
+import { TimerCustom } from '../../widgets/TimerCustom';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const style = {
@@ -26,12 +26,12 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 const taskTime = 150000;
 
-const TaskPage = () => {
+export const TaskPage = () => {
   const { id } = useParams();
 
   const socket = useRef();
@@ -55,7 +55,7 @@ const TaskPage = () => {
     if (!isLoading) {
       api
         .get('/tasks/' + id, {
-          headers: { Authorization: `Bearer ${user.token}` },
+          headers: { Authorization: `Bearer ${user.token}` }
         })
         .then((res) => {
           console.log('res', res);
@@ -112,7 +112,7 @@ const TaskPage = () => {
     setCode(evn.target.value);
     const message = {
       event: 'push',
-      data: evn.target.value,
+      data: evn.target.value
     };
     socket.current.send(JSON.stringify(message));
   };
@@ -200,7 +200,7 @@ const TaskPage = () => {
           flexDirection: 'column',
           gap: '16px',
           width: '100%',
-          height: '100vh',
+          height: '100vh'
         }}
       >
         <Button
@@ -236,7 +236,7 @@ const TaskPage = () => {
         alignItems: 'center',
         flexDirection: 'column',
         width: '100%',
-        padding: '20px',
+        padding: '20px'
       }}
     >
       <Grid
@@ -245,7 +245,7 @@ const TaskPage = () => {
           display: 'flex',
           width: '100%',
           alignItems: 'center',
-          justifyContent: 'flex-end',
+          justifyContent: 'flex-end'
         }}
       >
         <Button variant='contained' onClick={handleDisconnect}>
@@ -284,7 +284,7 @@ const TaskPage = () => {
               backgroundColor: '#f5f5f5',
               fontFamily:
                 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-              minHeight: '500px',
+              minHeight: '500px'
             }}
           />
           <Button
@@ -303,7 +303,7 @@ const TaskPage = () => {
                 fontWeight: '500',
                 textTransform: 'uppercase',
                 maxWidth: '300px',
-                mt: '10px',
+                mt: '10px'
               }}
             >
               {message}
@@ -322,7 +322,7 @@ const TaskPage = () => {
               backgroundColor: '#f5f5f5',
               fontFamily:
                 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-              minHeight: '500px',
+              minHeight: '500px'
             }}
           />
           <Typography variant='h5' component='div' sx={{ mt: '10px' }}>
@@ -354,5 +354,3 @@ const TaskPage = () => {
     </Grid>
   );
 };
-
-export default TaskPage;
