@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ModalCustom from '../../components/Modal/Modal';
+import { CreateTaskModal } from '../../widgets/CreateTaskModal';
 import Button from '@mui/material/Button';
-import TaskCard from '../../components/TaskCard';
+import { TaskCard } from '../../entities/TaskCard';
 import api from '../../shared/service/axios/axiosClient';
 import Typography from '@mui/material/Typography';
 
-import Loading from '../../components/Loading';
+import { Loading } from '../../shared/components/Loading';
 import { noData } from './tasksPage.model';
-import Header from '../../components/Header/Header';
+import { Header } from '../../widgets/Header';
 import { useAuth } from '../../shared/hooks/useAuth';
 
-const TasksPage = () => {
+export const TasksPage = () => {
   const [open, setOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const TasksPage = () => {
           display: 'flex',
           flexWrap: 'wrap',
           gap: '20px',
-          padding: '16px 0',
+          padding: '16px 0'
         }}
       >
         {(!tasks.data || tasks.data.length === 0) && (
@@ -66,9 +66,7 @@ const TasksPage = () => {
             );
           })}
       </div>
-      <ModalCustom taskFoo={GetTasks} open={open} close={setOpen} />
+      <CreateTaskModal taskFoo={GetTasks} open={open} close={setOpen} />
     </div>
   );
 };
-
-export default TasksPage;

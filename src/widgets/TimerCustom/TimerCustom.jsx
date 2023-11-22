@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-const TimerCustom = ({ millySec, setTime }) => {
+export const TimerCustom = ({ millySec, setTime }) => {
   const Ref = useRef(null);
 
   const [timer, setTimer] = useState('00:00:00');
@@ -14,7 +14,7 @@ const TimerCustom = ({ millySec, setTime }) => {
       total,
       hours,
       minutes,
-      seconds,
+      seconds
     };
   };
 
@@ -26,7 +26,7 @@ const TimerCustom = ({ millySec, setTime }) => {
           ':' +
           (minutes > 9 ? minutes : '0' + minutes) +
           ':' +
-          (seconds > 9 ? seconds : '0' + seconds),
+          (seconds > 9 ? seconds : '0' + seconds)
       );
     }
     setTime(total === 0);
@@ -62,5 +62,3 @@ const TimerCustom = ({ millySec, setTime }) => {
     </div>
   );
 };
-
-export default TimerCustom;

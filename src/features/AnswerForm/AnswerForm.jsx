@@ -1,7 +1,7 @@
-import InputCustom from './InputCustom';
+import { InputCustom } from '../../shared/components/InputCustom/InputCustom';
 import Button from '@mui/material/Button';
 
-const AnswerForm = ({ taskCase, setTaskCase }) => {
+export const AnswerForm = ({ taskCase, setTaskCase }) => {
   const handleAddCase = () => {
     setTaskCase((prev) => [...prev, { args: '', result: '' }]);
   };
@@ -47,5 +47,3 @@ const AnswerForm = ({ taskCase, setTaskCase }) => {
     </>
   );
 };
-
-export default AnswerForm;

@@ -1,1 +1,1 @@
-export const noData = "НЕТ ДАННЫХ!"
+export const noData = 'НЕТ ДАННЫХ!';
