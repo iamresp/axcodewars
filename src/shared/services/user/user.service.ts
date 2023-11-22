@@ -6,16 +6,16 @@ import {
 } from "../../user.interface";
 
 class UserService {
-  private URL = process.env.REACT_APP_SERVER_URL;
-  private token = localStorage.getItem("access_token");
-  private headers = {
+  private _URL = process.env.REACT_APP_SERVER_URL;
+  private _token = localStorage.getItem("access_token");
+  private _headers = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${this.token}`,
+    Authorization: `Bearer ${this._token}`,
   };
 
   async createUser(data: ICreateUser) {
     try {
-      await fetch(`${this.URL}/user`, {
+      await fetch(`${this._URL}/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ class UserService {
 
   async authenticateUser(data: IAuthUser) {
     try {
-      const response = await fetch(`${this.URL}/auth`, {
+      const response = await fetch(`${this._URL}/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ class UserService {
       if (response.ok) {
         const responseData = await response.json();
         localStorage.setItem("access_token", responseData.access_token);
-        this.token = responseData.access_token;
+        this._token = responseData.access_token;
         window.location.reload();
       } else {
         throw new Error("Network response was not ok");
@@ -53,9 +53,9 @@ class UserService {
 
   async getUser() {
     try {
-      const response = await fetch(`${this.URL}/auth/user`, {
+      const response = await fetch(`${this._URL}/auth/user`, {
         method: "GET",
-        headers: this.headers,
+        headers: this._headers,
       });
       return response.json();
     } catch (error) {
@@ -65,9 +65,9 @@ class UserService {
 
   async editUser(data: IEditUser) {
     try {
-      await fetch(`${this.URL}/auth/user`, {
+      await fetch(`${this._URL}/auth/user`, {
         method: "GET",
-        headers: this.headers,
+        headers: this._headers,
         body: JSON.stringify(data),
       });
     } catch (error) {
@@ -77,9 +77,9 @@ class UserService {
 
   async getConnectUser(id: string): Promise<IGetConnectUser> {
     try {
-      const response = await fetch(`${this.URL}/auth/user/${id}`, {
+      const response = await fetch(`${this._URL}/auth/user/${id}`, {
         method: "GET",
-        headers: this.headers,
+        headers: this._headers,
       });
       return response.json();
     } catch (error) {

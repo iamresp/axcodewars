@@ -1,9 +1,9 @@
 import { ICreateTask, IGetTaskById, IGetTasks } from "../../task.interface";
 
 class TaskService {
-  _URL = process.env.REACT_APP_SERVER_URL;
-  _token = localStorage.getItem("access_token");
-  _headers = {
+  private _URL = process.env.REACT_APP_SERVER_URL;
+  private _token = localStorage.getItem("access_token");
+  private _headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${this._token}`,
   };
