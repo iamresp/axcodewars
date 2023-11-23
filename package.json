@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:webpack": "webpack serve --env port=3000",
+    "start:webpack": "webpack serve --env port=3000 mode=development",
     "build:prod": "webpack --env mode=production",
     "build:dev": "webpack --env mode=development",
     "build": "react-scripts build",
@@ -51,9 +51,22 @@
       "last 1 safari version"
     ]
   },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react",
+      "@babel/preset-typescript"
+    ]
+  },
   "devDependencies": {
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@pmmmwh/react-refresh-webpack-plugin": "github:pmmmwh/react-refresh-webpack-plugin",
     "@svgr/webpack": "^8.1.0",
+    "babel-loader": "^9.1.3",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.3",

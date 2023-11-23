@@ -35,6 +35,13 @@ export function buildLoaders ({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         ]
     }
 
+    // remove later, when there is no js or jsx files left
+    const jsxLoader = {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: { loader: 'babel-loader' }
+    }
+
     const typescriptLoader = {
         test: /\.tsx?$/,
         use: 'ts-loader',
@@ -44,6 +51,7 @@ export function buildLoaders ({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     return [
         fileLoader,
         svgLoader,
+        jsxLoader,
         typescriptLoader,
         cssLoader
     ]
