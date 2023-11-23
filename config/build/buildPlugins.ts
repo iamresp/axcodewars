@@ -3,6 +3,7 @@ import HTMLWebpackPlugin from 'html-webpack-plugin'
 import { type BuildOptions } from './types/config'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import Dotenv from 'dotenv-webpack'
 
 export function buildPlugins ({ paths, isDev }: BuildOptions): webpack.WebpackPluginInstance[] {
     const plugins = [
@@ -21,9 +22,10 @@ export function buildPlugins ({ paths, isDev }: BuildOptions): webpack.WebpackPl
         }),
         new webpack.DefinePlugin({
             __IS_DEV__: JSON.stringify(isDev),
-            "process.env": JSON.stringify(process.env)
+            // "process.env": JSON.stringify(process.env)
         }),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new Dotenv()
     ]
 
     if (isDev) {
