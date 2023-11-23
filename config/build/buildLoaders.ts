@@ -27,7 +27,7 @@ export function buildLoaders ({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     }
 
     const fileLoader = {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpe?g|gif|ico)$/i,
         use: [
             {
                 loader: 'file-loader'
@@ -35,7 +35,7 @@ export function buildLoaders ({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         ]
     }
 
-    // remove later, when there is no js or jsx files left
+    // TODO: remove later, when there is no js or jsx files left
     const jsxLoader = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

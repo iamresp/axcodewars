@@ -1,6 +1,5 @@
 import webpack from 'webpack'
 import HTMLWebpackPlugin from 'html-webpack-plugin'
-import path from 'path'
 import { type BuildOptions } from './types/config'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
@@ -12,7 +11,9 @@ export function buildPlugins ({ paths, isDev }: BuildOptions): webpack.WebpackPl
             process: 'process/browser',
         }),
         new HTMLWebpackPlugin({
-            template: paths.html
+            template: paths.html,
+            favicon: './public/favicon.ico',
+            manifest: './public/manifest.json'
         }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:8].css',
