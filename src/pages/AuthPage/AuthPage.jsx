@@ -130,7 +130,7 @@ export const AuthPage = () => {
                 {auth === 'login' ? 'Зарегистирироваться' : 'Войти'}
               </AuthHintButton>
             </AuthHint>
-            {errorMessage.length > 0 && (
+            {errorMessage?.length > 0 && (
               <Alert
                 severity='error'
                 sx={{
