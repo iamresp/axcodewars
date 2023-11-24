@@ -9,14 +9,14 @@ export function useAuth() {
   const hasAccessToken = localStorage.getItem("access_token") ?? false;
 
   useEffect(() => {
-    // console.log('hasAccessToken', hasAccessToken)
+    console.log("hasAccessToken", hasAccessToken);
     if (hasAccessToken) {
       const token = localStorage.getItem("access_token");
       setIsLoading(true);
       api
         .get("/auth/user", { headers: { Authorization: `Bearer ${token}` } })
         .then((res) => {
-          // console.log("auth res", res);
+          console.log("auth res", res);
           if (res?.data?.uuid) {
             setIsAuth(true);
             setUser({ ...res.data, token });
@@ -30,6 +30,6 @@ export function useAuth() {
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, [hasAccessToken]);
   return { isLoading, isAuth, user };
 }
