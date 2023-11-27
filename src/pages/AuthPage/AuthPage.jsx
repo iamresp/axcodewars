@@ -11,6 +11,8 @@ import {
 } from './AuthPage.styled';
 import api from '../../shared/service/axios/axiosClient';
 
+import cls from './AuthPage.module.css'
+
 export const AuthPage = () => {
   const [auth, setAuth] = useState('login');
   const [password, setPassword] = useState('');
@@ -73,79 +75,70 @@ export const AuthPage = () => {
 
   return (
     <>
-      <Grid container component='main' sx={{ height: 'calc(100vh)' }}>
-        <CssBaseline />
-        <Grid
-          item
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            height: '100%',
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1535557142533-b5e1cc6e2a5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2458&q=80)',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top'
-          }}
-        >
-          <AuthBox>
-            <AuthTitle component='div'>
-              {auth === 'login' ? 'Логин' : 'Регистрация'}
-            </AuthTitle>
-            <AuthInput
-              label='Пользователь'
+      <main className={`${cls.main}`}>
+
+        <img className={`${cls.reg_image}`} src="./images/reg-img.svg" alt="" />
+
+        <div className={`${cls.reg_form}`}>
+          {auth === 'login' ? 'Логин' : 'Регистрация'}
+
+          <div className={`${cls.reg_selecttext}`}>
+                {auth === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
+
+                <a
+                  className= {`${cls.reg_selecttext_button}`}
+                  component='span'
+                  onClick={() =>
+                    setAuth(auth === 'login' ? 'registration' : 'login')
+                  }
+                >
+                  {auth === 'login' ? ' Регистрация' : ' Войти'}
+                </a>
+                
+          </div>
+
+
+          <input
+              className={`${cls.reg_input}`}
+              label='Имя'
+              placeholder='Имя'
               inputProps={{ autoComplete: 'off' }}
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-            />
-            <AuthInput
+           />
+
+            <input
+              className={`${cls.reg_input}`}
               label='Пароль'
+              placeholder='Пароль'
               type='password'
               inputProps={{ autoComplete: 'off' }}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
+
             {auth === 'registration' && (
-              <AuthInput
-                label='Url картинки'
+              <input
+                className={`${cls.reg_input}`}
+                label='Загузка аватара'
+                placeholder='Загузка аватара'
                 inputProps={{ autoComplete: 'off' }}
                 value={imageUrl}
                 onChange={(event) => setImageUrl(event.target.value)}
               />
             )}
 
-            <AuthButton onClick={handleAuth} variant='contained'>
-              {auth === 'login' ? 'Войти' : 'Зарегистирироваться'}
-            </AuthButton>
-            <AuthHint component='div'>
-              {auth === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
-              <AuthHintButton
-                component='span'
-                onClick={() =>
-                  setAuth(auth === 'login' ? 'registration' : 'login')
-                }
-              >
-                {auth === 'login' ? 'Зарегистирироваться' : 'Войти'}
-              </AuthHintButton>
-            </AuthHint>
-            {errorMessage?.length > 0 && (
-              <Alert
-                severity='error'
-                sx={{
-                  fontFamily: 'Montserrat',
-                  fontStyle: 'normal',
-                  fontWeight: '500',
-                  textTransform: 'uppercase'
-                }}
-              >
-                {errorMessage}
-              </Alert>
-            )}
-          </AuthBox>
-        </Grid>
-      </Grid>
+          <button 
+            className={`${cls.reg_button}`}
+            onClick={handleAuth} variant='contained'>
+                {auth === 'login' ? 'Войти' : 'Регистрация'}
+          </button>
+
+
+          
+        </div>
+
+      </main>
     </>
   );
 };
