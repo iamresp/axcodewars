@@ -1,0 +1,55 @@
+/*TODO: move colors to global vars*/
+.form {
+    height: 190px;
+    width: 480px;
+    text-align: center;
+    position: relative;
+}
+
+.input {
+    display: none;
+}
+
+.label {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: dashed;
+    border-color: #F37022;
+    background-color: #FFF;
+}
+
+.label.dragActive {
+    background-color: rgba(243, 112, 34, 0.3);
+}
+
+.uploadButton {
+    color: #000;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.uploadButton:hover {
+    text-decoration-line: underline;
+}
+
+.dragFile {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
