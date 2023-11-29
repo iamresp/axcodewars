@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DragEventHandler, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import UploadSvg from '../../shared/images/file-upload.svg'
 import cls from './Dropzone.module.css'
 
@@ -28,12 +28,14 @@ function ab2str(buf: ArrayBuffer) {
     return String.fromCharCode.apply(null, Array.from(new Uint16Array(buf)));
 }
 
-function CSVtoArray(text:any, separator: CSVSeparator) {
-    // Return NULL if input string is not well formed CSV string.
-    if (!Parsers[separator].regValid.test(text)) return null;
-    console.log("not skipped")
+const isValidCSVrow = (row: string[]) => row.length > 4 && row.length % 2 === 0
+
+
+function parseCSVstring(str: string, separator: CSVSeparator): string[]  {
+    // Return empty array if input string is not well formed CSV string.
+    if (!Parsers[separator].regValid.test(str)) return []
     let a = [];                     // Initialize array to receive values.
-    text.replace(Parsers[separator].regValue, // "Walk" the string using replace with callback.
+    str.replace(Parsers[separator].regValue, // "Walk" the string using replace with callback.
         function(m0:string, m1:string, m2:string, m3:string) {
             // Remove backslash from \' in single quoted values.
             if      (m1 !== undefined) a.push(m1.replace(/\\'/g, "'"));
@@ -43,21 +45,55 @@ function CSVtoArray(text:any, separator: CSVSeparator) {
             return ''; // Return empty string.
         });
     // Handle special case of empty last value.
-    if (/,\s*$/.test(text)) a.push('');
-    console.log('a', a)
+    if (/,\s*$/.test(str)) a.push('');
     return a;
-};
+}
+
+function getAllSeparators(): Array<CSVSeparator> {
+    const separatorsArr: Array<CSVSeparator> = []
+    Object.values(CSVSeparator).forEach((separator) => {
+        if (isNaN(Number(separator))) {
+            separatorsArr.push(separator)
+        }
+    })
+    return separatorsArr
+}
+
+function CSVtoArray(text: string) {
+    // split CSV table to array of rows
+    let CSVData: string[] = text.split(/\r\n|\r|\n/)
+    // go through all separators
+    for (const separator of getAllSeparators()) {
+        // store parsed CSV
+        let currentData: string[][] = new Array(CSVData.length).fill([]);
+
+        // parse every row of CSV
+        for (let row = 0; row < CSVData?.length; row++) {
+            currentData[row] = parseCSVstring(CSVData[row], separator as CSVSeparator)
+        }
+
+        // remove last subarray if empty
+        if(currentData.length && currentData[currentData.length - 1].length === 0) {
+            currentData.pop()
+        }
+
+        // validation: go through array and check if all subarrays length more than 4 and divides by 2
+        if(currentData.every(isValidCSVrow)) return currentData
+    }
+
+    return []
+}
 
 export const DropzoneCsv = () => {
     const [isDragActive, setIsDragActive] = React.useState(false);
-    const inputRef = React.useRef<any>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
 
     }, []);
 
     // handle drag events
-    const handleDrag = function(e:any) {
+    const handleDrag = function(e: React.DragEvent<HTMLDivElement | HTMLFormElement>) {
         e.preventDefault();
         e.stopPropagation();
         if (e.type === "dragenter" || e.type === "dragover") {
@@ -68,23 +104,21 @@ export const DropzoneCsv = () => {
     };
 
     // triggers when file is dropped
-    const handleDrop = function(e:any) {
+    const handleDrop = function(e: React.DragEvent<HTMLDivElement>) {
         e.preventDefault();
         e.stopPropagation();
         setIsDragActive(false);
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             handleFile(e.dataTransfer.files[0]);
-            console.log(e.dataTransfer.files)
         }
     };
 
-    const handleFile = (file:any) => {
+    const handleFile = (file: File) => {
         let fr = new FileReader();
         fr.onload = receivedText;
         fr.readAsText(file);
 
         function receivedText() {
-            console.log( fr.result);
             let result:string
             if (fr.result) {
                 // convert to string
@@ -94,36 +128,27 @@ export const DropzoneCsv = () => {
                     result = fr.result
                 }
                 // turn string to 2d array
-                let data : any = result.split(/\r\n|\r|\n/)
-                if(data) {
-                    console.log('inside')
-                    for (let row = 0; row < data?.length; row++) {
-                        data[row] = CSVtoArray(data[row], CSVSeparator.SEMICOLON)
-                    }
-                }
-                console.log('data', data)
-                console.log(CSVtoArray("'string, duppi, du', 23, lala", CSVSeparator.COMMA));
+                let data = CSVtoArray(result)
             }
         }
     }
 
     // triggers when file is selected
-    const handleChange = function(e:any) {
+    const handleChange = function(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
-            // handleFiles(e.target.files);
-            console.log(e.target.files)
+            handleFile(e.target.files[0]);
         }
     };
 
     // triggers the input when the button is clicked
     const onButtonClick = () => {
-        inputRef.current.click();
+        inputRef.current?.click();
     };
 
     return (
         <form
-            className={`${cls.form}`}
+            className={cls.form}
             onDragEnter={handleDrag}
             onSubmit={(e) => e.preventDefault()}
         >
@@ -136,10 +161,10 @@ export const DropzoneCsv = () => {
             />
             <label className={`${cls.label} ${isDragActive ? cls.dragActive : ""}`} htmlFor="input-file-upload">
                 <UploadSvg/>
-                <button className={`${cls.uploadButton}`} onClick={onButtonClick}>Загрузите файл</button>
+                <button className={cls.uploadButton} onClick={onButtonClick}>Загрузите файл</button>
             </label>
             { isDragActive && <div
-                className={`${cls.dragFile}`}
+                className={cls.dragFile}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
