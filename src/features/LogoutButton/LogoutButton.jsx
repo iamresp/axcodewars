@@ -1,9 +1,9 @@
-import React from 'react';
 import { Button } from '@mui/material';
+import { FieldLocalStorage } from '../../shared/constants/constants';
 
 export const LogoutButton = () => {
   const handleLogout = () => {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem(FieldLocalStorage.ACCESS_TOKEN);
     window.location.reload();
   };
 
