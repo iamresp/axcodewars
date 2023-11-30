@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import UploadSvg from '../../../shared/images/file-upload.svg'
 import cls from './Dropzone.module.css'
-import {ab2str, CSVtoArray} from "../lib/helpers";
+import {arrBufToStr, CSVtoArray} from "../lib/helpers";
 
 export const DropzoneCsv = () => {
     const [isDragActive, setIsDragActive] = React.useState(false);
@@ -38,7 +38,7 @@ export const DropzoneCsv = () => {
             if (fr.result) {
                 // convert to string
                 if(typeof fr.result !== 'string') {
-                    result = ab2str(fr.result)
+                    result = arrBufToStr(fr.result)
                 } else {
                     result = fr.result
                 }
@@ -70,7 +70,8 @@ export const DropzoneCsv = () => {
         >
             <input
                 id="input-file-upload"
-                ref={inputRef} type="file"
+                ref={inputRef} 
+                type="file"
                 className={`${cls.input}`}
                 multiple={false}
                 onChange={handleChange}
