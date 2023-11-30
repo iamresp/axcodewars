@@ -156,7 +156,7 @@ export const TaskPage = () => {
     let result = null;
 
     try {
-      result = this.eval(code);
+      result = eval(code);
     } catch (e) {}
 
     handleAttempt();
