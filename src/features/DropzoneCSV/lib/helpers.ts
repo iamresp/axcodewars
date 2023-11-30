@@ -1,7 +1,7 @@
 import {CSVSeparator} from "./types";
 import {Parsers} from "../model/parsers";
 
-export function ab2str(buf: ArrayBuffer) {
+export function arrBufToStr(buf: ArrayBuffer) {
     return String.fromCharCode.apply(null, Array.from(new Uint16Array(buf)));
 }
 
