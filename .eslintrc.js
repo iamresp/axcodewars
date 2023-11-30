@@ -63,6 +63,7 @@ module.exports = {
     'lines-around-comment': ['warn', { beforeBlockComment: true }],
     'yield-star-spacing': ['warn', 'after'],
     'multiline-ternary': ['warn', 'always-multiline'],
-    'max-len': ['warn', { code: 80 }]
+    'max-len': ['warn', { code: 80 }],
+    'no-restricted-imports': ['error', { 'patterns': ['../../*'] }]
   }
 };
