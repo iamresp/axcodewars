@@ -53,7 +53,7 @@ export const DropzoneCsv = () => {
     const handleChange = function(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
-            console.log(e.target.files[0])
+            handleFile(e.target.files[0]);
             // clear file input
             e.target.value = ''
         }
