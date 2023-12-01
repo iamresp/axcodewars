@@ -15,7 +15,7 @@ module.exports = {
       env: {
         node: true
       },
-      files: ['.eslintrc.{js,cjs}'],
+      files: ['.eslintrc.{js,cjs,jsx,ts,tsx}'],
       parserOptions: {
         sourceType: 'script'
       }
@@ -23,8 +23,7 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: [resolve(__dirname, './tsconfig.json')]
+    sourceType: 'module'
   },
   plugins: ['react', 'jsx-a11y', 'react-hooks', 'import'],
   rules: {
@@ -38,9 +37,7 @@ module.exports = {
     '@typescript-eslint/no-confusing-void-expression': 'warn',
     '@typescript-eslint/no-misused-promises': 'warn',
     '@typescript-eslint/promise-function-async': 'warn',
-    '@typescript-eslint/strict-boolean-expressions': 'warn',
     '@typescript-eslint/prefer-optional-chain': 'warn',
-    '@typescript-eslint/semi': 'warn',
 
     'react/button-has-type': 'warn',
     'react/prop-types': 'warn',
@@ -64,6 +61,8 @@ module.exports = {
     'yield-star-spacing': ['warn', 'after'],
     'multiline-ternary': ['warn', 'always-multiline'],
     'max-len': ['warn', { code: 80 }],
-    'no-restricted-imports': ['error', { 'patterns': ['../../*'] }]
+    'no-restricted-imports': ['warn', { patterns: ['../../*'] }],
+    'newline-before-return': ['warn'],
+    'no-eval': 'warn'
   }
 };
