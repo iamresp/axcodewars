@@ -50,7 +50,7 @@ export function CSVtoArray(text: string) {
         }
 
         // remove last subarray if empty
-        if(currentData.length && currentData.at(-1).length === 0) {
+        if(currentData.length && currentData.at(-1)?.length === 0) {
             currentData.pop()
         }
 

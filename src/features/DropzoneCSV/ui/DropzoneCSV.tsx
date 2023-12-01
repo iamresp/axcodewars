@@ -19,7 +19,7 @@ export const DropzoneCsv = () => {
     };
 
     // triggers when file is dropped
-    const handleDrop = function(e: React.DragEvent<HTMLDivElement>) {
+    const handleDrop = function(e: React.DragEvent<HTMLFormElement>) {
         e.preventDefault();
         e.stopPropagation();
         setIsDragActive(false);
@@ -53,7 +53,9 @@ export const DropzoneCsv = () => {
     const handleChange = function(e: React.ChangeEvent<HTMLInputElement>) {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
-            handleFile(e.target.files[0]);
+            console.log(e.target.files[0])
+            // clear file input
+            e.target.value = ''
         }
     };
 
@@ -66,6 +68,9 @@ export const DropzoneCsv = () => {
         <form
             className={cls.form}
             onDragEnter={handleDrag}
+            onDragLeave={handleDrag}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}
             onSubmit={(e) => e.preventDefault()}
         >
             <input
@@ -80,13 +85,6 @@ export const DropzoneCsv = () => {
                 <UploadSvg/>
                 <button className={cls.uploadButton} onClick={onButtonClick}>Загрузите файл</button>
             </label>
-            { isDragActive && <div
-                className={cls.dragFile}
-                onDragEnter={handleDrag}
-                onDragLeave={handleDrag}
-                onDragOver={handleDrag}
-                onDrop={handleDrop}
-            />}
         </form>
     );
 };
