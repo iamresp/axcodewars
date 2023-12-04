@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import api from '../../shared/service/axios/axiosClient';
-import { Loading } from '../../shared/components/Loading';
 import { useAuth } from '../../shared/hooks/useAuth';
 import {
   Alert,
@@ -16,6 +15,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { TimerCustom } from '../../widgets/TimerCustom';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Loading } from '../../shared/components/Loading';
 
 const style = {
   position: 'absolute',
@@ -62,7 +62,9 @@ export const TaskPage = () => {
           setTaskData(res.data);
           setRightResult(res.data.results[0][1]);
         })
-        .catch(function (error) {});
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   }, [isLoading]);
 
@@ -214,7 +216,9 @@ export const TaskPage = () => {
         <Button
           variant='contained'
           size='large'
-          onClick={() => navigate('/tasks')}
+          onClick={() => {
+            navigate('/tasks');
+          }}
         >
           Выйти
         </Button>
@@ -277,7 +281,9 @@ export const TaskPage = () => {
             value={code}
             language='js'
             placeholder='Ваш код'
-            onChange={(evn) => sendCode(evn)}
+            onChange={(evn) => {
+              sendCode(evn);
+            }}
             padding={15}
             style={{
               fontSize: 12,
@@ -289,7 +295,9 @@ export const TaskPage = () => {
           />
           <Button
             variant='contained'
-            onClick={() => handleValidateCode()}
+            onClick={async () => {
+              await handleValidateCode();
+            }}
             sx={{ mt: '10px' }}
           >
             Проверить код
@@ -343,7 +351,9 @@ export const TaskPage = () => {
             {gameMessage}
           </Typography>
           <Button
-            onClick={() => navigate('/tasks')}
+            onClick={() => {
+              navigate('/tasks');
+            }}
             variant='contained'
             sx={{ mt: '10px' }}
           >
