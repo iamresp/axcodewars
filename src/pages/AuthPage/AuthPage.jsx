@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Alert, CssBaseline, Grid } from '@mui/material';
-import * as PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import { Alert, CssBaseline, Grid } from '@mui/material'
+import * as PropTypes from 'prop-types'
 import {
   AuthBox,
   AuthButton,
@@ -8,21 +8,21 @@ import {
   AuthHintButton,
   AuthInput,
   AuthTitle
-} from './AuthPage.styled';
-import api from '../../shared/service/axios/axiosClient';
+} from './AuthPage.styled'
+import api from '../../shared/service/axios/axiosClient'
 
-import cls from './AuthPage.module.css';
+import cls from './AuthPage.module.css'
 
 export const AuthPage = () => {
-  const [auth, setAuth] = useState('login');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [auth, setAuth] = useState('login')
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleAuth = async () => {
     if (!username || !password || (auth === 'registration' && !imageUrl)) {
-      setErrorMessage('Поля не должны быть пустыми');
+      setErrorMessage('Поля не должны быть пустыми')
       return;
     }
 
@@ -32,18 +32,18 @@ export const AuthPage = () => {
           hash: password,
           username
         })
-        .then((res) => {
-          localStorage.setItem('access_token', res.data?.access_token);
-          setErrorMessage('');
-          window.location.reload();
+        .then(res => {
+          localStorage.setItem('access_token', res.data?.access_token)
+          setErrorMessage('')
+          window.location.reload()
         })
         .catch(function (error) {
           if (error.response) {
-            setErrorMessage(error.response.data?.message);
+            setErrorMessage(error.response.data?.message)
           } else {
-            setErrorMessage('Произошла ошибка: ' + error.message);
+            setErrorMessage('Произошла ошибка: ' + error.message)
           }
-        });
+        })
     } else {
       api
         .post('/user', {
@@ -51,27 +51,27 @@ export const AuthPage = () => {
           hash: password,
           username
         })
-        .then((res) => {
-          api
+        .then(res => {
+          void api
             .post('/auth', {
               hash: password,
               username
             })
-            .then((res) => {
-              localStorage.setItem('access_token', res.data?.access_token);
-              setErrorMessage('');
-              window.location.reload();
-            });
+            .then(res => {
+              localStorage.setItem('access_token', res.data?.access_token)
+              setErrorMessage('')
+              window.location.reload()
+            })
         })
         .catch(function (error) {
           if (error.response) {
-            setErrorMessage(error.response.data?.message);
+            setErrorMessage(error.response.data?.message)
           } else {
-            setErrorMessage('Произошла ошибка: ' + error.message);
+            setErrorMessage('Произошла ошибка: ' + error.message)
           }
-        });
+        })
     }
-  };
+  }
 
   return (
     <>
@@ -86,7 +86,6 @@ export const AuthPage = () => {
 
             <a
               className={cls.reg_selecttext_button}
-              component='span'
               onClick={() =>
                 setAuth(auth === 'login' ? 'registration' : 'login')
               }
@@ -99,9 +98,10 @@ export const AuthPage = () => {
             className={cls.reg_input}
             label='Имя'
             placeholder='Имя'
-            inputProps={{ autoComplete: 'off' }}
             value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            onChange={event => {
+              setUsername(event.target.value)
+            }}
           />
 
           <input
@@ -109,9 +109,10 @@ export const AuthPage = () => {
             label='Пароль'
             placeholder='Пароль'
             type='password'
-            inputProps={{ autoComplete: 'off' }}
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            onChange={event => {
+              setPassword(event.target.value)}
+            }
           />
 
           {auth === 'registration' && (
@@ -119,9 +120,10 @@ export const AuthPage = () => {
               className={cls.reg_input}
               label='Загузка аватара'
               placeholder='Загузка аватара'
-              inputProps={{ autoComplete: 'off' }}
               value={imageUrl}
-              onChange={(event) => setImageUrl(event.target.value)}
+              onChange={event => {
+                setImageUrl(event.target.value)
+              }}
             />
           )}
 
@@ -135,5 +137,5 @@ export const AuthPage = () => {
         </div>
       </main>
     </>
-  );
+  )
 };

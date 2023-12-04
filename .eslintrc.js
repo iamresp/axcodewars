@@ -7,8 +7,8 @@ module.exports = {
     'standard-with-typescript',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:import/recommended'
+    'plugin:jsx-a11y/recommended'
+
   ],
   overrides: [
     {
@@ -25,7 +25,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: ['react', 'jsx-a11y', 'react-hooks', 'import'],
+  plugins: ['react', 'jsx-a11y', 'react-hooks'],
   rules: {
     semi: 'off',
     '@typescript-eslint/semi': 'warn',
@@ -65,4 +65,4 @@ module.exports = {
     'newline-before-return': ['warn'],
     'no-eval': 'warn'
   }
-};
+}

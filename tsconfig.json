@@ -9,7 +9,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -17,5 +16,5 @@
     "noEmit": false,
     "jsx": "react-jsx"
   },
-  "include": ["src", ".eslintrc.js"]
+  "include": ["src", ".eslintrc.ts"]
 }
