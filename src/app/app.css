@@ -20,29 +20,6 @@ body{
     }
 }
 
-header {
-    height: 100px;
-    width: 100%;
-    max-width: 1920px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    margin: auto;
-}
-
-footer{
-    height: 150px;
-    width: 100%;
-    max-width: 1920px;
-
-    
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
 
 

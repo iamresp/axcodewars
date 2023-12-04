@@ -11,7 +11,7 @@ import {
 } from './AuthPage.styled';
 import api from '../../shared/service/axios/axiosClient';
 
-import cls from './AuthPage.module.css'
+import cls from './AuthPage.module.css';
 
 export const AuthPage = () => {
   const [auth, setAuth] = useState('login');
@@ -75,69 +75,64 @@ export const AuthPage = () => {
 
   return (
     <>
-      <main className={`${cls.main}`}>
+      <main className={cls.main}>
+        <img className={cls.reg_image} src='./images/reg-img.svg' alt='' />
 
-        <img className={`${cls.reg_image}`} src="./images/reg-img.svg" alt="" />
-
-        <div className={`${cls.reg_form}`}>
+        <div className={cls.reg_form}>
           {auth === 'login' ? 'Логин' : 'Регистрация'}
 
-          <div className={`${cls.reg_selecttext}`}>
-                {auth === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
+          <div className={cls.reg_selecttext}>
+            {auth === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
 
-                <a
-                  className= {`${cls.reg_selecttext_button}`}
-                  component='span'
-                  onClick={() =>
-                    setAuth(auth === 'login' ? 'registration' : 'login')
-                  }
-                >
-                  {auth === 'login' ? ' Регистрация' : ' Войти'}
-                </a>
-                
+            <a
+              className={cls.reg_selecttext_button}
+              component='span'
+              onClick={() =>
+                setAuth(auth === 'login' ? 'registration' : 'login')
+              }
+            >
+              {auth === 'login' ? ' Регистрация' : ' Войти'}
+            </a>
           </div>
 
+          <input
+            className={cls.reg_input}
+            label='Имя'
+            placeholder='Имя'
+            inputProps={{ autoComplete: 'off' }}
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
 
           <input
-              className={`${cls.reg_input}`}
-              label='Имя'
-              placeholder='Имя'
-              inputProps={{ autoComplete: 'off' }}
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-           />
+            className={cls.reg_input}
+            label='Пароль'
+            placeholder='Пароль'
+            type='password'
+            inputProps={{ autoComplete: 'off' }}
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
 
+          {auth === 'registration' && (
             <input
-              className={`${cls.reg_input}`}
-              label='Пароль'
-              placeholder='Пароль'
-              type='password'
+              className={cls.reg_input}
+              label='Загузка аватара'
+              placeholder='Загузка аватара'
               inputProps={{ autoComplete: 'off' }}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              value={imageUrl}
+              onChange={(event) => setImageUrl(event.target.value)}
             />
+          )}
 
-            {auth === 'registration' && (
-              <input
-                className={`${cls.reg_input}`}
-                label='Загузка аватара'
-                placeholder='Загузка аватара'
-                inputProps={{ autoComplete: 'off' }}
-                value={imageUrl}
-                onChange={(event) => setImageUrl(event.target.value)}
-              />
-            )}
-
-          <button 
-            className={`${cls.reg_button}`}
-            onClick={handleAuth} variant='contained'>
-                {auth === 'login' ? 'Войти' : 'Регистрация'}
+          <button
+            className={cls.reg_button}
+            onClick={handleAuth}
+            variant='contained'
+          >
+            {auth === 'login' ? 'Войти' : 'Регистрация'}
           </button>
-
-
-          
         </div>
-
       </main>
     </>
   );
