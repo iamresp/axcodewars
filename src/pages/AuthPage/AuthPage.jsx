@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { Alert, CssBaseline, Grid } from '@mui/material';
-import * as PropTypes from 'prop-types';
+import { useState } from 'react';
+import api from '../../shared/service/axios/axiosClient';
 import {
   AuthBox,
   AuthButton,
@@ -9,10 +9,10 @@ import {
   AuthInput,
   AuthTitle
 } from './AuthPage.styled';
-import api from '../../shared/service/axios/axiosClient';
+import { AuthState } from './constants';
 
 export const AuthPage = () => {
-  const [auth, setAuth] = useState('login');
+  const [auth, setAuth] = useState(AuthState.LOGIN);
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -24,7 +24,7 @@ export const AuthPage = () => {
       return;
     }
 
-    if (auth === 'login') {
+    if (auth === AuthState.LOGIN) {
       api
         .post('/auth', {
           hash: password,
