@@ -19,7 +19,7 @@ export const TimerCustom = ({ millySec, setTime }) => {
   };
 
   const startTimer = (e) => {
-    let { total, hours, minutes, seconds } = getTimeRemaining(e);
+    const { total, hours, minutes, seconds } = getTimeRemaining(e);
     if (total >= 0) {
       setTimer(
         (hours > 9 ? hours : '0' + hours) +
@@ -45,7 +45,7 @@ export const TimerCustom = ({ millySec, setTime }) => {
   };
 
   const getDeadTime = () => {
-    let deadline = new Date();
+    const deadline = new Date();
 
     deadline.setSeconds(deadline.getSeconds() + millySec / 1000);
 

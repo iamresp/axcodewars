@@ -17,7 +17,7 @@ export const AnswerForm = ({ taskCase, setTaskCase }) => {
   return (
     <>
       {taskCase.map((taskCase, index) => (
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex' }} key={index}>
           <InputCustom
             key={index}
             value={taskCase.args}
