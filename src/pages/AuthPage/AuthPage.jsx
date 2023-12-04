@@ -1,20 +1,11 @@
 import React, { useState } from 'react'
-import { Alert, CssBaseline, Grid } from '@mui/material'
-import * as PropTypes from 'prop-types'
-import {
-  AuthBox,
-  AuthButton,
-  AuthHint,
-  AuthHintButton,
-  AuthInput,
-  AuthTitle
-} from './AuthPage.styled'
-import api from '../../shared/service/axios/axiosClient'
+import { AuthState } from './constants'
+
+import api from '../../shared/service/axios/axiosClient.js'
 
 import cls from './AuthPage.module.css'
-
 export const AuthPage = () => {
-  const [auth, setAuth] = useState('login')
+  const [auth, setAuth] = useState(AuthState.LOGIN)
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -23,10 +14,10 @@ export const AuthPage = () => {
   const handleAuth = async () => {
     if (!username || !password || (auth === 'registration' && !imageUrl)) {
       setErrorMessage('Поля не должны быть пустыми')
-      return;
+      return
     }
 
-    if (auth === 'login') {
+    if (auth === AuthState.LOGIN) {
       api
         .post('/auth', {
           hash: password,
@@ -138,4 +129,4 @@ export const AuthPage = () => {
       </main>
     </>
   )
-};
+}
