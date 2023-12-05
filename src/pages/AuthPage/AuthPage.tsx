@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AuthState } from './constants'
 
 import api from '../../shared/service/axios/axiosClient.js'
 
 import cls from './AuthPage.module.css'
+
 export const AuthPage = () => {
   const [auth, setAuth] = useState(AuthState.LOGIN)
   const [password, setPassword] = useState('')
@@ -12,8 +13,10 @@ export const AuthPage = () => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleAuth = async () => {
-    if (!username || !password || (auth === 'registration' && !imageUrl)) {
+    if ((username === '') || (password === '') ||
+        (auth === AuthState.REGISTRATION && (imageUrl === ''))) {
       setErrorMessage('Поля не должны быть пустыми')
+
       return
     }
 
@@ -67,7 +70,7 @@ export const AuthPage = () => {
   return (
     <>
       <main className={cls.main}>
-        <img className={cls.reg_image} src='./images/reg-img.svg' alt='' />
+        <img className={cls.reg_image} src='/images/reg-img.svg' alt='' />
 
         <div className={cls.reg_form}>
           {auth === 'login' ? 'Логин' : 'Регистрация'}
@@ -75,19 +78,20 @@ export const AuthPage = () => {
           <div className={cls.reg_selecttext}>
             {auth === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
 
-            <a
-              className={cls.reg_selecttext_button}
-              onClick={() =>
-                setAuth(auth === 'login' ? 'registration' : 'login')
+            <button
+                type='button'
+                className={cls.reg_selecttext_button}
+                onClick={() => {
+                  setAuth(auth === AuthState.LOGIN ? AuthState.REGISTRATION : AuthState.LOGIN)
+                }
               }
             >
               {auth === 'login' ? ' Регистрация' : ' Войти'}
-            </a>
+            </button>
           </div>
 
           <input
             className={cls.reg_input}
-            label='Имя'
             placeholder='Имя'
             value={username}
             onChange={event => {
@@ -97,19 +101,18 @@ export const AuthPage = () => {
 
           <input
             className={cls.reg_input}
-            label='Пароль'
             placeholder='Пароль'
             type='password'
             value={password}
             onChange={event => {
-              setPassword(event.target.value)}
+              setPassword(event.target.value)
+            }
             }
           />
 
           {auth === 'registration' && (
             <input
               className={cls.reg_input}
-              label='Загузка аватара'
               placeholder='Загузка аватара'
               value={imageUrl}
               onChange={event => {
@@ -119,9 +122,9 @@ export const AuthPage = () => {
           )}
 
           <button
+              type='button'
             className={cls.reg_button}
             onClick={handleAuth}
-            variant='contained'
           >
             {auth === 'login' ? 'Войти' : 'Регистрация'}
           </button>

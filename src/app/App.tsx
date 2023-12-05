@@ -6,7 +6,7 @@ import AppRouter from './routing/AppRouter.jsx'
 import Header from '../widgets/Header/ui/Header'
 import Footer from '../widgets/Footer/ui/Footer'
 
-function App (): object {
+function App (): JSX.Element {
   return (
     <Router>
       <Header />
