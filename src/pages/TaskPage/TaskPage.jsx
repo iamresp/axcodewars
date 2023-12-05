@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { io } from 'socket.io-client';
 import api from '../../shared/service/axios/axiosClient';
 import { Loading } from '../../shared/components/Loading';
 import { useAuth } from '../../shared/hooks/useAuth';
@@ -67,15 +68,16 @@ export const TaskPage = () => {
   }, [isLoading]);
 
   function connect() {
-    socket.current = new WebSocket('ws://134.0.116.26:4442');
+    socket.current = io('ws://134.0.116.26:4442');
 
-    socket.current.onopen = () => {
+    socket.current.on('connect', () => {
       setIsConnected(true);
       const message = { event: 'ready' };
-      socket.current.send(JSON.stringify(message));
-    };
-    socket.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
+      socket.current.emit('message', JSON.stringify(message));
+    });
+
+    socket.current.on('message', (event) => {
+      const message = JSON.parse(event);
       switch (message.event) {
         case 'connect':
           break;
@@ -103,9 +105,10 @@ export const TaskPage = () => {
         default:
           break;
       }
-    };
-    socket.current.onclose = () => {};
-    socket.current.onerror = () => {};
+    });
+
+    socket.current.on('disconnect', () => {});
+    socket.current.on('error', () => {});
   }
 
   const sendCode = (evn) => {
@@ -114,30 +117,30 @@ export const TaskPage = () => {
       event: 'push',
       data: evn.target.value
     };
-    socket.current.send(JSON.stringify(message));
+    socket.current.emit('message', JSON.stringify(message));
   };
 
   const handleAttempt = async () => {
     const message = { event: 'attempt' };
-    socket.current.send(JSON.stringify(message));
+    socket.current.emit('message', JSON.stringify(message));
     setAttempts(attempts + 1);
   };
 
   const handleWin = async () => {
     const message = { event: 'win' };
-    socket.current.send(JSON.stringify(message));
+    socket.current.emit('message', JSON.stringify(message));
     setGameMessage(`Вы победили с ${attempts} попытки!`);
     setOpen(true);
   };
 
   const handleDecline = async () => {
     const message = { event: 'decline' };
-    socket.current.send(JSON.stringify(message));
+    socket.current.emit('message', JSON.stringify(message));
   };
 
   const handleDisconnect = async () => {
     const message = { event: 'decline' };
-    socket.current.send(JSON.stringify(message));
+    socket.current.emit('message', JSON.stringify(message));
     setIsConnected(false);
     setIsOpponent(false);
     socket.current.close();
