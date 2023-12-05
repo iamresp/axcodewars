@@ -1,3 +1,3 @@
-import {DropzoneCsv} from "./ui/DropzoneCSV";
+import { DropzoneCsv } from './ui/DropzoneCSV'
 
-export {DropzoneCsv}
+export { DropzoneCsv }
