@@ -18,7 +18,9 @@ export const TasksPage = () => {
   const [loading, setLoading] = useState(false);
   const { isLoading, isAuth, user } = useAuth();
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   const handleClick = (id) => {
     navigate('/tasks/' + id);
@@ -26,9 +28,13 @@ export const TasksPage = () => {
 
   const GetTasks = () => {
     api
-      .get(`/tasks`, { headers: { Authorization: `Bearer ${user.token}` } })
-      .then((res) => setTasks(res))
-      .catch(function (error) {});
+      .get('/tasks', { headers: { Authorization: `Bearer ${user.token}` } })
+      .then((res) => {
+        setTasks(res);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -58,7 +64,9 @@ export const TasksPage = () => {
           tasks.data.map((el) => {
             return (
               <TaskCard
-                onClick={() => handleClick(el.uuid)}
+                onClick={() => {
+                  handleClick(el.uuid);
+                }}
                 key={el._id}
                 title={el.title}
                 description={el.description}
