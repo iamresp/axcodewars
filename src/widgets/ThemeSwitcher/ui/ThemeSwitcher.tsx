@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
-import cls from "./ThemeSwitcher.module.css";
+import React from 'react'
+import cls from './ThemeSwitcher.module.css'
 
 export const ThemeSwitcher = ({
   isOn,
-  handleToggle,
+  handleToggle
 }: {
-  isOn: any;
-  handleToggle: any;
+  isOn: any
+  handleToggle: any
 }): JSX.Element => {
   return (
     <>
@@ -15,16 +15,16 @@ export const ThemeSwitcher = ({
         checked={isOn}
         onChange={handleToggle}
         className={cls.switch_checkbox}
-        id="switch-new"
-        type="checkbox"
+        id='switch-new'
+        type='checkbox'
       />
       <label
-        style={{ background: isOn && "#F37022" }}
+        style={{ background: isOn && '#F37022' }}
         className={cls.switch_label}
-        htmlFor="switch-new"
+        htmlFor='switch-new'
       >
         <span className={cls.switch_button} />
       </label>
     </>
-  );
-};
+  )
+}

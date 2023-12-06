@@ -8,7 +8,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended'
-
   ],
   overrides: [
     {
@@ -23,7 +22,8 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    tsconfigRootDir: __dirname
   },
   plugins: ['react', 'jsx-a11y', 'react-hooks'],
   rules: {

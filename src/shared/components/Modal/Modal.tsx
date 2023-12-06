@@ -6,62 +6,62 @@ import React, {
   useCallback,
   useEffect,
   useRef,
-  useState,
-} from "react";
-import classNames from "classnames";
-import { createPortal } from "react-dom";
+  useState
+} from 'react'
+import classNames from 'classnames'
+import { createPortal } from 'react-dom'
 
-import cls from "./styles.module.css";
+import cls from './styles.module.css'
 
 interface ModalProps {
-  className?: string;
-  children?: ReactNode;
-  isOpen: boolean;
-  close: () => void;
-  title?: string;
+  className?: string
+  children?: ReactNode
+  isOpen: boolean
+  close: () => void
+  title?: string
 }
 
-const ANIMATION_DELAY = 300;
+const ANIMATION_DELAY = 300
 
 export const Modal: FC<ModalProps> = ({
   className,
   children,
   isOpen,
   close,
-  title,
+  title
 }) => {
-  const [isClosing, setIsClosing] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const [isClosing, setIsClosing] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout>>()
 
   const handleClose = useCallback(() => {
-    setIsClosing(true);
+    setIsClosing(true)
     timerRef.current = setTimeout(() => {
-      close();
-      setIsClosing(false);
-    }, ANIMATION_DELAY);
-  }, [close]);
+      close()
+      setIsClosing(false)
+    }, ANIMATION_DELAY)
+  }, [close])
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        handleClose();
+      if (e.key === 'Escape') {
+        handleClose()
       }
     },
     [handleClose]
-  );
+  )
 
   useEffect(() => {
     if (isOpen) {
-      window.addEventListener("keydown", onKeyDown);
+      window.addEventListener('keydown', onKeyDown)
     }
 
     return () => {
-      clearTimeout(timerRef.current);
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [isOpen, onKeyDown]);
+      clearTimeout(timerRef.current)
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [isOpen, onKeyDown])
 
-  if (!isOpen) return null;
+  if (!isOpen) return null
 
   return (
     <>
@@ -77,8 +77,8 @@ export const Modal: FC<ModalProps> = ({
           <div className={cls.overlay} onClick={handleClose}>
             <div
               className={cls.content}
-              onClick={(event) => {
-                event.stopPropagation();
+              onClick={event => {
+                event.stopPropagation()
               }}
             >
               <div className={cls.cross} onClick={handleClose} />
@@ -87,8 +87,8 @@ export const Modal: FC<ModalProps> = ({
             </div>
           </div>
         </div>,
-        document.getElementById("modal") as HTMLElement
+        document.getElementById('modal') as HTMLElement
       )}
     </>
-  );
-};
+  )
+}
