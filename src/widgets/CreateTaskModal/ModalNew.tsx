@@ -1,10 +1,11 @@
-import React, { useState, type FC } from 'react'
+import React, { useState, type FC, useEffect } from 'react'
 import { Button, InputCustom, Modal, TextAreaCustom } from 'shared/components'
 import { AnswerFormCustom } from 'features/AnswerForm/AnswerFormCustom'
 import taskService from 'entities/TaskApi/task.service'
 import { type ResultsType } from 'entities/TaskApi/task.interface'
 
 import cls from './styles.module.css'
+import { useSessionStorage } from 'shared/hooks/useSessionStorage'
 
 interface ModalNewProps {
   isOpen: boolean
@@ -17,7 +18,23 @@ export interface TaskCaseTypes {
   result: string
 }
 
+interface CreateTaskObjTypes {
+  description: string
+  taskCase: TaskCaseTypes[]
+  title: string
+}
+
+const STORAGE = 'create_task'
+
 export const ModalNew: FC<ModalNewProps> = ({ isOpen, close, getTasks }) => {
+  const [getStorage, setStorage] = useSessionStorage<CreateTaskObjTypes>(
+    STORAGE,
+    {
+      description: '',
+      taskCase: [{ args: '', result: '' }],
+      title: ''
+    }
+  )
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>([
@@ -31,7 +48,9 @@ export const ModalNew: FC<ModalNewProps> = ({ isOpen, close, getTasks }) => {
     setTaskCase([{ args: '', result: '' }])
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault()
 
     const results: ResultsType = taskCase.map(el => {
@@ -47,6 +66,18 @@ export const ModalNew: FC<ModalNewProps> = ({ isOpen, close, getTasks }) => {
     }
   }
 
+  useEffect(() => {
+    setStorage({ description, taskCase, title })
+  }, [close])
+
+  // useEffect(() => {
+  //   console.log(getStorage.description)
+  //   // if (isOpen) {
+  //   setTitle(getStorage.title)
+  //   setDescription(getStorage.description)
+  //   // }
+  // }, [isOpen, getStorage])
+
   return (
     <Modal title='Создание таски' isOpen={isOpen} close={close}>
       <form
@@ -56,12 +87,16 @@ export const ModalNew: FC<ModalNewProps> = ({ isOpen, close, getTasks }) => {
       >
         <div className={cls.createTask}>
           <InputCustom
+            required
+            value={title}
             onChange={e => {
               setTitle(e.target.value)
             }}
             placeholder='Название'
           />
           <TextAreaCustom
+            required
+            value={description}
             onChange={e => {
               setDescription(e.target.value)
             }}

@@ -79,7 +79,7 @@ export const TasksPage = () => {
         })}
       </div>
       {/* <CreateTaskModal taskFoo={GetTasks} open={open} close={setOpen} /> */}
-      <ModalNew getTasks={GetTasks} isOpen={isOpen} close={closeModal} />
+      <ModalNew isOpen={isOpen} close={closeModal} getTasks={GetTasks} />
     </div>
   )
 }

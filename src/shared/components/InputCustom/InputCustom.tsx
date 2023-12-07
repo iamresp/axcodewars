@@ -6,12 +6,12 @@ import cls from './styles.module.css'
 interface InputCustomProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 export const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, type = 'text', ...props }, ref) => {
     return (
       <input
         className={classNames(cls.inputCustom, className)}
         ref={ref}
-        type='text'
+        type={type}
         {...props}
       />
     )

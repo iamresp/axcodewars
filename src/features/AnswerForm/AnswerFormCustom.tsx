@@ -35,6 +35,7 @@ export const AnswerFormCustom: FC<AnswerFormProps> = ({
             }}
             placeholder='Вводимые данные'
             name='args'
+            required
           />
           <TextAreaCustom
             placeholder='Правильный ответ'
@@ -43,6 +44,7 @@ export const AnswerFormCustom: FC<AnswerFormProps> = ({
               handleChangeTaskCase(index, e)
             }}
             name='result'
+            required
           />
         </div>
       ))}
