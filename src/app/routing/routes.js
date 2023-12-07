@@ -1,11 +1,9 @@
-
 import { AuthPage } from '../../pages/AuthPage/AuthPage'
 import { Navigate } from 'react-router-dom'
 import { TaskPage } from '../../pages/TaskPage/TaskPage'
 import { TasksPage } from '../../pages/TasksPage/TasksPage'
 import React from 'react'
 window.React = React
-
 
 export const publicRoutes = [
   {

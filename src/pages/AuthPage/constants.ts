@@ -1,3 +1,4 @@
 export enum AuthState {
-  LOGIN = 'login'
+  LOGIN = 'login',
+  REGISTRATION = 'registration',
 }

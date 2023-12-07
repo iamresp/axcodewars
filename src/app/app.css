@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+    padding: 0px 197px;
+    box-sizing: border-box;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 1600px){
+
+    body{
+        padding: 0px 100px;
+    }
+
+}
+
+@media (max-width: 480px){
+    body{
+        padding: 0px 20px;
+    }
+}
