@@ -1,0 +1,51 @@
+import React, { type Dispatch, type SetStateAction, type FC } from 'react'
+import { TextAreaCustom } from 'shared/components'
+import { type TaskCaseTypes } from 'widgets/CreateTaskModal/ModalNew'
+
+interface AnswerFormProps {
+  className?: string
+  taskCase: TaskCaseTypes[]
+  setTaskCase: Dispatch<SetStateAction<TaskCaseTypes[]>>
+}
+
+export const AnswerFormCustom: FC<AnswerFormProps> = ({
+  taskCase,
+  setTaskCase,
+  className
+}) => {
+  const handleChangeTaskCase = (
+    key: number,
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target
+    const copiedCases = [...taskCase]
+    copiedCases[key][name as keyof TaskCaseTypes] = value
+
+    setTaskCase(copiedCases)
+  }
+
+  return (
+    <>
+      {taskCase.map((taskCase, index) => (
+        <div className={className} key={index}>
+          <TextAreaCustom
+            value={taskCase.args}
+            onChange={e => {
+              handleChangeTaskCase(index, e)
+            }}
+            placeholder='Вводимые данные'
+            name='args'
+          />
+          <TextAreaCustom
+            placeholder='Правильный ответ'
+            value={taskCase.result}
+            onChange={e => {
+              handleChangeTaskCase(index, e)
+            }}
+            name='result'
+          />
+        </div>
+      ))}
+    </>
+  )
+}

@@ -1,18 +1,19 @@
-import { InputCustom } from '../../shared/components/InputCustom/InputCustom';
-import Button from '@mui/material/Button';
+import React from 'react'
+import { InputCustom } from 'shared/components'
+import Button from '@mui/material/Button'
 
 export const AnswerForm = ({ taskCase, setTaskCase }) => {
   const handleAddCase = () => {
-    setTaskCase((prev) => [...prev, { args: '', result: '' }]);
-  };
+    setTaskCase(prev => [...prev, { args: '', result: '' }])
+  }
 
   const handleChangeTaskCase = (key, event) => {
-    const { name, value } = event.target;
-    const copiedCases = [...taskCase];
-    copiedCases[key][name] = value;
+    const { name, value } = event.target
+    const copiedCases = [...taskCase]
+    copiedCases[key][name] = value
 
-    setTaskCase(copiedCases);
-  };
+    setTaskCase(copiedCases)
+  }
 
   return (
     <>
@@ -21,7 +22,9 @@ export const AnswerForm = ({ taskCase, setTaskCase }) => {
           <InputCustom
             key={index}
             value={taskCase.args}
-            onChange={(e) => handleChangeTaskCase(index, e)}
+            onChange={e => {
+              handleChangeTaskCase(index, e)
+            }}
             name='args'
             label='Аргумент'
             isCase
@@ -29,7 +32,9 @@ export const AnswerForm = ({ taskCase, setTaskCase }) => {
           <InputCustom
             key={index + 1}
             value={taskCase.result}
-            onChange={(e) => handleChangeTaskCase(index, e)}
+            onChange={e => {
+              handleChangeTaskCase(index, e)
+            }}
             name='result'
             label='Результат'
             isCase
@@ -45,5 +50,5 @@ export const AnswerForm = ({ taskCase, setTaskCase }) => {
         Add
       </Button>
     </>
-  );
-};
+  )
+}

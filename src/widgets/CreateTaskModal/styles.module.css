@@ -1,3 +1,48 @@
+:root {
+  --input-gap: 35px 0;
+}
+
 .createTask {
-  width: 640px;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--input-gap);
+  padding: 0 24px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.btnGp {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px 0;
+}
+
+.answerForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--input-gap);
+}
+
+/*  */
+.createTask::-webkit-scrollbar {
+  background-color: #fff;
+  width: 16px;
+}
+/* background of the scrollbar except button or resizer */
+.createTask::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+/* scrollbar itself */
+.createTask::-webkit-scrollbar-thumb {
+  background-color: #f37022;
+  border-radius: 16px;
+  border: 4px solid #fff;
+}
+
+/* set button(top and bottom of the scrollbar) */
+.createTask::-webkit-scrollbar-button {
+  display: none;
 }

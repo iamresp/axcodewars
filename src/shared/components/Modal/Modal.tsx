@@ -21,7 +21,7 @@ interface ModalProps {
   title?: string
 }
 
-const ANIMATION_DELAY = 300
+const ANIMATION_DELAY = 0
 
 export const Modal: FC<ModalProps> = ({
   className,
@@ -82,7 +82,7 @@ export const Modal: FC<ModalProps> = ({
               }}
             >
               <div className={cls.cross} onClick={handleClose} />
-              {title && <p className={cls.title}>{title}</p>}
+              {title && <p className={'main-title-modal'}>{title}</p>}
               {children}
             </div>
           </div>

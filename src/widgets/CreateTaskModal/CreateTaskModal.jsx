@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { InputCustom } from '../../shared/components/InputCustom/InputCustom';
-import { AnswerForm } from '../../features/AnswerForm/AnswerForm';
-import { CreateTask } from './CreateTask';
-import api from '../../shared/service/axios/axiosClient';
-import { useAuth } from '../../shared/hooks/useAuth';
-import { CircularProgress } from '@mui/material';
+import React, { useState } from 'react'
+import Backdrop from '@mui/material/Backdrop'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
+import Fade from '@mui/material/Fade'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import { AnswerForm } from 'features/AnswerForm/'
+import api from 'shared/service/axios/axiosClient'
+import { useAuth } from 'shared/hooks/useAuth'
+import { CircularProgress } from '@mui/material'
+import { InputCustom } from 'shared/components'
+// import { InputCustom } from '../../shared/components'
 
 const style = {
   position: 'absolute',
@@ -22,26 +22,26 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4
-};
+}
 
 export function CreateTaskModal({ open, close, taskFoo }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [taskCase, setTaskCase] = useState([{ args: '', result: '' }]);
-  const { isAuth, user, isLoading } = useAuth();
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [taskCase, setTaskCase] = useState([{ args: '', result: '' }])
+  const { isAuth, user, isLoading } = useAuth()
 
   const handleClose = () => {
-    close(false);
-    setTitle('');
-    setDescription('');
-    setTaskCase([{ args: '', result: '' }]);
-  };
+    close(false)
+    setTitle('')
+    setDescription('')
+    setTaskCase([{ args: '', result: '' }])
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const results = taskCase.map((el) => {
-      return Object.values(el);
-    });
+  const handleSubmit = e => {
+    e.preventDefault()
+    const results = taskCase.map(el => {
+      return Object.values(el)
+    })
     api
       .post(
         '/tasks',
@@ -53,13 +53,13 @@ export function CreateTaskModal({ open, close, taskFoo }) {
         { headers: { Authorization: `Bearer ${user.token}` } }
       )
       .then(() => {
-        handleClose();
-        taskFoo();
-      });
-  };
+        handleClose()
+        taskFoo()
+      })
+  }
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <CircularProgress />
   }
 
   return (
@@ -114,5 +114,5 @@ export function CreateTaskModal({ open, close, taskFoo }) {
         </Fade>
       </Modal>
     </div>
-  );
+  )
 }

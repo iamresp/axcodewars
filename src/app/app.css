@@ -4,14 +4,28 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0px 197px;
   box-sizing: border-box;
+}
 
-  font-family: 'Montserrat', sans-serif;
+button {
+  cursor: pointer;
+}
+
+.main-title-modal {
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: 60px;
+}
+
+.main-title-modal:first-letter {
+  color: #f37022;
 }
 
 @media (max-width: 1600px) {
