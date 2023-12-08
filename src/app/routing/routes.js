@@ -2,6 +2,7 @@ import { AuthPage } from '../../pages/AuthPage/AuthPage'
 import { Navigate } from 'react-router-dom'
 import { TaskPage } from '../../pages/TaskPage/TaskPage'
 import { TasksPage } from '../../pages/TasksPage/TasksPage'
+import { ProfilePage } from '../../pages/ProfilePage/ProfilePage'
 import React from 'react'
 window.React = React
 
@@ -21,6 +22,10 @@ export const userRoutes = [
   {
     path: '/tasks/:id',
     element: <TaskPage />
+  },
+  {
+    path: '/profile',
+    element: <ProfilePage />
   },
   { path: '*', element: <Navigate to='/tasks' replace /> }
 ]
