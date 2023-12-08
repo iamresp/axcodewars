@@ -24,7 +24,7 @@ const style = {
   p: 4
 }
 
-export function CreateTaskModal({ open, close, taskFoo }) {
+export function OldCreate({ open, close, taskFoo }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [taskCase, setTaskCase] = useState([{ args: '', result: '' }])

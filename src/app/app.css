@@ -1,3 +1,7 @@
+:root {
+  --main-color: #f37022;
+}
+
 *,
 *::after,
 *::before {
@@ -25,7 +29,7 @@ button {
 }
 
 .main-title-modal:first-letter {
-  color: #f37022;
+  color: var(--main-color);
 }
 
 @media (max-width: 1600px) {

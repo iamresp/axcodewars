@@ -6,7 +6,9 @@ import React, {
   useCallback,
   useEffect,
   useRef,
-  useState
+  useState,
+  type Dispatch,
+  type SetStateAction
 } from 'react'
 import classNames from 'classnames'
 import { createPortal } from 'react-dom'
@@ -19,6 +21,7 @@ interface ModalProps {
   isOpen: boolean
   close: () => void
   title?: string
+  onClose: Dispatch<SetStateAction<boolean>>
 }
 
 const ANIMATION_DELAY = 0
@@ -28,12 +31,14 @@ export const Modal: FC<ModalProps> = ({
   children,
   isOpen,
   close,
-  title
+  title,
+  onClose
 }) => {
   const [isClosing, setIsClosing] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>()
 
   const handleClose = useCallback(() => {
+    onClose(true)
     setIsClosing(true)
     timerRef.current = setTimeout(() => {
       close()

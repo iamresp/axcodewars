@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CreateTaskModal } from '../../widgets/CreateTaskModal'
+import { CreateTaskModal } from 'widgets/CreateTaskModal'
 import Button from '@mui/material/Button'
-import { TaskCard } from '../../entities/TaskCard'
+import { TaskCard } from 'entities/TaskCard'
 import api from '../../shared/service/axios/axiosClient'
 import Typography from '@mui/material/Typography'
-
-import { ModalNew } from '../../widgets'
 
 import { Loading } from '../../shared/components/Loading'
 import { noData } from './tasksPage.model'
@@ -78,8 +76,7 @@ export const TasksPage = () => {
           )
         })}
       </div>
-      {/* <CreateTaskModal taskFoo={GetTasks} open={open} close={setOpen} /> */}
-      <ModalNew isOpen={isOpen} close={closeModal} getTasks={GetTasks} />
+      <CreateTaskModal isOpen={isOpen} close={closeModal} getTasks={GetTasks} />
     </div>
   )
 }

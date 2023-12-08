@@ -38,7 +38,7 @@
 
 /* scrollbar itself */
 .createTask::-webkit-scrollbar-thumb {
-  background-color: #f37022;
+  background-color: var(--main-color);
   border-radius: 16px;
   border: 4px solid #fff;
 }

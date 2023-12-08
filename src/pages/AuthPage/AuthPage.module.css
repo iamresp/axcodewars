@@ -52,7 +52,6 @@
   display: flex;
   flex-direction: column;
 
-
   font-size: 32px;
 }
 
@@ -64,7 +63,7 @@
   height: 60px;
   width: 420px;
 
-  border: 1px solid #f37022;
+  border: 1px solid var(--main-color);
   border-radius: 3px;
 
   padding-left: 30px;
@@ -93,7 +92,7 @@
   font-size: 18px;
   font-family: 'Montserrat', sans-serif;
 
-  background-color: #f37022;
+  background-color: var(--main-color);
   border: none;
   box-shadow: 0 4px 4px #26323820;
 
@@ -121,7 +120,7 @@
 .reg_selecttext_button {
   font-weight: 400;
   font-size: 18px;
-  color: #f37022;
+  color: var(--main-color);
   cursor: pointer;
   background: none;
   border: none;

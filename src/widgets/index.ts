@@ -1,1 +1,1 @@
-export { ModalNew } from './CreateTaskModal/ModalNew'
+export { TimerCustom } from './TimerCustom'

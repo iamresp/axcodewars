@@ -1,6 +1,6 @@
 import React, { type Dispatch, type SetStateAction, type FC } from 'react'
 import { TextAreaCustom } from 'shared/components'
-import { type TaskCaseTypes } from 'widgets/CreateTaskModal/ModalNew'
+import { type TaskCaseTypes } from 'widgets/CreateTaskModal/constants'
 
 interface AnswerFormProps {
   className?: string
@@ -16,7 +16,7 @@ export const AnswerFormCustom: FC<AnswerFormProps> = ({
   const handleChangeTaskCase = (
     key: number,
     event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  ): void => {
     const { name, value } = event.target
     const copiedCases = [...taskCase]
     copiedCases[key][name as keyof TaskCaseTypes] = value

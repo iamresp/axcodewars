@@ -1,30 +1,3 @@
-// import { useState, useEffect, type Dispatch, type SetStateAction } from 'react'
-
-// const getSessionStorageOrDefault = <T>(key: string, defaultValue: T): T => {
-//   const stored = sessionStorage.getItem(key)
-
-//   if (!stored) {
-//     return defaultValue
-//   }
-
-//   return JSON.parse(stored)
-// }
-
-// export const useSessionStorage = <T>(
-//   key: string,
-//   defaultValue: T
-// ): [T, Dispatch<SetStateAction<T>>] => {
-//   const [value, setValue] = useState(
-//     getSessionStorageOrDefault(key, defaultValue)
-//   )
-
-//   useEffect(() => {
-//     sessionStorage.setItem(key, JSON.stringify(value))
-//   }, [key, value])
-
-//   return [value, setValue]
-// }
-
 import { useState } from 'react'
 
 export const useSessionStorage = <T>(
@@ -39,7 +12,8 @@ export const useSessionStorage = <T>(
         return JSON.parse(value)
       }
 
-      sessionStorage.setItem(keyName, JSON.stringify(defaultValue))
+      // если не используешь useEffect
+      // sessionStorage.setItem(keyName, JSON.stringify(defaultValue))
 
       return defaultValue
     } catch (err) {
