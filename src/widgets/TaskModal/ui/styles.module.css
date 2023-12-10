@@ -8,7 +8,7 @@
   flex-direction: column;
   gap: var(--input-gap);
   padding: 0 24px;
-  max-height: 400px;
+  max-height: 440px;
   overflow-y: auto;
   max-width: 100%;
 }
@@ -16,14 +16,15 @@
 .btnGp {
   margin-top: 40px;
   display: flex;
-  flex-direction: column;
-  gap: 30px 0;
+  gap: 0 44px;
 }
 
 .answerForm {
   display: flex;
   flex-direction: column;
   gap: var(--input-gap);
+  padding-top: 35px;
+  border-top: 1px solid #000;
 }
 
 /*  */

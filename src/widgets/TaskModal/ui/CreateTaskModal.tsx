@@ -1,21 +1,15 @@
-import React, {
-  useState,
-  type FC,
-  type ChangeEvent,
-  useEffect,
-  useRef
-} from 'react'
+import React, { useState, type FC, useEffect, useRef } from 'react'
 import { Button, InputCustom, Modal, TextAreaCustom } from 'shared/components'
 import { AnswerFormCustom } from 'features/AnswerForm/AnswerFormCustom'
 import taskService from 'entities/TaskApi/task.service'
 import { useSessionStorage } from 'shared/hooks/useSessionStorage'
 import { type ResultsType } from 'entities/TaskApi/task.interface'
 import {
-  type CreateTaskObjTypes,
-  type TaskCaseTypes,
-  CREATE_TASK,
+  type TaskObjTypes,
   STORAGE,
-  CREATE_TASK_OBJ
+  TASK_OBJ,
+  TASK,
+  type TaskCaseTypes
 } from '../constants'
 
 import cls from './styles.module.css'
@@ -32,14 +26,12 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   getTasks
 }) => {
   const [getStorage, setStorage, clearStorage] =
-    useSessionStorage<CreateTaskObjTypes>(STORAGE, CREATE_TASK_OBJ)
+    useSessionStorage<TaskObjTypes>(STORAGE, TASK_OBJ)
 
-  const [title, setTitle] = useState(getStorage[CREATE_TASK.TITLE])
-  const [description, setDescription] = useState(
-    getStorage[CREATE_TASK.DESCRIPTION]
-  )
+  const [title, setTitle] = useState(getStorage[TASK.TITLE])
+  const [description, setDescription] = useState(getStorage[TASK.DESCRIPTION])
   const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(
-    getStorage[CREATE_TASK.TASK_CASE]
+    getStorage[TASK.TASK_CASE]
   )
 
   const [storageRender, setStorageRender] = useState(false)
@@ -70,27 +62,13 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
     }
   }
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> | any,
-    type: string
-  ): void => {
-    switch (type) {
-      case CREATE_TASK.TITLE:
-        setTitle(e.target.value)
-        break
-      case CREATE_TASK.DESCRIPTION:
-        setDescription(e.target.value)
-        break
-      case CREATE_TASK.TASK_CASE:
-        setTaskCase(e)
-        break
-      default:
-        break
-    }
+  const handleStorage = () => {
+    setStorageRender(true)
+    close()
   }
 
   useEffect(() => {
-    const testFoo = (): boolean => {
+    const isAllEmpty = (): boolean => {
       return (
         title.trim().length === 0 &&
         description.trim().length === 0 &&
@@ -101,20 +79,15 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
 
     const currentStorage = sessionStorage.getItem(STORAGE)
 
-    if (currentStorage != null && testFoo()) {
+    if (currentStorage !== null && isAllEmpty()) {
       clearStorage()
-    } else if (storageRender && !testFoo()) {
+    } else if (storageRender && !isAllEmpty()) {
       setStorage({ description, taskCase, title })
     }
   }, [close, storageRender])
 
   return (
-    <Modal
-      onClose={setStorageRender}
-      title='Создание таски'
-      isOpen={isOpen}
-      close={close}
-    >
+    <Modal title='Создание таски' isOpen={isOpen} close={handleStorage}>
       <form
         onSubmit={e => {
           void handleSubmit(e)
@@ -125,7 +98,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             required
             value={title}
             onChange={e => {
-              handleChange(e, CREATE_TASK.TITLE)
+              setTitle(e.target.value)
             }}
             placeholder='Название'
           />
@@ -133,16 +106,14 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             required
             value={description}
             onChange={e => {
-              handleChange(e, CREATE_TASK.DESCRIPTION)
+              setDescription(e.target.value)
             }}
             placeholder='Описание'
           />
           <AnswerFormCustom
             className={cls.answerForm}
             taskCase={taskCase}
-            setTaskCase={res => {
-              handleChange(res, CREATE_TASK.TASK_CASE)
-            }}
+            setTaskCase={setTaskCase}
           />
         </div>
         <div className={cls.btnGp}>

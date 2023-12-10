@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CreateTaskModal } from 'widgets/CreateTaskModal'
 import Button from '@mui/material/Button'
 import { TaskCard } from 'entities/TaskCard'
 import api from '../../shared/service/axios/axiosClient'
 import Typography from '@mui/material/Typography'
+import { EditTaskModal, CreateTaskModal } from 'widgets/TaskModal'
 
 import { Loading } from '../../shared/components/Loading'
 import { noData } from './tasksPage.model'
@@ -19,10 +19,18 @@ export const TasksPage = () => {
   const [loading, setLoading] = useState(false)
   const { isLoading, isAuth, user } = useAuth()
 
-  const [isOpen, openModal, closeModal] = useModalState()
+  const [isCreateOpen, openCreateModal, closeCreateModal] = useModalState()
+  const [isEditOpen, openEditModal, closeEditModal] = useModalState()
 
-  const handleOpen = () => {
-    openModal(true)
+  const [getId, setGetId] = useState('')
+
+  const handleCreateOpen = () => {
+    openCreateModal(true)
+  }
+
+  const handleEditOpen = id => {
+    openEditModal(true)
+    setGetId(id)
   }
 
   const handleClick = id => {
@@ -49,7 +57,7 @@ export const TasksPage = () => {
   return (
     <div>
       {isLoading && <Loading />}
-      <button onClick={handleOpen}>Создать таску</button>
+      <button onClick={handleCreateOpen}>Создать таску</button>
       <div
         style={{
           display: 'flex',
@@ -66,6 +74,9 @@ export const TasksPage = () => {
         {tasks.data?.map(el => {
           return (
             <TaskCard
+              onEditClick={() => {
+                handleEditOpen(el.uuid)
+              }}
               onClick={() => {
                 handleClick(el.uuid)
               }}
@@ -76,7 +87,17 @@ export const TasksPage = () => {
           )
         })}
       </div>
-      <CreateTaskModal isOpen={isOpen} close={closeModal} getTasks={GetTasks} />
+      <CreateTaskModal
+        isOpen={isCreateOpen}
+        close={closeCreateModal}
+        getTasks={GetTasks}
+      />
+      <EditTaskModal
+        isOpen={isEditOpen}
+        close={closeEditModal}
+        id={getId}
+        getTasks={GetTasks}
+      />
     </div>
   )
 }

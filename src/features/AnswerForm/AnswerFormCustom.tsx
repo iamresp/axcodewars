@@ -1,6 +1,6 @@
 import React, { type Dispatch, type SetStateAction, type FC } from 'react'
 import { TextAreaCustom } from 'shared/components'
-import { type TaskCaseTypes } from 'widgets/CreateTaskModal/constants'
+import { type TaskCaseTypes } from 'widgets/TaskModal/constants'
 
 interface AnswerFormProps {
   className?: string

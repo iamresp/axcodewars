@@ -6,9 +6,7 @@ import React, {
   useCallback,
   useEffect,
   useRef,
-  useState,
-  type Dispatch,
-  type SetStateAction
+  useState
 } from 'react'
 import classNames from 'classnames'
 import { createPortal } from 'react-dom'
@@ -21,7 +19,6 @@ interface ModalProps {
   isOpen: boolean
   close: () => void
   title?: string
-  onClose: Dispatch<SetStateAction<boolean>>
 }
 
 const ANIMATION_DELAY = 0
@@ -31,14 +28,12 @@ export const Modal: FC<ModalProps> = ({
   children,
   isOpen,
   close,
-  title,
-  onClose
+  title
 }) => {
   const [isClosing, setIsClosing] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>()
 
   const handleClose = useCallback(() => {
-    onClose(true)
     setIsClosing(true)
     timerRef.current = setTimeout(() => {
       close()
@@ -87,7 +82,7 @@ export const Modal: FC<ModalProps> = ({
               }}
             >
               <div className={cls.cross} onClick={handleClose} />
-              {title && <p className={'main-title-modal'}>{title}</p>}
+              {Boolean(title) && <p className={'main-title-modal'}>{title}</p>}
               {children}
             </div>
           </div>

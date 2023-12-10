@@ -38,6 +38,7 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'warn',
     '@typescript-eslint/promise-function-async': 'warn',
     '@typescript-eslint/prefer-optional-chain': 'warn',
+    '@typescript-eslint/indent': ['warn', 2],
 
     'react/button-has-type': 'warn',
     'react/prop-types': 'warn',
