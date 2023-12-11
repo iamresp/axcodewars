@@ -1,5 +1,4 @@
 import React, { useState, type FC, useEffect } from 'react'
-import { toast } from 'react-toastify'
 import { Button, InputCustom, Modal, TextAreaCustom } from 'shared/components'
 import { AnswerFormCustom } from 'features/AnswerForm/AnswerFormCustom'
 import taskService from 'entities/TaskApi/task.service'
@@ -12,7 +11,6 @@ import {
   TASK,
   type TaskCaseTypes
 } from '../constants'
-import { FETCH_STATUS } from 'shared/constants/constants'
 
 import cls from './styles.module.css'
 import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
@@ -31,10 +29,10 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   const [getStorage, setStorage, clearStorage] =
     useSessionStorage<TaskObjTypes>(STORAGE, TASK_OBJ)
 
-  const [title, setTitle] = useState(getStorage[TASK.TITLE])
-  const [description, setDescription] = useState(getStorage[TASK.DESCRIPTION])
+  const [title, setTitle] = useState(getStorage[ TASK.TITLE ])
+  const [description, setDescription] = useState(getStorage[ TASK.DESCRIPTION ])
   const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(
-    getStorage[TASK.TASK_CASE]
+    getStorage[ TASK.TASK_CASE ]
   )
 
   const [storageRender, setStorageRender] = useState(false)
@@ -84,8 +82,8 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
       return (
         title.trim().length === 0 &&
         description.trim().length === 0 &&
-        taskCase[0].args.trim().length === 0 &&
-        taskCase[0].result.trim().length === 0
+        taskCase[ 0 ].args.trim().length === 0 &&
+        taskCase[ 0 ].result.trim().length === 0
       )
     }
 
@@ -101,21 +99,11 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   return (
     <Modal title='Создание таски' isOpen={isOpen} close={handleStorage}>
       <form
-        // onSubmit={e => {
-        //   void toastFetchStatus(handleSubmit(e), {
-        //     success: 'Вы успешно создали таску!'
-        //   })
-        // }}
         onSubmit={e => {
-          void toast.promise(handleSubmit(e), {
-            error: FETCH_STATUS.ERROR,
-            pending: FETCH_STATUS.PENDING,
+          toastFetchStatus(handleSubmit(e), {
             success: 'Вы успешно создали таску!'
           })
         }}
-        // onSubmit={e => {
-        //   void handleSubmit(e)
-        // }}
       >
         <div className={cls.createTask}>
           <InputCustom
