@@ -45,20 +45,19 @@
 }
 
 .content {
+  /* transition: 0.3s transform; */
+  /* transform: scale(0.5); */
   max-width: 100%;
   padding: 80px;
   position: relative;
-  transition: 0.3s transform;
-  transform: scale(0.5);
   animation: openingScale 0.3s;
   border-radius: 3px;
-  border: 1px solid var(--main-color);
+  border: 1px solid var(--orange-color);
   background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .opened {
-  /* background-color: rgba(0, 0, 0, 0.5); */
   z-index: 10;
   pointer-events: auto;
   opacity: 1;
@@ -68,9 +67,9 @@
   transform: scale(1);
 }
 
-.isClosing .content {
+/* .isClosing .content {
   transform: scale(0.2);
-}
+} */
 
 .cross {
   width: 20px;

@@ -1,5 +1,5 @@
 :root {
-  --main-color: #f37022;
+  --orange-color: #f37022;
 }
 
 *,
@@ -29,7 +29,7 @@ button {
 }
 
 .main-title-modal:first-letter {
-  color: var(--main-color);
+  color: var(--orange-color);
 }
 
 @media (max-width: 1600px) {

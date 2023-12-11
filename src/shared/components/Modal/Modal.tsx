@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, {
   type FC,
   type ReactNode,
@@ -12,6 +10,7 @@ import classNames from 'classnames'
 import { createPortal } from 'react-dom'
 
 import cls from './styles.module.css'
+import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
 
 interface ModalProps {
   className?: string
@@ -33,6 +32,8 @@ export const Modal: FC<ModalProps> = ({
   const [isClosing, setIsClosing] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>()
 
+  const node = useRef<HTMLDivElement | null>(null)
+
   const handleClose = useCallback(() => {
     setIsClosing(true)
     timerRef.current = setTimeout(() => {
@@ -40,6 +41,8 @@ export const Modal: FC<ModalProps> = ({
       setIsClosing(false)
     }, ANIMATION_DELAY)
   }, [close])
+
+  useOnClickOutside(node, handleClose)
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -74,14 +77,15 @@ export const Modal: FC<ModalProps> = ({
             className
           )}
         >
-          <div className={cls.overlay} onClick={handleClose}>
-            <div
-              className={cls.content}
-              onClick={event => {
-                event.stopPropagation()
-              }}
-            >
-              <div className={cls.cross} onClick={handleClose} />
+          <div className={cls.overlay}>
+            <div ref={node} className={cls.content}>
+              <div
+                role='button'
+                tabIndex={0}
+                className={cls.cross}
+                onClick={handleClose}
+                onKeyDown={() => {}}
+              />
               {Boolean(title) && <p className={'main-title-modal'}>{title}</p>}
               {children}
             </div>

@@ -19,7 +19,7 @@ export const ThemeSwitcher = ({
         type='checkbox'
       />
       <label
-        style={{ background: isOn && 'var(--main-color)' }}
+        style={{ background: isOn && 'var(--orange-color)' }}
         className={cls.switch_label}
         htmlFor='switch-new'
       >
