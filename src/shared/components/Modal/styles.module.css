@@ -107,3 +107,43 @@
   font-weight: 600;
   color: #1e1e1e;
 }
+
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 50px 30px;
+    overflow-y: auto;
+    height: 100vh;
+  }
+
+  .content::-webkit-scrollbar {
+    background-color: #fff;
+    width: 16px;
+  }
+  .content::-webkit-scrollbar-track {
+    background-color: #fff;
+  }
+
+  .content::-webkit-scrollbar-thumb {
+    background-color: var(--orange-color);
+    border-radius: 16px;
+    border: 6px solid #fff;
+  }
+
+  .content::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .content {
+    padding: 50px 20px;
+    background: #fffaf8;
+    width: 100%;
+    border: none;
+  }
+
+  .cross {
+    top: 20px;
+    right: 20px;
+  }
+}

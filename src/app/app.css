@@ -38,8 +38,20 @@ button {
   }
 }
 
+@media (max-width: 768px) {
+  .main-title-modal {
+    font-size: 32px;
+    max-width: 360px;
+  }
+}
+
 @media (max-width: 480px) {
   body {
     padding: 0px 20px;
+  }
+
+  .main-title-modal {
+    font-size: 24px;
+    margin-bottom: 32px;
   }
 }
