@@ -1,4 +1,5 @@
-import React, { useState, type FC, useEffect, useRef } from 'react'
+import React, { useState, type FC, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import { Button, InputCustom, Modal, TextAreaCustom } from 'shared/components'
 import { AnswerFormCustom } from 'features/AnswerForm/AnswerFormCustom'
 import taskService from 'entities/TaskApi/task.service'
@@ -11,8 +12,10 @@ import {
   TASK,
   type TaskCaseTypes
 } from '../constants'
+import { FETCH_STATUS } from 'shared/constants/constants'
 
 import cls from './styles.module.css'
+import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
 
 interface CreateTaskModalProps {
   isOpen: boolean
@@ -35,6 +38,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   )
 
   const [storageRender, setStorageRender] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleClose = (): void => {
     close()
@@ -54,15 +58,23 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
     })
 
     try {
-      await taskService.createTask({ description, results, title })
+      // const data = taskService.createTask({
+      await taskService.createTask({
+        description,
+        results,
+        title
+      })
+
       handleClose()
       getTasks()
     } catch (error) {
-      console.error(error)
+      throw new Error()
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  const handleStorage = () => {
+  const handleStorage = (): void => {
     setStorageRender(true)
     close()
   }
@@ -89,9 +101,21 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   return (
     <Modal title='Создание таски' isOpen={isOpen} close={handleStorage}>
       <form
+        // onSubmit={e => {
+        //   void toastFetchStatus(handleSubmit(e), {
+        //     success: 'Вы успешно создали таску!'
+        //   })
+        // }}
         onSubmit={e => {
-          void handleSubmit(e)
+          void toast.promise(handleSubmit(e), {
+            error: FETCH_STATUS.ERROR,
+            pending: FETCH_STATUS.PENDING,
+            success: 'Вы успешно создали таску!'
+          })
         }}
+        // onSubmit={e => {
+        //   void handleSubmit(e)
+        // }}
       >
         <div className={cls.createTask}>
           <InputCustom

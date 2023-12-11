@@ -27,23 +27,30 @@ class TaskService {
       throw error
     } finally {
       this.isLoading = false
-      // return { data: response.json(), isLoading: this.isLoading };
+      // return { data: response.json(), isLoading: this.isLoading }
     }
   }
 
   async createTask(body: ICreateTask) {
     try {
-      const response = await fetch(`${this._URL}/tasks`, {
+      const res = await fetch(`${this._URL}/tasks`, {
         method: 'POST',
         headers: this._headers,
         body: JSON.stringify(body)
       })
 
-      return await response.json()
+      if (!res.ok) {
+        throw new Error(
+          `Request failed with status ${res.status}: ${res.statusText}`
+        )
+      }
+
+      return await res.json()
+      // this.isLoading = false
+      // return { data: await response.json(), isLoading: this.isLoading }
     } catch (error) {
-      console.error('Fetch error:', error)
-    } finally {
-      // return { data: response.json(), isLoading: this.isLoading };
+      console.error(error)
+      throw new Error()
     }
   }
 
