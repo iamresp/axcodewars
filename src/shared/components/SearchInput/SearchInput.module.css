@@ -1,0 +1,22 @@
+.input_search {
+    width: 1000px;
+    padding: 6px 30px;
+    border: none;
+    border-bottom: 1px solid #f37022;
+    font-size: 16px;
+}
+
+.input_search::placeholder {
+    color: #f37022;
+    font-size: 16px;
+}
+
+.input_search:focus {
+    outline: none;
+}
+
+@media (max-width: 1200px) {
+    .input_search {
+        width: 100%;
+    }
+}
