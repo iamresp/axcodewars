@@ -11,6 +11,7 @@ import { noData } from './tasksPage.model'
 import { Header } from '../../widgets/Header'
 import { useAuth } from '../../shared/hooks/useAuth'
 import { useModalState } from '../../shared/hooks/useModalState'
+import { CSVModal } from 'widgets/CSVModal'
 
 export const TasksPage = () => {
   // const [open, setOpen] = useState(false)
@@ -21,16 +22,22 @@ export const TasksPage = () => {
 
   const [isCreateOpen, openCreateModal, closeCreateModal] = useModalState()
   const [isEditOpen, openEditModal, closeEditModal] = useModalState()
+  const [isCSVOpen, openCSVModal, closeCSVModal] = useModalState()
 
   const [getId, setGetId] = useState('')
 
   const handleCreateOpen = () => {
-    openCreateModal(true)
+    openCreateModal()
   }
 
   const handleEditOpen = id => {
-    openEditModal(true)
+    openEditModal()
     setGetId(id)
+  }
+
+  const handleCSVOpen = () => {
+    openCSVModal()
+    closeCreateModal()
   }
 
   const handleClick = id => {
@@ -91,6 +98,7 @@ export const TasksPage = () => {
         isOpen={isCreateOpen}
         close={closeCreateModal}
         getTasks={GetTasks}
+        openCSV={handleCSVOpen}
       />
       <EditTaskModal
         isOpen={isEditOpen}
@@ -98,6 +106,7 @@ export const TasksPage = () => {
         id={getId}
         getTasks={GetTasks}
       />
+      <CSVModal isOpen={isCSVOpen} close={closeCSVModal} getTasks={GetTasks} />
     </div>
   )
 }

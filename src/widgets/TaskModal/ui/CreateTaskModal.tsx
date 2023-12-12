@@ -19,20 +19,22 @@ interface CreateTaskModalProps {
   isOpen: boolean
   close: () => void
   getTasks: () => void
+  openCSV: () => void
 }
 
 export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   isOpen,
   close,
-  getTasks
+  getTasks,
+  openCSV
 }) => {
   const [getStorage, setStorage, clearStorage] =
     useSessionStorage<TaskObjTypes>(STORAGE, TASK_OBJ)
 
-  const [title, setTitle] = useState(getStorage[ TASK.TITLE ])
-  const [description, setDescription] = useState(getStorage[ TASK.DESCRIPTION ])
+  const [title, setTitle] = useState(getStorage[TASK.TITLE])
+  const [description, setDescription] = useState(getStorage[TASK.DESCRIPTION])
   const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(
-    getStorage[ TASK.TASK_CASE ]
+    getStorage[TASK.TASK_CASE]
   )
 
   const [storageRender, setStorageRender] = useState(false)
@@ -82,8 +84,8 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
       return (
         title.trim().length === 0 &&
         description.trim().length === 0 &&
-        taskCase[ 0 ].args.trim().length === 0 &&
-        taskCase[ 0 ].result.trim().length === 0
+        taskCase[0].args.trim().length === 0 &&
+        taskCase[0].result.trim().length === 0
       )
     }
 
@@ -130,7 +132,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
         </div>
         <div className={cls.btnGp}>
           <Button type='submit' isOrange text={'Создать'} />
-          <Button text={'Загрузить из файла'} />
+          <Button onClick={openCSV} text={'Загрузить из файла'} />
         </div>
       </form>
     </Modal>

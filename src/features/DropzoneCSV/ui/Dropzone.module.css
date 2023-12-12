@@ -1,45 +1,45 @@
 /*TODO: move colors to global vars*/
 .form {
-    height: 190px;
-    width: 480px;
-    text-align: center;
-    position: relative;
+  height: 190px;
+  width: 480px;
+  text-align: center;
+  position: relative;
 }
 
 .input {
-    display: none;
+  display: none;
 }
 
 .label {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    border-width: 1px;
-    border-radius: 3px;
-    border-style: dashed;
-    border-color: #F37022;
-    background-color: #FFF;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-width: 1px;
+  border-radius: 3px;
+  border-style: dashed;
+  border-color: #f37022;
+  background-color: #fff;
 }
 
 .label.dragActive {
-    background-color: rgba(243, 112, 34, 0.3);
+  background-color: rgba(243, 112, 34, 0.3);
 }
 
 .uploadButton {
-    color: #000;
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
+  color: #000;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 
 .uploadButton:hover {
-    text-decoration-line: underline;
+  text-decoration-line: underline;
 }
