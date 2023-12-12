@@ -2,11 +2,9 @@
     height: 100px;
     width: 100%;
     max-width: 1920px;
-
     display: flex;
     justify-content: space-between;
     align-self: center;
-    
     margin: auto;
 }
 
@@ -24,15 +22,11 @@
     justify-content: center;
 }
 
-
 .profile_img{
     height: 35px;
     width: 35px;
-
     border-radius: 100%;
-
-    background-color: #f37022;
-
+    background-color: var(--orange-color);
     margin-right: 25px;
 }
 
@@ -40,20 +34,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     margin-right: 67px;
 }
 
-@media (max-width: 1600px) {
-
-}
-
-@media (max-width: 1200px) {
-
-}
-
-@media (max-width: 768px) {
-
+.link:hover{
+    color: var(--orange-color);
 }
 
 @media (max-width: 480px) {

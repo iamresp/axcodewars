@@ -1,11 +1,11 @@
 .main{
     max-width: 1920px;
-
     margin: auto;
+    background-color: var(--main-color);
 }
 
 .h1:first-letter{
-    color: #f37022;
+    color: var(--orange-color);
 }
 
 .profile_cont{
@@ -20,50 +20,39 @@
 }
 
 .user_avatar{
-    background: #f37022;
+    background: var(--orange-color);
     height: 200px;
     width: 200px;
-
     border-radius: 100%;
 }
 
 .user_username{
     font-size: 24px;
     text-transform: uppercase;
-
     margin-top: 25px;
 }
 
 .user_edit{
     margin-top: 10px;
-
-    color: black;
     text-decoration: none;
-
     &:hover{
-        color: #f37022;
+        color: var(--orange-color);
     }
 }
 
 .profile_cont_bottom{
     padding: 50px 100px;
     box-sizing: border-box;
-
     width: 100%;
-
     margin-top: 100px;
-
-    border: 1px solid #f37022;
+    border: 1px solid var(--orange-color);
 }
 
 .user_history{
     width: 100%;
-
     padding: 40px 30px;
     box-sizing: border-box;
-
-    background-color: #FFFAF8;
-
+    background-color: var(--submain-color);
     margin-bottom: 40px;
 }
 
@@ -81,14 +70,11 @@
     font-weight: 300;
 }
 
-@media (max-width: 1600px) {
-
-}
-
 @media (max-width: 1200px) {
     body{
         padding: 0px 30px;
     }
+
     .profile_cont_bottom{
         padding: 50px 50px;
     }
@@ -104,9 +90,11 @@
     body{
         padding: 0px 15px;
     }
+
     .profile_cont_top{
         min-width: 295px;
     }
+
     .profile_cont_bottom{
         min-width: 295px;
         padding: 0;

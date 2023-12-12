@@ -16,7 +16,7 @@
 
   background: white;
 
-  border: 1px solid #f37022;
+  border: 1px solid var(--orange-color);
   border-radius: 100px;
 
   position: relative;
@@ -32,12 +32,12 @@
   height: 23px;
   border-radius: 45px;
   transition: 0.3s;
-  background: #f37022;
+  background: var(--orange-color);
   box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
 }
 
 .switch_checkbox:checked + .switch_label .switch_button {
-  background: #000;
+  background: var(--orange-color);
   left: calc(100% - 8px);
   transform: translateX(-100%);
 }

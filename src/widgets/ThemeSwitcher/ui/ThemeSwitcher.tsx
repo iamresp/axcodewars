@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { type FC } from 'react'
 import cls from './ThemeSwitcher.module.css'
 
-export const ThemeSwitcher = (
-  { isOn, handleToggle }: { isOn: any, handleToggle: any }): JSX.Element => {
+interface ThemeSwitcherProps { isOn: boolean, handleToggle: () => void }
+export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ isOn, handleToggle }) => {
+  localStorage.getItem('theme') === 'light' ? isOn = false : isOn = true
+
   return (
     <>
       <input
@@ -13,7 +15,7 @@ export const ThemeSwitcher = (
         type='checkbox'
       />
       <label
-        style={{ background: (isOn) && '#F37022' }}
+        style={{ background: isOn ? 'var(--black-color)' : '' }}
         className={cls.switch_label}
         htmlFor='switch-new'
       >

@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { useAuth } from '../../shared/hooks/useAuth'
 import { Link } from 'react-router-dom'
-// import api from '../../shared/service/axios/axiosClient.js'
 
 import cls from './ProfilePage.module.css'
 
