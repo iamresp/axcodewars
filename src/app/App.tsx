@@ -21,6 +21,7 @@ function App(): JSX.Element {
         hideProgressBar
         draggable
         theme='light'
+        limit={10}
       />
     </Router>
   )

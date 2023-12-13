@@ -84,11 +84,11 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
     if (!data) return 'Непредвиденная ошибка!'
     console.log(data, 'data')
 
-    // if (data[0][0] === '') {
-    //   return 'Выберите или перетащите файл'
-    // }
-
     if (data.length > 0) {
+      if (data[0][0] === '') {
+        return 'Выберите или перетащите файл'
+      }
+
       return 'Файл успешно внесен'
     } else {
       return 'Ошибка! Проверьте корректность данных файла!'

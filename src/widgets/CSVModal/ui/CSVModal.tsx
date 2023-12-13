@@ -2,8 +2,11 @@ import React, { useState, type FC, type MouseEvent } from 'react'
 import { DropzoneCsv } from 'features/DropzoneCSV'
 import { Button, Modal } from 'shared/components'
 import taskService from 'entities/TaskApi/task.service'
+import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
+import { type ICreateTask } from 'entities/TaskApi/task.interface'
 
 import cls from './styles.module.css'
+import { toast } from 'react-toastify'
 
 interface CSVModalProps {
   isOpen: boolean
@@ -41,31 +44,40 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
     e.preventDefault()
 
     try {
-      //   const res: Array<Promise<any>> = data.map(
-      //     async ([title, description, ...results]) => {
-      //       return await taskService.createTask({
-      //         description,
-      //         title,
-      //         results: resArr(results)
-      //       })
-      //     }
-      //   )
-      //   console.log(res)
-      //   await Promise.all(res)
+      const promiseArr: Array<Promise<ICreateTask>> = []
 
       for (const [title, description, ...results] of data) {
-        try {
-          await taskService.createTask({
+        promiseArr.push(
+          taskService.createTask({
             description,
             title,
             results: resArr(results)
           })
-        } catch (e) {
-          throw new Error()
-        }
+        )
       }
 
-      handleClose()
+      const tasksData = await Promise.allSettled(promiseArr)
+
+      console.log(tasksData, 'data')
+
+      if (!tasksData.some(el => el.status === 'rejected')) {
+        handleClose()
+      }
+
+      tasksData.forEach((res, i) => {
+        if (res.status === 'rejected') {
+          console.log({ [data[i][0]]: res.reason }, 'res')
+          toast.error(`Ошибка таски: ${data[i][0]} - ${res.reason}`, {
+            autoClose: false
+          })
+        } else {
+          console.log(`Ошибка: ${data[i][0]} - ${res.status}`)
+          toast.success(`Успешно: ${data[i][0]} - ${res.status}`, {
+            autoClose: false
+          })
+        }
+      })
+
       getTasks()
     } catch (error) {
       throw new Error()
