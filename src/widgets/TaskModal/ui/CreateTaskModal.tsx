@@ -8,8 +8,7 @@ import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
 import {
   type TaskObjTypes,
   STORAGE,
-  TASK_OBJ,
-  TASK,
+  taskObj,
   type TaskCaseTypes
 } from '../constants'
 
@@ -29,13 +28,11 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   openCSV
 }) => {
   const [getStorage, setStorage, clearStorage] =
-    useSessionStorage<TaskObjTypes>(STORAGE, TASK_OBJ)
+    useSessionStorage<TaskObjTypes>(STORAGE, taskObj)
 
-  const [title, setTitle] = useState(getStorage[TASK.TITLE])
-  const [description, setDescription] = useState(getStorage[TASK.DESCRIPTION])
-  const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(
-    getStorage[TASK.TASK_CASE]
-  )
+  const [title, setTitle] = useState(getStorage.title)
+  const [description, setDescription] = useState(getStorage.description)
+  const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(getStorage.taskCase)
 
   const [storageRender, setStorageRender] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
