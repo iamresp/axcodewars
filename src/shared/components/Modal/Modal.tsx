@@ -73,12 +73,11 @@ export const Modal: FC<ModalProps> = ({
           className={classNames(
             cls.Modal,
             isOpen && cls.opened,
-            isClosing && cls.isClosing,
-            className
+            isClosing && cls.isClosing
           )}
         >
           <div className={cls.overlay}>
-            <div ref={node} className={cls.content}>
+            <div ref={node} className={classNames(cls.content, className)}>
               <div
                 role='button'
                 tabIndex={0}

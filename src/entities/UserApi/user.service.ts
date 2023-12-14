@@ -26,7 +26,6 @@ class UserService {
         body: JSON.stringify(data)
       })
     } catch (error) {
-      // Обработка ошибок
       console.error('Fetch error:', error)
     }
   }

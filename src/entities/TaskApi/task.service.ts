@@ -16,8 +16,6 @@ class TaskService {
     Authorization: `Bearer ${this._token}`
   }
 
-  private isLoading = true
-
   async getTasks(): Promise<IGetTasks> {
     try {
       const response = await fetch(`${this._URL}/tasks`, {
@@ -29,8 +27,6 @@ class TaskService {
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
-    } finally {
-      this.isLoading = false
     }
   }
 

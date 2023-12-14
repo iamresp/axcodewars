@@ -28,7 +28,7 @@ const resArr = (arr: string[], chunkSize: number = 2) => {
 export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
   const [data, setData] = useState(INIT_STATE)
 
-  const isEmpty = data[0][0] === ''
+  const isBtnDisabled = data.length === 0 || data[0][0] === ''
 
   const handleDelete = (): void => {
     setData(INIT_STATE)
@@ -68,6 +68,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
             toast.error(`Ошибка таски: ${data[i][0]} - ${res.reason}`, {
               autoClose: 15000 + i * 3000
             })
+            console.error(res)
           } else {
             toast.success(`Успешно: ${data[i][0]} - ${res.status}`, {
               autoClose: 15000 + i * 3000
@@ -85,18 +86,23 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
   }
 
   return (
-    <Modal title={'Загрузка CSV-файла'} isOpen={isOpen} close={close}>
+    <Modal
+      className={cls.modalCSV}
+      title={'Загрузка CSV-файла'}
+      isOpen={isOpen}
+      close={close}
+    >
       <DropzoneCsv data={data} setData={setData} />
       <div className={cls.btnGr}>
         <Button
-          className={isEmpty ? cls.btnDisabled : ''}
+          className={isBtnDisabled ? cls.btnDisabled : ''}
           onClick={e => {
             void handleSubmit(e)
           }}
           type='submit'
           isOrange
           text={'Загрузить'}
-          disabled={isEmpty}
+          disabled={isBtnDisabled}
         />
         <Button onClick={handleDelete} text={'Удалить'} />
       </div>
