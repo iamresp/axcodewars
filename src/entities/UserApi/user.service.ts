@@ -49,7 +49,6 @@ class UserService {
         throw new Error('Network response was not ok')
       }
     } catch (error) {
-      // Обработка ошибок
       console.error('Fetch error:', error)
     }
   }

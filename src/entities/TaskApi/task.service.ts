@@ -31,7 +31,6 @@ class TaskService {
       throw error
     } finally {
       this.isLoading = false
-      // return { data: response.json(), isLoading: this.isLoading }
     }
   }
 
@@ -50,8 +49,6 @@ class TaskService {
       }
 
       return await res.json()
-      // this.isLoading = false
-      // return { data: await response.json(), isLoading: this.isLoading }
     } catch (error) {
       console.error(error)
       throw new Error()
@@ -69,7 +66,6 @@ class TaskService {
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
-      // return { data: response.json(), isLoading: this.isLoading };
     }
   }
 }
