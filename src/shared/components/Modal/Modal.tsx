@@ -71,7 +71,7 @@ export const Modal: FC<ModalProps> = ({
       {createPortal(
         <div
           className={classNames(
-            cls.Modal,
+            cls.modal,
             isOpen && cls.opened,
             isClosing && cls.isClosing
           )}

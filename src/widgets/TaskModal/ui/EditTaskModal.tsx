@@ -1,9 +1,8 @@
 import React, { useState, type FC, useEffect } from 'react'
 import { AnswerForm } from 'features/AnswerForm'
 import { Button, InputCustom, Modal, TextAreaCustom } from 'shared/components'
-import { type TaskCaseTypes, TASK_OBJ, TASK } from '../constants'
+import { type TaskCaseTypes, taskObj } from '../constants'
 import taskService from 'entities/TaskApi/task.service'
-import { type ResultsType } from 'entities/TaskApi/task.interface'
 
 import cls from './styles.module.css'
 
@@ -22,9 +21,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
 }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(
-    TASK_OBJ[TASK.TASK_CASE]
-  )
+  const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(taskObj.taskCase)
 
   const getTaskById = async (): Promise<void> => {
     try {
@@ -46,15 +43,11 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
     close()
     setTitle('')
     setDescription('')
-    setTaskCase(TASK_OBJ[TASK.TASK_CASE])
+    setTaskCase(taskObj.taskCase)
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-
-    const results: ResultsType = taskCase.map(el => {
-      return Object.values(el)
-    })
 
     try {
       handleClose()

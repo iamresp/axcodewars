@@ -16,7 +16,7 @@
   }
 }
 
-.Modal {
+.modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -27,7 +27,7 @@
   z-index: -1;
 }
 
-.Modal:target {
+.modal:target {
   opacity: 1;
   pointer-events: auto;
 }
@@ -45,8 +45,6 @@
 }
 
 .content {
-  /* transition: 0.3s transform; */
-  /* transform: scale(0.5); */
   max-width: 100%;
   padding: 80px;
   position: relative;
@@ -66,10 +64,6 @@
 .content {
   transform: scale(1);
 }
-
-/* .isClosing .content {
-  transform: scale(0.2);
-} */
 
 .cross {
   width: 20px;

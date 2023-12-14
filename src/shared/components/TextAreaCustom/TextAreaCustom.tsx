@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
 import React, { type TextareaHTMLAttributes, forwardRef } from 'react'
 import classNames from 'classnames'
 

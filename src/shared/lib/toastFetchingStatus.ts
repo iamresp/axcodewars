@@ -1,11 +1,10 @@
 import { type ToastOptions, toast } from 'react-toastify'
-import { FETCH_STATUS } from 'shared/constants/constants'
 
 export const toastFetchStatus = <T>(
   promise: Promise<T>,
   {
-    error = FETCH_STATUS.ERROR,
-    pending = FETCH_STATUS.PENDING,
+    error = 'Произошла ошибка!',
+    pending = 'Загрузка...',
     success = 'Успешно!'
   },
   options?: ToastOptions

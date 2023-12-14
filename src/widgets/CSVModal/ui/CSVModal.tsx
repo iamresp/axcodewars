@@ -66,12 +66,12 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
         tasksData.forEach((res, i) => {
           if (res.status === 'rejected') {
             toast.error(`Ошибка таски: ${data[i][0]} - ${res.reason}`, {
-              autoClose: 15000 + i * 3000
+              autoClose: 15000 + i * 2000
             })
             console.error(res)
           } else {
             toast.success(`Успешно: ${data[i][0]} - ${res.status}`, {
-              autoClose: 15000 + i * 3000
+              autoClose: 15000 + i * 2000
             })
           }
         })

@@ -8,12 +8,9 @@ export const useSessionStorage = <T>(
     try {
       const value = sessionStorage.getItem(keyName)
 
-      if (value) {
+      if (value != null) {
         return JSON.parse(value)
       }
-
-      // если не используешь useEffect
-      // sessionStorage.setItem(keyName, JSON.stringify(defaultValue))
 
       return defaultValue
     } catch (err) {
