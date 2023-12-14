@@ -20,7 +20,7 @@
   border-width: 1px;
   border-radius: 3px;
   border-style: dashed;
-  border-color: #f37022;
+  border-color: var(--orange-color);
   background-color: #fff;
 }
 
