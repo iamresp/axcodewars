@@ -14,7 +14,6 @@ import { useModalState } from '../../shared/hooks/useModalState'
 import { CSVModal } from 'widgets/CSVModal'
 
 export const TasksPage = () => {
-  // const [open, setOpen] = useState(false)
   const [tasks, setTasks] = useState([])
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)

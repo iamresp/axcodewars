@@ -1,17 +1,20 @@
+import { FIELD_LOCAL_STORAGE } from 'shared/constants/constants'
 import {
-  ICreateUser,
-  IAuthUser,
-  IEditUser,
-  IGetConnectUser
-} from './user.interface';
+  type ICreateUser,
+  type IAuthUser,
+  type IEditUser,
+  type IGetConnectUser
+} from './user.interface'
 
 class UserService {
-  private _URL = process.env.REACT_APP_SERVER_URL;
-  private _token = localStorage.getItem('access_token');
-  private _headers = {
+  private readonly _URL = process.env.REACT_APP_SERVER_URL
+
+  private _token = localStorage.getItem(FIELD_LOCAL_STORAGE.ACCESS_TOKEN)
+
+  private readonly _headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${this._token}`
-  };
+  }
 
   async createUser(data: ICreateUser) {
     try {
@@ -21,10 +24,10 @@ class UserService {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      });
+      })
     } catch (error) {
       // Обработка ошибок
-      console.error('Fetch error:', error);
+      console.error('Fetch error:', error)
     }
   }
 
@@ -36,18 +39,18 @@ class UserService {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      });
+      })
       if (response.ok) {
-        const responseData = await response.json();
-        localStorage.setItem('access_token', responseData.access_token);
-        this._token = responseData.access_token;
-        window.location.reload();
+        const responseData = await response.json()
+        localStorage.setItem('access_token', responseData.access_token)
+        this._token = responseData.access_token
+        window.location.reload()
       } else {
-        throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok')
       }
     } catch (error) {
       // Обработка ошибок
-      console.error('Fetch error:', error);
+      console.error('Fetch error:', error)
     }
   }
 
@@ -56,10 +59,11 @@ class UserService {
       const response = await fetch(`${this._URL}/auth/user`, {
         method: 'GET',
         headers: this._headers
-      });
-      return response.json();
+      })
+
+      return await response.json()
     } catch (error) {
-      console.error('Fetch error:', error);
+      console.error('Fetch error:', error)
     }
   }
 
@@ -69,9 +73,9 @@ class UserService {
         method: 'GET',
         headers: this._headers,
         body: JSON.stringify(data)
-      });
+      })
     } catch (error) {
-      console.error('Fetch error:', error);
+      console.error('Fetch error:', error)
     }
   }
 
@@ -80,15 +84,16 @@ class UserService {
       const response = await fetch(`${this._URL}/auth/user/${id}`, {
         method: 'GET',
         headers: this._headers
-      });
-      return response.json();
+      })
+
+      return await response.json()
     } catch (error) {
-      console.error('Fetch error:', error);
-      throw error;
+      console.error('Fetch error:', error)
+      throw error
     }
   }
 }
 
-const userService = new UserService();
+const userService = new UserService()
 
-export default userService;
+export default userService

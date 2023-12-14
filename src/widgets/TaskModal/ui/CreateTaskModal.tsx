@@ -1,9 +1,10 @@
 import React, { useState, type FC, useEffect } from 'react'
 import { Button, InputCustom, Modal, TextAreaCustom } from 'shared/components'
-import { AnswerFormCustom } from 'features/AnswerForm/AnswerFormCustom'
+import { AnswerForm } from 'features/AnswerForm'
 import taskService from 'entities/TaskApi/task.service'
 import { useSessionStorage } from 'shared/hooks/useSessionStorage'
 import { type ResultsType } from 'entities/TaskApi/task.interface'
+import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
 import {
   type TaskObjTypes,
   STORAGE,
@@ -13,7 +14,6 @@ import {
 } from '../constants'
 
 import cls from './styles.module.css'
-import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
 
 interface CreateTaskModalProps {
   isOpen: boolean
@@ -58,7 +58,6 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
     })
 
     try {
-      // const data = taskService.createTask({
       await taskService.createTask({
         description,
         results,
@@ -124,7 +123,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             }}
             placeholder='Описание'
           />
-          <AnswerFormCustom
+          <AnswerForm
             className={cls.answerForm}
             taskCase={taskCase}
             setTaskCase={setTaskCase}

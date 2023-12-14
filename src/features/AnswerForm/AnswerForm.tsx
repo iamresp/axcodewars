@@ -8,7 +8,7 @@ interface AnswerFormProps {
   setTaskCase: Dispatch<SetStateAction<TaskCaseTypes[]>>
 }
 
-export const AnswerFormCustom: FC<AnswerFormProps> = ({
+export const AnswerForm: FC<AnswerFormProps> = ({
   taskCase,
   setTaskCase,
   className

@@ -1,5 +1,5 @@
 import React, { useState, type FC, useEffect } from 'react'
-import { AnswerFormCustom } from 'features/AnswerForm/AnswerFormCustom'
+import { AnswerForm } from 'features/AnswerForm'
 import { Button, InputCustom, Modal, TextAreaCustom } from 'shared/components'
 import { type TaskCaseTypes, TASK_OBJ, TASK } from '../constants'
 import taskService from 'entities/TaskApi/task.service'
@@ -37,8 +37,6 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
           return { args: key, result: value }
         })
       )
-
-      console.log(data)
     } catch (error) {
       console.error(error)
     }
@@ -59,8 +57,6 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
     })
 
     try {
-      console.log({ title, description, results })
-
       handleClose()
       getTasks()
     } catch (error) {
@@ -102,7 +98,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
             }}
             placeholder='Описание'
           />
-          <AnswerFormCustom
+          <AnswerForm
             className={cls.answerForm}
             taskCase={taskCase}
             setTaskCase={setTaskCase}

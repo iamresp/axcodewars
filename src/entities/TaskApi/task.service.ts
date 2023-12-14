@@ -1,3 +1,4 @@
+import { FIELD_LOCAL_STORAGE } from 'shared/constants/constants'
 import {
   type ICreateTask,
   type IGetTaskById,
@@ -6,7 +7,10 @@ import {
 
 class TaskService {
   private readonly _URL = process.env.REACT_APP_SERVER_URL
-  private readonly _token = localStorage.getItem('access_token')
+  private readonly _token = localStorage.getItem(
+    FIELD_LOCAL_STORAGE.ACCESS_TOKEN
+  )
+
   private readonly _headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${this._token}`
