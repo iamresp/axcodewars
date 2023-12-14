@@ -3,3 +3,8 @@
   gap: 44px;
   margin-top: 40px;
 }
+
+.btnDisabled {
+  background-color: grey !important;
+  outline: none;
+}

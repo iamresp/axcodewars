@@ -1,12 +1,11 @@
 import React, { useState, type FC, type MouseEvent } from 'react'
+import { toast } from 'react-toastify'
 import { DropzoneCsv } from 'features/DropzoneCSV'
 import { Button, Modal } from 'shared/components'
 import taskService from 'entities/TaskApi/task.service'
-import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
 import { type ICreateTask } from 'entities/TaskApi/task.interface'
 
 import cls from './styles.module.css'
-import { toast } from 'react-toastify'
 
 interface CSVModalProps {
   isOpen: boolean
@@ -28,6 +27,8 @@ const resArr = (arr: string[], chunkSize: number = 2) => {
 
 export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
   const [data, setData] = useState(INIT_STATE)
+
+  const isEmpty = data[0][0] === ''
 
   const handleDelete = (): void => {
     setData(INIT_STATE)
@@ -58,25 +59,24 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
 
       const tasksData = await Promise.allSettled(promiseArr)
 
-      console.log(tasksData, 'data')
-
       if (!tasksData.some(el => el.status === 'rejected')) {
+        toast.success('Все таски успешно загружены!')
         handleClose()
-      }
+      } else {
+        tasksData.forEach((res, i) => {
+          if (res.status === 'rejected') {
+            toast.error(`Ошибка таски: ${data[i][0]} - ${res.reason}`, {
+              autoClose: 15000 + i * 3000
+            })
+          } else {
+            toast.success(`Успешно: ${data[i][0]} - ${res.status}`, {
+              autoClose: 15000 + i * 3000
+            })
+          }
+        })
 
-      tasksData.forEach((res, i) => {
-        if (res.status === 'rejected') {
-          console.log({ [data[i][0]]: res.reason }, 'res')
-          toast.error(`Ошибка таски: ${data[i][0]} - ${res.reason}`, {
-            autoClose: false
-          })
-        } else {
-          console.log(`Ошибка: ${data[i][0]} - ${res.status}`)
-          toast.success(`Успешно: ${data[i][0]} - ${res.status}`, {
-            autoClose: false
-          })
-        }
-      })
+        handleDelete()
+      }
 
       getTasks()
     } catch (error) {
@@ -89,12 +89,14 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
       <DropzoneCsv data={data} setData={setData} />
       <div className={cls.btnGr}>
         <Button
+          className={isEmpty ? cls.btnDisabled : ''}
           onClick={e => {
             void handleSubmit(e)
           }}
           type='submit'
           isOrange
           text={'Загрузить'}
+          disabled={isEmpty}
         />
         <Button onClick={handleDelete} text={'Удалить'} />
       </div>

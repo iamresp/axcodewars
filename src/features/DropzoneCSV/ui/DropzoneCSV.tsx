@@ -4,10 +4,11 @@ import React, {
   type Dispatch,
   type SetStateAction
 } from 'react'
-
-import UploadSvg from 'shared/images/file-upload.svg'
-import cls from './Dropzone.module.css'
+import classNames from 'classnames'
 import { arrBufToStr, CSVtoArray } from '../lib/helpers'
+import UploadSvg from 'shared/images/file-upload.svg'
+
+import cls from './Dropzone.module.css'
 
 interface DropzoneCsvProps {
   data: string[][]
@@ -68,7 +69,8 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
   // triggers when file is selected
   const handleChange = function (e: React.ChangeEvent<HTMLInputElement>): void {
     e.preventDefault()
-    if (e.target.files && e.target.files[0]) {
+
+    if (e.target.files?.[0] != null) {
       handleFile(e.target.files[0])
       // clear file input
       e.target.value = ''
@@ -80,10 +82,7 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
     inputRef.current?.click()
   }
 
-  const handleCSVStatus = () => {
-    if (!data) return 'Непредвиденная ошибка!'
-    console.log(data, 'data')
-
+  const handleCSVStatus = (): string => {
     if (data.length > 0) {
       if (data[0][0] === '') {
         return 'Выберите или перетащите файл'
@@ -115,7 +114,7 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
         onChange={handleChange}
       />
       <label
-        className={`${cls.label} ${isDragActive ? cls.dragActive : ''}`}
+        className={classNames(cls.label, isDragActive ? cls.dragActive : '')}
         htmlFor='input-file-upload'
       >
         <UploadSvg />
