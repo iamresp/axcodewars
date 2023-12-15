@@ -1,17 +1,24 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, type FC } from 'react'
 import cls from './TimerCustom.module.css'
 
-interface Props {
+interface TimerCustomProps {
   millySec: number
   setTime: (bool: boolean) => void
 }
 
-export const TimerCustom = ({ millySec, setTime }: Props) => {
+interface TimerType {
+  total: number
+  hours: number
+  minutes: number
+  seconds: number
+}
+
+export const TimerCustom: FC<TimerCustomProps> = ({ millySec, setTime }) => {
   const Ref = useRef<NodeJS.Timer | null>(null)
 
   const [timer, setTimer] = useState('')
 
-  const getTimeRemaining = (e: Date) => {
+  const getTimeRemaining = (e: Date): TimerType => {
     const total = Date.parse(e.toString()) - Date.parse(new Date().toString())
     const seconds = Math.floor((total / 1000) % 60)
     const minutes = Math.floor((total / 1000 / 60) % 60)
@@ -40,9 +47,7 @@ export const TimerCustom = ({ millySec, setTime }: Props) => {
   }
 
   const clearTimer = (e: Date): void => {
-    // setTimer('00:00:15')
-
-    if (Ref.current) clearInterval(Ref.current)
+    if (Ref.current !== null) clearInterval(Ref.current)
 
     const timerId = setInterval(() => {
       startTimer(e)
@@ -53,7 +58,6 @@ export const TimerCustom = ({ millySec, setTime }: Props) => {
 
   const getDeadTime = (): Date => {
     const deadline = new Date()
-
     deadline.setSeconds(deadline.getSeconds() + millySec / 1000)
 
     return deadline

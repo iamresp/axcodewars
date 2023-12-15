@@ -37,13 +37,13 @@
   cursor: pointer;
 }
 
-.h1 {
+.mainTitle {
   margin: 0;
   margin-bottom: 40px;
   color: var(--text-color);
 }
 
-.h1::first-letter {
+.mainTitle::first-letter {
   color: var(--orange-color);
 }
 
@@ -140,7 +140,7 @@
     display: block;
   }
 
-  .p {
+  .resultsText {
     margin-top: 40px;
   }
 

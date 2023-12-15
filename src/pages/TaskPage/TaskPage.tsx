@@ -93,9 +93,6 @@ export const TaskPage: FC = () => {
           break
       }
     }
-
-    socket.current.onclose = () => {}
-    socket.current.onerror = () => {}
   }
 
   const sendCode = (value: string): void => {
@@ -226,7 +223,7 @@ export const TaskPage: FC = () => {
         Выйти из комнаты
       </button>
       <div className={cls.container}>
-        <h1 className={cls.h1}>{taskData?.title}</h1>
+        <h1 className={cls.mainTitle}>{taskData?.title}</h1>
         <div className={cls.descriptionContainer}>
           <div className={cls.description}>{taskData?.description}</div>
           <div className={cls.results}>
