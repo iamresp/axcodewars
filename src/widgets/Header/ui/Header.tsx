@@ -35,15 +35,15 @@ export default function Header (): JSX.Element {
 
   return (
     <header className={cls.header}>
-      <div className={cls.header_left}>
+      <div className={cls.headerLeft}>
         <Link to={'/tasks'}>
           <LogoSvgComponent/>
         </Link>
       </div>
-      <div className={cls.header_right}>
+      <div className={cls.headerRight}>
         {isAuth && (
-          <div className={cls.profile_cont}>
-            <img className={cls.profile_img} src={user.avatar} alt={'UserLogo'}/>
+          <div className={cls.profileCont}>
+            <img className={cls.profileImg} src={user.avatar} alt={'UserLogo'}/>
             <Link className={cls.link} to={'/profile'}>
               {user.username}
             </Link>

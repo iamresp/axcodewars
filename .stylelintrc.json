@@ -1,0 +1,33 @@
+{ "extends": [
+  "stylelint-config-css-modules",
+  "stylelint-config-standard"
+],
+  "plugins": [
+    "stylelint-order"
+  ],
+  "overrides": [
+    {
+      "files": "**/*.module.css",
+      "rules": {
+        "selector-class-pattern": [
+          "^[a-z]+([A-Z][a-z]+)?$|^[a-z]+([A-Z][a-z]+)+$",
+          {
+            "message": "Expected class current selector to be camelCase"
+          }
+        ]
+      }
+    }
+  ],
+  "rules": {
+    "rule-empty-line-before": "always",
+    "media-feature-range-operator-space-before": "always",
+    "media-feature-range-operator-space-after": "always",
+    "media-feature-colon-space-before": "never",
+    "selector-class-pattern": null,
+    "order/order": [
+      "custom-properties",
+      "declarations"
+    ],
+    "order/properties-alphabetical-order": [true]
+  }
+}
