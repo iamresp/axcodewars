@@ -1,31 +1,21 @@
-import React, {ChangeEvent, FC} from 'react'
-import api from '../../service/axios/axiosClient'
+import React, { type ChangeEvent, type FC } from 'react'
 import cls from './AvatarLoading.module.css'
 
-interface AvatarLoadingProps{
-    imageUrl?:string,
-    setImageUrl?:React.Dispatch<React.SetStateAction<string>>,
+interface AvatarLoadingProps {
+  imageUrl?: string
+  setImageUrl?: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const AvatarLoading: FC<AvatarLoadingProps> = ({imageUrl, setImageUrl}) => {
-
-    const handleImage = (event: ChangeEvent<HTMLInputElement>) => {
-        if(event.target.files?.[0]){
-            if (setImageUrl) {
-                setImageUrl(event.target.files[0].name)
-            }
-        }
+export const AvatarLoading: FC<AvatarLoadingProps> = ({ imageUrl, setImageUrl }) => {
+  const handleImage = (event: ChangeEvent<HTMLInputElement>): void => {
+    if ((event.target.files?.[ 0 ]) != null) {
+      if (setImageUrl != null) {
+        setImageUrl(event.target.files[ 0 ].name)
+      }
     }
+  }
 
-    // const imageSrc = () =>{
-    //     if(imageUrl){
-    //         return URL.createObjectURL(imageUrl)
-    //     }
-    // }
-    //
-    // console.log(imageUrl)
-
-    return (
+  return (
         <>
             <input
                 className={cls.regInput}
@@ -40,8 +30,8 @@ export const AvatarLoading: FC<AvatarLoadingProps> = ({imageUrl, setImageUrl}) =
                 htmlFor='avatarLoading'
             >
                 <img src='/images/avatarDownload.svg' alt='avatarLoadingIcon'/>
-                <span className={cls.regSpan}>{imageUrl || 'Загрузить аватар'}</span>
+                <span className={cls.regSpan}>{(imageUrl != null) || 'Загрузить аватар'}</span>
             </label>
         </>
-    )
+  )
 }

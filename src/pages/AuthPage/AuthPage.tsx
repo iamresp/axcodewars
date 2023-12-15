@@ -1,11 +1,10 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { AuthState } from './constants'
-import {AvatarLoading} from "../../shared/components/AvatarLoading/AvatarLoading";
+import { AvatarLoading } from '../../shared/components/AvatarLoading/AvatarLoading'
 
 import api from '../../shared/service/axios/axiosClient.js'
 
 import cls from './AuthPage.module.css'
-
 
 export const AuthPage = () => {
   const [auth, setAuth] = useState(AuthState.LOGIN)
@@ -17,7 +16,7 @@ export const AuthPage = () => {
 
   const handleAuth = async () => {
     if ((username === '') || (password === '') ||
-        (auth === AuthState.REGISTRATION && (imageUrl === '') ))  {
+        (auth === AuthState.REGISTRATION && (imageUrl === ''))) {
       setErrorMessage('Поля не должны быть пустыми')
 
       return
@@ -25,48 +24,48 @@ export const AuthPage = () => {
 
     if (auth === AuthState.LOGIN) {
       api
-          .post('/auth', {
-            hash: password,
-            username
-          })
-          .then(res => {
-            localStorage.setItem('access_token', res.data?.access_token)
-            setErrorMessage('')
-            window.location.reload()
-          })
-          .catch(function (error) {
-            if (error.response) {
-              setErrorMessage(error.response.data?.message)
-            } else {
-              setErrorMessage('Произошла ошибка: ' + error.message)
-            }
-          })
+        .post('/auth', {
+          hash: password,
+          username
+        })
+        .then(res => {
+          localStorage.setItem('access_token', res.data?.access_token)
+          setErrorMessage('')
+          window.location.reload()
+        })
+        .catch(function (error) {
+          if (error.response) {
+            setErrorMessage(error.response.data?.message)
+          } else {
+            setErrorMessage('Произошла ошибка: ' + error.message)
+          }
+        })
     } else {
       api
-          .post('/user', {
-            avatar: imageUrl,
-            hash: password,
-            username
-          })
-          .then(res => {
-            void api
-                .post('/auth', {
-                  hash: password,
-                  username
-                })
-                .then(res => {
-                  localStorage.setItem('access_token', res.data?.access_token)
-                  setErrorMessage('')
-                  window.location.reload()
-                })
-          })
-          .catch(function (error) {
-            if (error.response) {
-              setErrorMessage(error.response.data?.message)
-            } else {
-              setErrorMessage('Произошла ошибка: ' + error.message)
-            }
-          })
+        .post('/user', {
+          avatar: imageUrl,
+          hash: password,
+          username
+        })
+        .then(res => {
+          void api
+            .post('/auth', {
+              hash: password,
+              username
+            })
+            .then(res => {
+              localStorage.setItem('access_token', res.data?.access_token)
+              setErrorMessage('')
+              window.location.reload()
+            })
+        })
+        .catch(function (error) {
+          if (error.response) {
+            setErrorMessage(error.response.data?.message)
+          } else {
+            setErrorMessage('Произошла ошибка: ' + error.message)
+          }
+        })
     }
   }
 
@@ -113,7 +112,7 @@ export const AuthPage = () => {
           />
 
           {auth === 'registration' && (
-              <AvatarLoading  imageUrl={imageUrl} setImageUrl={setImageUrl}/>
+              <AvatarLoading imageUrl={imageUrl} setImageUrl={setImageUrl}/>
           )}
 
           <button
