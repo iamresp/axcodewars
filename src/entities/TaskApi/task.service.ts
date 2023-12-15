@@ -46,7 +46,6 @@ class TaskService {
       throw error
     } finally {
       this.isLoading = false
-      // return { data: response.json(), isLoading: this.isLoading };
     }
   }
 
@@ -63,7 +62,6 @@ class TaskService {
       console.error('Fetch error:', error)
     } finally {
       window.location.reload()
-      // return { data: response.json(), isLoading: this.isLoading };
     }
   }
 
