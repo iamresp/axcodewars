@@ -1,6 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
-import api from '../../shared/service/axios/axiosClient'
-import { useAuth } from '../../shared/hooks/useAuth'
+import React, { type FC, useEffect, useRef, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { TimerCustom } from '../../widgets/TimerCustom'
+import CodeMirror from '@uiw/react-codemirror'
+import { javascript } from '@codemirror/lang-javascript'
+import { darcula } from '@uiw/codemirror-theme-darcula'
+import classNames from 'classnames'
+import { type ICreateTask } from '../../entities/TaskApi/task.interface'
+import taskService from '../../entities/TaskApi/task.service'
 import {
   Alert,
   Button,
@@ -8,66 +14,47 @@ import {
   Grid,
   Typography
 } from '@mui/material'
-import { TimerCustom } from '../../widgets/TimerCustom'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Loading } from '../../shared/components/Loading'
 
 import cls from './TaskPage.module.css'
 
-import CodeMirror from '@uiw/react-codemirror'
-import { javascript } from '@codemirror/lang-javascript'
-import { darcula } from '@uiw/codemirror-theme-darcula'
-import classNames from 'classnames'
-
-interface TaskData {
-  title: string
-  results: string[][]
-  description: string
-}
-
 const taskTime = 300000
 
-export const TaskPage = (): JSX.Element => {
+export const TaskPage: FC = () => {
   const { id } = useParams()
-
-  const socket = useRef<WebSocket | null>()
-  const { isLoading, user } = useAuth()
   const navigate = useNavigate()
+  const socket = useRef<WebSocket | null>()
 
   const [isConnected, setIsConnected] = useState(false)
   const [isOpponent, setIsOpponent] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [code, setCode] = useState('')
   const [opponentCode, setOpponentCode] = useState('')
-  const [taskData, setTaskData] = useState<TaskData>()
-  const [rightResult, setRightResult] = useState(null)
+  const [taskData, setTaskData] = useState<ICreateTask>()
+  const [rightResult, setRightResult] = useState('')
   const [attempts, setAttempts] = useState(0)
   const [opponentAttempts, setOpponentAttempts] = useState(0)
-  const [open, setOpen] = useState(false)
   const [message, setMessage] = useState('')
-  const [gameMessage, setGameMessage] = useState('')
   const [timer, setTimer] = useState(false)
 
+  const [open, setOpen] = useState(false)
+  const [gameMessage, setGameMessage] = useState('')
+
   useEffect(() => {
-    if (!isLoading) {
-      api
-        .get('/tasks/' + id, {
-          headers: { Authorization: `Bearer ${user.token}` }
-        })
-        .then(res => {
-          console.log('res', res)
-          setTaskData(res.data)
-          setRightResult(res.data.results[ 0 ][ 1 ])
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+    const getTask = async (): Promise<void> => {
+      try {
+        const data = await taskService.getTaskById(id ?? '')
+        setTaskData(data)
+        setRightResult(data.results[ 0 ][ 1 ])
+      } catch (error) {
+        throw new Error()
+      }
     }
-  }, [isLoading])
+
+    void getTask()
+  }, [])
 
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
-    if (socket.current === undefined) return
 
     socket.current.onopen = () => {
       setIsConnected(true)
@@ -106,6 +93,7 @@ export const TaskPage = (): JSX.Element => {
           break
       }
     }
+
     socket.current.onclose = () => {}
     socket.current.onerror = () => {}
   }
@@ -130,11 +118,6 @@ export const TaskPage = (): JSX.Element => {
     socket.current?.send(JSON.stringify(message))
     setGameMessage(`Вы победили с ${attempts} попытки!`)
     setOpen(true)
-  }
-
-  const handleDecline = async (): Promise<void> => {
-    const message = { event: 'decline' }
-    socket.current?.send(JSON.stringify(message))
   }
 
   const handleDisconnect = async (): Promise<void> => {
@@ -190,10 +173,6 @@ export const TaskPage = (): JSX.Element => {
     }
   }, [timer])
 
-  if (isLoading) {
-    return <Loading />
-  }
-
   if (!isOpponent) {
     return (
       <Grid
@@ -246,19 +225,19 @@ export const TaskPage = (): JSX.Element => {
       >
         Выйти из комнаты
       </button>
-
       <div className={cls.container}>
         <h1 className={cls.h1}>{taskData?.title}</h1>
         <div className={cls.descriptionContainer}>
           <div className={cls.description}>{taskData?.description}</div>
           <div className={cls.results}>
-            <p className={cls.p}>
+            <p className={cls.resultsText}>
               Вводимые значения: {taskData?.results[ 0 ][ 0 ]}
             </p>
-            <p className={cls.p}>Результат: {taskData?.results[ 0 ][ 1 ]}</p>
+            <p className={cls.resultsText}>
+              Результат: {taskData?.results[ 0 ][ 1 ]}
+            </p>
           </div>
         </div>
-
         {isReady
           ? (
           <TimerCustom millySec={taskTime} setTime={setTimer} />
@@ -274,7 +253,6 @@ export const TaskPage = (): JSX.Element => {
             Готов
           </button>
             )}
-
         <div className={cls.codeEditorsContainer}>
           <div className={cls.codeEditorContainer}>
             {isReady && (
@@ -304,7 +282,6 @@ export const TaskPage = (): JSX.Element => {
               )}
             </div>
           </div>
-
           <div className={cls.codeEditorContainer}>
             {isReady && (
               <p className={cls.attempts}>
