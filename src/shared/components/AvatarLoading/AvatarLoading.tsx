@@ -8,9 +8,9 @@ interface AvatarLoadingProps {
 
 export const AvatarLoading: FC<AvatarLoadingProps> = ({ imageUrl, setImageUrl }) => {
   const handleImage = (event: ChangeEvent<HTMLInputElement>): void => {
-    if ((event.target.files?.[ 0 ]) != null) {
-      if (setImageUrl != null) {
-        setImageUrl(event.target.files[ 0 ].name)
+    if ((event.target.files?.[0]) != null) {
+      if (setImageUrl !== undefined) {
+        setImageUrl(event.target.files[0].name)
       }
     }
   }

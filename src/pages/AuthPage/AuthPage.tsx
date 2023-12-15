@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { type FC, useState } from 'react'
 import { AuthState } from './constants'
 import { AvatarLoading } from '../../shared/components/AvatarLoading/AvatarLoading'
 
@@ -6,7 +6,7 @@ import api from '../../shared/service/axios/axiosClient.js'
 
 import cls from './AuthPage.module.css'
 
-export const AuthPage = () => {
+export const AuthPage: FC = () => {
   const [auth, setAuth] = useState(AuthState.LOGIN)
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
@@ -14,7 +14,7 @@ export const AuthPage = () => {
 
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleAuth = async () => {
+  const handleAuth = async (): Promise<void> => {
     if ((username === '') || (password === '') ||
         (auth === AuthState.REGISTRATION && (imageUrl === ''))) {
       setErrorMessage('Поля не должны быть пустыми')

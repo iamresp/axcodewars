@@ -49,7 +49,6 @@ module.exports = {
     'brace-style': ['warn', '1tbs'],
     'comma-spacing': ['warn', { before: false, after: true }],
     'comma-style': ['warn', 'last'],
-    'computed-property-spacing': ['warn', 'always'],
     'eol-last': ['warn', 'always'],
     'function-call-argument-newline': ['warn', 'consistent'],
     'generator-star-spacing': ['error', { before: false, after: true }],
