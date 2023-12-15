@@ -1,12 +1,11 @@
 import React, { type FC, type FormEvent, useState } from 'react'
-import { AuthState } from './constants'
-
-import api from '../../shared/service/axios/axiosClient.js'
+import { AUTH_STATE } from './constants'
+import userService from '../../entities/UserApi/user.service'
 
 import cls from './AuthPage.module.css'
 
 export const AuthPage: FC = () => {
-  const [auth, setAuth] = useState(AuthState.LOGIN)
+  const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -15,89 +14,72 @@ export const AuthPage: FC = () => {
   const handleAuth = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
-    if ((username === '') || (password === '') ||
-        (auth === AuthState.REGISTRATION && (imageUrl === ''))) {
+    if (
+      username === '' ||
+      password === '' ||
+      (auth === AUTH_STATE.REGISTRATION && imageUrl === '')
+    ) {
       setErrorMessage('Поля не должны быть пустыми')
 
       return
     }
 
-    if (auth === AuthState.LOGIN) {
-      api
-        .post('/auth', {
-          hash: password,
-          username
-        })
-        .then(res => {
-          localStorage.setItem('access_token', res.data?.access_token)
-          setErrorMessage('')
-          window.location.reload()
-        })
-        .catch(function (error) {
-          if (error.response) {
-            setErrorMessage(error.response.data?.message)
-          } else {
-            setErrorMessage('Произошла ошибка: ' + error.message)
-          }
-        })
-    } else {
-      api
-        .post('/user', {
-          avatar: imageUrl,
-          hash: password,
-          username
-        })
-        .then(res => {
-          void api
-            .post('/auth', {
-              hash: password,
-              username
-            })
-            .then(res => {
-              localStorage.setItem('access_token', res.data?.access_token)
-              setErrorMessage('')
-              window.location.reload()
-            })
-        })
-        .catch(function (error) {
-          if (error.response) {
-            setErrorMessage(error.response.data?.message)
-          } else {
-            setErrorMessage('Произошла ошибка: ' + error.message)
-          }
-        })
+    if (auth === AUTH_STATE.LOGIN) {
+      try {
+        await userService.authenticateUser({ hash: password, username })
+        setErrorMessage('')
+      } catch (error) {
+        throw new Error()
+      }
+
+      return
+    }
+
+    try {
+      await userService.createUser({
+        avatar: imageUrl,
+        hash: password,
+        username
+      })
+      setErrorMessage('')
+      await userService.authenticateUser({ hash: password, username })
+    } catch (error) {
+      throw new Error()
     }
   }
 
   return (
-      <main className={cls.main}>
-        <img
-          className={cls.regImage}
-          src='/images/reg-img.svg'
-          alt='reg-avatar'
-        />
-        <div className={cls.regFormContainer}>
-          {auth === 'login' ? 'Логин' : 'Регистрация'}
-          <div className={cls.regSelectText}>
-            {auth === 'login' ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
-            <button
-                type='button'
-                className={cls.regSelectTextButton}
-                onClick={() => {
-                  setAuth(auth === AuthState.LOGIN
-                    ? AuthState.REGISTRATION
-                    : AuthState.LOGIN)
-                }
-              }
-            >
-              {auth === 'login' ? ' Регистрация' : ' Войти'}
-            </button>
-          </div>
-          <form
-            className={cls.form}
-            onSubmit={e => {
-              void handleAuth(e)
-            }}>
+    <main className={cls.main}>
+      <img
+        className={cls.regImage}
+        src='/images/reg-img.svg'
+        alt='reg-avatar'
+      />
+      <div className={cls.regFormContainer}>
+        {auth === AUTH_STATE.LOGIN ? 'Логин' : 'Регистрация'}
+        <div className={cls.regSelectText}>
+          {auth === AUTH_STATE.LOGIN ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
+          <button
+            type='button'
+            className={cls.regSelectTextButton}
+            onClick={() => {
+              setAuth(
+                auth === AUTH_STATE.LOGIN
+                  ? AUTH_STATE.REGISTRATION
+                  : AUTH_STATE.LOGIN
+              )
+              setErrorMessage('')
+            }}
+          >
+            {auth === AUTH_STATE.LOGIN ? ' Регистрация' : ' Войти'}
+          </button>
+        </div>
+        <form
+          className={cls.form}
+          onSubmit={e => {
+            void handleAuth(e)
+          }}
+        >
           <input
             required
             className={cls.regInput}
@@ -115,11 +97,9 @@ export const AuthPage: FC = () => {
             value={password}
             onChange={event => {
               setPassword(event.target.value)
-            }
-            }
+            }}
           />
-
-          {auth === 'registration' && (
+          {auth === AUTH_STATE.REGISTRATION && (
             <input
               className={cls.regInput}
               placeholder='Загузка аватара'
@@ -129,14 +109,12 @@ export const AuthPage: FC = () => {
               }}
             />
           )}
-          <button
-            type='submit'
-            className={cls.regButton}
-          >
-            {auth === 'login' ? 'Войти' : 'Регистрация'}
+          <span className={cls.errorText}>{errorMessage}</span>
+          <button type='submit' className={cls.regButton}>
+            {auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
           </button>
-          </form>
-        </div>
-      </main>
+        </form>
+      </div>
+    </main>
   )
 }
