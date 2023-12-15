@@ -1,9 +1,15 @@
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import cls from './TimerCustom.module.css'
 
-export const TimerCustom = (millySec: number, setTime: any) => {
+interface Props {
+  millySec: number
+  setTime: (bool: boolean) => void
+}
+
+export const TimerCustom = ({ millySec, setTime }: Props) => {
   const Ref = useRef<NodeJS.Timer | null>(null)
 
-  const [timer, setTimer] = useState('00:00:00')
+  const [timer, setTimer] = useState('')
 
   const getTimeRemaining = (e: Date) => {
     const total = Date.parse(e.toString()) - Date.parse(new Date().toString())
@@ -19,7 +25,7 @@ export const TimerCustom = (millySec: number, setTime: any) => {
     }
   }
 
-  const startTimer = (e: Date) => {
+  const startTimer = (e: Date): void => {
     const { total, hours, minutes, seconds } = getTimeRemaining(e)
     if (total >= 0) {
       setTimer(
@@ -33,14 +39,14 @@ export const TimerCustom = (millySec: number, setTime: any) => {
     setTime(total === 0)
   }
 
-  const clearTimer = (e: Date) => {
-    setTimer('00:00:15')
+  const clearTimer = (e: Date): void => {
+    // setTimer('00:00:15')
 
     if (Ref.current) clearInterval(Ref.current)
 
     const timerId = setInterval(() => {
       startTimer(e)
-    }, 1000)
+    })
 
     Ref.current = timerId
   }
@@ -57,9 +63,5 @@ export const TimerCustom = (millySec: number, setTime: any) => {
     clearTimer(getDeadTime())
   }, [])
 
-  return (
-    <div className='App'>
-      <h2>{timer}</h2>
-    </div>
-  )
+  return <h2 className={cls.timer}>{timer}</h2>
 }
