@@ -9,7 +9,7 @@ interface Tasks {
   description: string
 }
 
-export const TasksPage = () => {
+export const TasksPage: React.FC = () => {
   const [tasks, setTasks] = useState<Tasks[]>([])
   const [filteredTasks, setFilteredTasks] = useState<Tasks[]>([])
 
@@ -42,7 +42,6 @@ export const TasksPage = () => {
 
           <button className={cls.taskSortDate}>
             <p>по дате добавления</p>
-
           </button>
         </div>
         <div className={cls.tasks}>
