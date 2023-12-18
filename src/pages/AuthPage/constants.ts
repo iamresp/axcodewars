@@ -1,4 +1,4 @@
-export enum AuthState {
+export enum AUTH_STATE {
   LOGIN = 'login',
-  REGISTRATION = 'registration',
+  REGISTRATION = 'registration'
 }

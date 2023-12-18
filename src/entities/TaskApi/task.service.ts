@@ -23,6 +23,29 @@ class TaskService {
         headers: this._headers
       })
 
+      if (!response.ok) {
+        switch (response.status) {
+          case 401:
+            console.log('Ошибка: Неавторизованный доступ')
+            break
+          case 400:
+            console.error('Ошибка: Неверный запрос')
+            break
+          case 403:
+            console.error('Ошибка: Доступ запрещен')
+            break
+          case 404:
+            console.error('Ошибка: Ресурс не найден')
+            break
+          case 500:
+            console.error('Ошибка: Внутренняя ошибка сервера')
+            break
+          default:
+            console.error('Ошибка: Неизвестная ошибка')
+        }
+        throw new Error('Ошибка сети')
+      }
+
       return await response.json()
     } catch (error) {
       console.error('Fetch error:', error)
