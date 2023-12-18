@@ -1,6 +1,6 @@
 import cls from './TasksPage.module.css'
 import { SearchInput } from '../../shared/components/SearchInput/SearchInput'
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { type FC, useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import taskService from '../../entities/TaskApi/task.service'
 
@@ -9,7 +9,7 @@ interface Tasks {
   description: string
 }
 
-export const TasksPage: React.FC = () => {
+export const TasksPage: FC = () => {
   const [tasks, setTasks] = useState<Tasks[]>([])
   const [filteredTasks, setFilteredTasks] = useState<Tasks[]>([])
 

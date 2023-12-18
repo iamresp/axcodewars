@@ -17,7 +17,7 @@
 }
 
 .title::first-letter {
-    color: #F37022;
+    color: var(--orange-color);
 }
 
 .taskControlPanel{
@@ -29,7 +29,7 @@
 }
 
 .createTask {
-    color: #000;
+    color: var(--text-color);
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -39,7 +39,7 @@
 }
 
 .createTask:hover {
-    color: #F37022;
+    color: var(--orange-color);
 }
 
 .taskInteraction {
@@ -81,18 +81,18 @@
     width: 250px;
     height: 182px;
     border-radius: 3px;
-    border: 1px solid #F37022;
-    background: #FFFAF8;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--orange-color);
+    background: var(--submain-color);
+    box-shadow: 0px 4px 8px 0px var(--black-color);
     transition: all 0.6s ease;
 }
 .task:hover {
-    background: #F37022;
+    background: var(--orange-color);
     transform: scale(1.1);
 }
 
 .taskTitle {
-    color: #000;
+    color: var(--text-color);
     font-size: 32px;
     font-weight: 600;
     overflow-wrap: break-word;
@@ -110,7 +110,7 @@
 }
 
 .taskEdit {
-    color: #000;
+    color: var(--text-color);
     font-size: 14px;
     font-weight: 300;
     text-decoration: none;
@@ -118,7 +118,7 @@
 }
 
 .taskEdit:hover {
-    color: #FFFFFF;
+    color: var(--main-color);
 }
 
 @media (max-width: 1200px) {
