@@ -5,13 +5,15 @@
   text-align: center;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
+
   .timer {
     font-size: 48px;
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
+
   .timer {
     margin: 50px auto;
   }
