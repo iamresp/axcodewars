@@ -5,7 +5,8 @@
 }
 
 .btnDisabled {
-  background-color: grey !important;
+  background-color: var(--btn-disabled-color);
+  box-shadow: none;
   outline: none;
 }
 

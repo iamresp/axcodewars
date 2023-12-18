@@ -3,7 +3,7 @@
   border-radius: 3px;
   border: 1px solid var(--orange-color);
 
-  background: #fff;
+  background: var(--main-color);
   padding: 20px 30px;
 
   font-family: Montserrat;
