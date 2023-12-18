@@ -44,7 +44,7 @@ export const TaskPage: FC = () => {
       try {
         const data = await taskService.getTaskById(id ?? '')
         setTaskData(data)
-        setRightResult(data.results[ 0 ][ 1 ])
+        setRightResult(data.results[0][1])
       } catch (error) {
         throw new Error()
       }
@@ -138,7 +138,9 @@ export const TaskPage: FC = () => {
 
     try {
       result = eval(code)
-    } catch (e) {}
+    } catch (e) {
+      throw new Error()
+    }
 
     await handleAttempt()
 
@@ -225,19 +227,19 @@ export const TaskPage: FC = () => {
       <div className={cls.container}>
         <h1 className={cls.mainTitle}>{taskData?.title}</h1>
         <div className={cls.descriptionContainer}>
-          <div className={cls.description}>{taskData?.description}</div>
+          <p className={cls.description}>{taskData?.description}</p>
           <div className={cls.results}>
             <p className={cls.resultsText}>
-              Вводимые значения: {taskData?.results[ 0 ][ 0 ]}
+              Вводимые значения: {taskData?.results[0][0]}
             </p>
             <p className={cls.resultsText}>
-              Результат: {taskData?.results[ 0 ][ 1 ]}
+              Результат: {taskData?.results[0][1]}
             </p>
           </div>
         </div>
         {isReady
           ? (
-          <TimerCustom millySec={taskTime} setTime={setTimer} />
+          <TimerCustom ms={taskTime} setTime={setTimer} />
             )
           : (
           <button

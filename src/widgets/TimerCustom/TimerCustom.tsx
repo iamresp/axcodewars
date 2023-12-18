@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, type FC } from 'react'
 import cls from './TimerCustom.module.css'
 
 interface TimerCustomProps {
-  millySec: number
+  ms: number
   setTime: (bool: boolean) => void
 }
 
@@ -13,7 +13,7 @@ interface TimerType {
   seconds: number
 }
 
-export const TimerCustom: FC<TimerCustomProps> = ({ millySec, setTime }) => {
+export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
   const Ref = useRef<NodeJS.Timer | null>(null)
 
   const [timer, setTimer] = useState('')
@@ -58,7 +58,7 @@ export const TimerCustom: FC<TimerCustomProps> = ({ millySec, setTime }) => {
 
   const getDeadTime = (): Date => {
     const deadline = new Date()
-    deadline.setSeconds(deadline.getSeconds() + millySec / 1000)
+    deadline.setSeconds(deadline.getSeconds() + ms / 1000)
 
     return deadline
   }
