@@ -10,19 +10,9 @@
 }
 
 @media (width <= 768px) {
-  .modalCSV {
-    height: auto;
-  }
-
   .btnGr {
     flex-direction: column;
     gap: 30px;
     margin-top: 40px;
-  }
-}
-
-@media (width <= 768px) {
-  .modalCSV {
-    height: auto;
   }
 }

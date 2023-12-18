@@ -106,7 +106,7 @@
   .content {
     padding: 50px 30px;
     overflow-y: auto;
-    height: 100vh;
+    max-height: calc(100vh - 35px);
   }
 
   .content::-webkit-scrollbar {
@@ -131,6 +131,7 @@
 @media screen and (max-width: 480px) {
   .content {
     padding: 50px 20px;
+    max-height: 100vh;
     background: #fffaf8;
     width: 100%;
     border: none;
