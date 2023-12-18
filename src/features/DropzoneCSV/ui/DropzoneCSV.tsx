@@ -58,10 +58,8 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
         }
         // turn string to 2d array
         const data = CSVtoArray(result)
-
-        setData(data)
-
         // data ready to send to backend
+        setData(data)
       }
     }
   }
