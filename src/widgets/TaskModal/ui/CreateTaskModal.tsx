@@ -17,7 +17,7 @@ import cls from './styles.module.css'
 interface CreateTaskModalProps {
   isOpen: boolean
   close: () => void
-  getTasks: () => void
+  getTasks: () => Promise<void>
   openCSV: () => void
 }
 
@@ -62,7 +62,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
       })
 
       handleClose()
-      getTasks()
+      await getTasks()
     } catch (error) {
       throw new Error()
     } finally {

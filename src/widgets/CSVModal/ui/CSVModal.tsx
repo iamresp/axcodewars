@@ -10,7 +10,7 @@ import cls from './styles.module.css'
 interface CSVModalProps {
   isOpen: boolean
   close: () => void
-  getTasks: () => void
+  getTasks: () => Promise<void>
 }
 
 const INIT_STATE = [['']]
@@ -79,7 +79,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
         handleDelete()
       }
 
-      getTasks()
+      await getTasks()
     } catch (error) {
       throw new Error()
     }

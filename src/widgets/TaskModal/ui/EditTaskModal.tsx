@@ -10,7 +10,7 @@ interface EditTaskModalProps {
   isOpen: boolean
   close: () => void
   id: string
-  getTasks: () => void
+  getTasks: () => Promise<void>
 }
 
 export const EditTaskModal: FC<EditTaskModalProps> = ({
@@ -51,7 +51,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
 
     try {
       handleClose()
-      getTasks()
+      void getTasks()
     } catch (error) {
       console.error(error)
     }
