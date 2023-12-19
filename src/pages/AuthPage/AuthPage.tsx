@@ -1,6 +1,7 @@
 import React, { type FC, type FormEvent, useState } from 'react'
 import { AUTH_STATE } from './constants'
 import userService from '../../entities/UserApi/user.service'
+import { AvatarLoading } from '../../features/AvatarLoading/AvatarLoading'
 
 import cls from './AuthPage.module.css'
 
@@ -99,17 +100,12 @@ export const AuthPage: FC = () => {
               setPassword(event.target.value)
             }}
           />
-          {auth === AUTH_STATE.REGISTRATION && (
-            <input
-              className={cls.regInput}
-              placeholder='Загузка аватара'
-              value={imageUrl}
-              onChange={event => {
-                setImageUrl(event.target.value)
-              }}
-            />
+          {auth === 'registration' && (
+              <AvatarLoading imageUrl={imageUrl} setImageUrl={setImageUrl}/>
           )}
-          <span className={cls.errorText}>{errorMessage}</span>
+          {(errorMessage !== '') &&
+              (<span className={cls.errorText}>{errorMessage}</span>)
+          }
           <button type='submit' className={cls.regButton}>
             {auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
           </button>
