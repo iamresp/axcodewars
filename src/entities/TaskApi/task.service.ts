@@ -1,16 +1,22 @@
-import { type ICreateTask, type IGetTaskById, type IGetTasks } from './task.interface'
+import { FIELD_LOCAL_STORAGE } from 'shared/constants/constants'
+import {
+  type ICreateTask,
+  type IGetTaskById,
+  type IGetTasks
+} from './task.interface'
 
 class TaskService {
   private readonly _URL = process.env.REACT_APP_SERVER_URL
-  private readonly _token = localStorage.getItem('access_token')
+  private readonly _token = localStorage.getItem(
+    FIELD_LOCAL_STORAGE.ACCESS_TOKEN
+  )
+
   private readonly _headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${this._token}`
   }
 
-  private isLoading = true
-
-  async getTasks (): Promise<IGetTasks> {
+  async getTasks(): Promise<IGetTasks> {
     try {
       const response = await fetch(`${this._URL}/tasks`, {
         method: 'GET',
@@ -44,28 +50,31 @@ class TaskService {
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
-    } finally {
-      this.isLoading = false
     }
   }
 
-  async createTask (body: ICreateTask) {
+  async createTask(body: ICreateTask) {
     try {
-      const response = await fetch(`${this._URL}/tasks`, {
+      const res = await fetch(`${this._URL}/tasks`, {
         method: 'POST',
         headers: this._headers,
         body: JSON.stringify(body)
       })
 
-      return await response.json()
+      if (!res.ok) {
+        throw new Error(
+          `Request failed with status ${res.status}: ${res.statusText}`
+        )
+      }
+
+      return await res.json()
     } catch (error) {
-      console.error('Fetch error:', error)
-    } finally {
-      window.location.reload()
+      console.error(error)
+      throw new Error()
     }
   }
 
-  async getTaskById (id: string): Promise<IGetTaskById> {
+  async getTaskById(id: string): Promise<IGetTaskById> {
     try {
       const response = await fetch(`${this._URL}/tasks/${id}`, {
         method: 'GET',
@@ -76,7 +85,6 @@ class TaskService {
     } catch (error) {
       console.error('Fetch error:', error)
       throw error
-      // return { data: response.json(), isLoading: this.isLoading };
     }
   }
 }

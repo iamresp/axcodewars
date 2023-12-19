@@ -1,0 +1,97 @@
+:root {
+  --input-gap: 35px 0;
+}
+
+.createTask {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--input-gap);
+  padding: 0 24px;
+  max-height: 440px;
+  overflow-y: auto;
+  max-width: 100%;
+}
+
+.btnGp {
+  margin-top: 40px;
+  display: flex;
+  gap: 0 44px;
+}
+
+.answerForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--input-gap);
+  padding-top: 35px;
+  position: relative;
+  &::before {
+    content: '';
+    display: block;
+    max-width: 200px;
+    width: 100%;
+    height: 1px;
+    background: var(--orange-color);
+    position: absolute;
+    top: 0;
+    transform: translateX(50%);
+  }
+}
+
+.createTask::-webkit-scrollbar {
+  background-color: var(--main-color);
+  width: 16px;
+}
+
+.createTask::-webkit-scrollbar-track {
+  background-color: var(--main-color);
+}
+
+.createTask::-webkit-scrollbar-thumb {
+  background-color: var(--orange-color);
+  border: 4px solid var(--main-color);
+  border-radius: 16px;
+}
+
+.createTask::-webkit-scrollbar-button {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .createTask {
+    width: 360px;
+    max-height: 100vh;
+    overflow-y: visible;
+    max-height: 100%;
+    padding: 0;
+  }
+
+  :root {
+    --input-gap: 30px 0;
+  }
+
+  .answerForm::before {
+    transform: translateX(40%);
+  }
+
+  .btnGp {
+    flex-direction: column;
+    gap: var(--input-gap);
+    margin-top: 35px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .createTask {
+    width: 100%;
+  }
+
+  .answerForm::before {
+    transform: translateX(0);
+    max-width: 100%;
+  }
+
+  .createTask::-webkit-scrollbar-thumb {
+    border: 6px solid var(--main-color);
+  }
+}

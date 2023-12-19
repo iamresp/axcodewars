@@ -1,14 +1,28 @@
-import React, { useRef } from 'react'
-import UploadSvg from '../../../shared/images/file-upload.svg'
-import cls from './Dropzone.module.css'
+import React, {
+  type FC,
+  useRef,
+  type Dispatch,
+  type SetStateAction
+} from 'react'
+import classNames from 'classnames'
 import { arrBufToStr, CSVtoArray } from '../lib/helpers'
+import UploadSvg from 'shared/images/file-upload.svg'
 
-export const DropzoneCsv = () => {
+import cls from './Dropzone.module.css'
+
+interface DropzoneCsvProps {
+  data: string[][]
+  setData: Dispatch<SetStateAction<string[][]>>
+}
+
+export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
   const [isDragActive, setIsDragActive] = React.useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   // handle drag events
-  const handleDrag = function (e: React.DragEvent<HTMLDivElement | HTMLFormElement>) {
+  const handleDrag = function (
+    e: React.DragEvent<HTMLDivElement | HTMLFormElement>
+  ): void {
     e.preventDefault()
     e.stopPropagation()
     if (e.type === 'dragenter' || e.type === 'dragover') {
@@ -19,12 +33,12 @@ export const DropzoneCsv = () => {
   }
 
   // triggers when file is dropped
-  const handleDrop = function (e: React.DragEvent<HTMLFormElement>) {
+  const handleDrop = function (e: React.DragEvent<HTMLFormElement>): void {
     e.preventDefault()
     e.stopPropagation()
     setIsDragActive(false)
-    if (e.dataTransfer.files && e.dataTransfer.files[ 0 ]) {
-      handleFile(e.dataTransfer.files[ 0 ])
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFile(e.dataTransfer.files[0])
     }
   }
 
@@ -33,7 +47,7 @@ export const DropzoneCsv = () => {
     fr.onload = receivedText
     fr.readAsText(file)
 
-    function receivedText () {
+    function receivedText(): void {
       let result: string
       if (fr.result) {
         // convert to string
@@ -45,15 +59,17 @@ export const DropzoneCsv = () => {
         // turn string to 2d array
         const data = CSVtoArray(result)
         // data ready to send to backend
+        setData(data)
       }
     }
   }
 
   // triggers when file is selected
-  const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+  const handleChange = function (e: React.ChangeEvent<HTMLInputElement>): void {
     e.preventDefault()
-    if (e.target.files && e.target.files[ 0 ]) {
-      handleFile(e.target.files[ 0 ])
+
+    if (e.target.files?.[0] != null) {
+      handleFile(e.target.files[0])
       // clear file input
       e.target.value = ''
     }
@@ -64,29 +80,50 @@ export const DropzoneCsv = () => {
     inputRef.current?.click()
   }
 
+  const handleCSVStatus = (): string => {
+    if (data.length > 0) {
+      if (data[0][0] === '') {
+        return 'Выберите или перетащите файл'
+      }
+
+      return 'Файл успешно внесен'
+    } else {
+      return 'Ошибка! Проверьте корректность данных файла!'
+    }
+  }
+
   return (
-        <form
-            className={cls.form}
-            onDragEnter={handleDrag}
-            onDragLeave={handleDrag}
-            onDragOver={handleDrag}
-            onDrop={handleDrop}
-            onSubmit={e => {
-              e.preventDefault()
-            }}
+    <form
+      className={cls.form}
+      onDragEnter={handleDrag}
+      onDragLeave={handleDrag}
+      onDragOver={handleDrag}
+      onDrop={handleDrop}
+      onSubmit={e => {
+        e.preventDefault()
+      }}
+    >
+      <input
+        id='input-file-upload'
+        ref={inputRef}
+        type='file'
+        className={`${cls.input}`}
+        multiple={false}
+        onChange={handleChange}
+      />
+      <label
+        className={classNames(cls.label, isDragActive ? cls.dragActive : '')}
+        htmlFor='input-file-upload'
+      >
+        <UploadSvg />
+        <button
+          type='button'
+          className={cls.uploadButton}
+          onClick={onButtonClick}
         >
-            <input
-                id='input-file-upload'
-                ref={inputRef}
-                type='file'
-                className={`${cls.input}`}
-                multiple={false}
-                onChange={handleChange}
-            />
-            <label className={`${cls.label} ${isDragActive ? cls.dragActive : ''}`} htmlFor='input-file-upload'>
-                <UploadSvg/>
-                <button className={cls.uploadButton} onClick={onButtonClick}>Загрузите файл</button>
-            </label>
-        </form>
+          {handleCSVStatus()}
+        </button>
+      </label>
+    </form>
   )
 }
