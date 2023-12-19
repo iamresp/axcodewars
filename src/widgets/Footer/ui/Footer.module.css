@@ -1,9 +1,7 @@
 footer{
-    align-items: center;
     display: flex;
-    height: 150px;
+    align-items: center;
     justify-content: space-between;
+    height: 100px;
     margin: auto;
-    max-width: 1920px;
-    width: 100%;
 }

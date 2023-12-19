@@ -3,12 +3,13 @@ import { useAuth } from '../../shared/hooks/useAuth'
 import { Link } from 'react-router-dom'
 
 import cls from './ProfilePage.module.css'
+import { Wrapper } from '../../entities/Wrapper/Wrapper'
 
 export const ProfilePage: FC = () => {
   const { isLoading, user } = useAuth()
 
   return (
-      <main className={cls.main}>
+      <Wrapper>
         <h1 className={cls.mainTitle}>
           Профиль
         </h1>
@@ -42,6 +43,6 @@ export const ProfilePage: FC = () => {
             </div>
           </div>
         </div>
-      </main>
+      </Wrapper>
   )
 }

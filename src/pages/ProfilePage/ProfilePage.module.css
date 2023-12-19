@@ -77,29 +77,18 @@
 }
 
 @media (width <= 1200px) {
-
-    body{
-        padding: 0 30px;
-    }
-
     .profileContBottom{
         padding: 50px;
     }
 }
 
 @media (width <= 768px) {
-
     .profileContBottom{
         padding: 50px 20px;
     }
 }
 
 @media (width <= 480px) {
-
-    body{
-        padding: 0 15px;
-    }
-
     .profileContTop{
         min-width: 295px;
     }
