@@ -1,0 +1,19 @@
+.btnGr {
+  display: flex;
+  gap: 44px;
+  margin-top: 40px;
+}
+
+.btnDisabled {
+  background-color: var(--btn-disabled-color);
+  box-shadow: none;
+  outline: none;
+}
+
+@media (width <= 768px) {
+  .btnGr {
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 40px;
+  }
+}

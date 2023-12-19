@@ -14,24 +14,26 @@
 }
 
 @media (width <= 1600px) {
-    .main {
-        justify-content: space-between;
-        padding: 90px 0;
-    }
+  
+  .main {
+    justify-content: space-between;
+    padding: 90px 0;
+  }
 
-    .regImage {
-        width: 30%;
-    }
+  .regImage {
+    width: 30%;
+  }
 
-    .main .regForm {
-        height: 450px;
-    }
+  .main .regForm {
+    height: 450px;
+  }
 }
 
 @media (width <= 1200px) {
-    .main {
-        flex-direction: column;
-    }
+
+  .main {
+    flex-direction: column;
+  }
 
     .regImage {
         display: none;
@@ -39,15 +41,17 @@
 }
 
 @media (width <= 768px) {
-    .main .regInput {
-        width: 350px;
-    }
+
+  .main .regInput {
+    width: 350px;
+  }
 }
 
 @media (width <= 480px) {
-    .main .regInput {
-        width: 270px;
-    }
+
+  .main .regInput {
+    width: 270px;
+  }
 }
 
 .regFormContainer {

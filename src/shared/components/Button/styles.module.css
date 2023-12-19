@@ -1,0 +1,28 @@
+.button {
+  max-width: 100%;
+  width: 100%;
+  border-radius: 3px;
+  border: none;
+  outline: 1px solid var(--orange-color);
+  background: var(--main-color);
+  box-shadow: 0px 4px 4px 0px rgba(38, 50, 56, 0.25);
+  padding: 25px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #dbdbdb;
+    color: var(--black-color);
+  }
+}
+
+.orangeBtn {
+  background: var(--orange-color);
+  color: var(--white-color) !important;
+
+  &:hover {
+    background-color: #cb5d1d;
+  }
+}
