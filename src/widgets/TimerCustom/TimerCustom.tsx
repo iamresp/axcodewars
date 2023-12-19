@@ -18,8 +18,9 @@ export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
 
   const [timer, setTimer] = useState('')
 
-  const getTimeRemaining = (e: Date): TimerType => {
-    const total = Date.parse(e.toString()) - Date.parse(new Date().toString())
+  const getTimeRemaining = (date: Date): TimerType => {
+    const total = Date.parse(
+      date.toString()) - Date.parse(new Date().toString())
     const seconds = Math.floor((total / 1000) % 60)
     const minutes = Math.floor((total / 1000 / 60) % 60)
     const hours = Math.floor((total / 1000 / 60 / 60) % 24)
@@ -32,8 +33,8 @@ export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
     }
   }
 
-  const startTimer = (e: Date): void => {
-    const { total, hours, minutes, seconds } = getTimeRemaining(e)
+  const startTimer = (date: Date): void => {
+    const { total, hours, minutes, seconds } = getTimeRemaining(date)
     if (total >= 0) {
       setTimer(
         (hours > 9 ? hours : '0' + hours) +
@@ -46,11 +47,11 @@ export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
     setTime(total === 0)
   }
 
-  const clearTimer = (e: Date): void => {
+  const clearTimer = (date: Date): void => {
     if (Ref.current !== null) clearInterval(Ref.current)
 
     const timerId = setInterval(() => {
-      startTimer(e)
+      startTimer(date)
     })
 
     Ref.current = timerId
