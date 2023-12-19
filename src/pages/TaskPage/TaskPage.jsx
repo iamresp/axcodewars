@@ -1,21 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
-import api from '../../shared/service/axios/axiosClient';
-import { useAuth } from '../../shared/hooks/useAuth';
+import { useEffect, useRef, useState } from 'react'
+import api from '../../shared/service/axios/axiosClient'
+import { useAuth } from '../../shared/hooks/useAuth'
 import {
   Alert,
   Button,
   CircularProgress,
   Grid,
   Typography
-} from '@mui/material';
-import CodeEditor from '@uiw/react-textarea-code-editor';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import { TimerCustom } from '../../widgets/TimerCustom';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Loading } from '../../shared/components/Loading';
+} from '@mui/material'
+import CodeEditor from '@uiw/react-textarea-code-editor'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Modal from '@mui/material/Modal'
+import Box from '@mui/material/Box'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Loading } from '../../shared/components/Loading'
+import { TimerCustom } from 'widgets/TimerCustom'
 
 const style = {
   position: 'absolute',
@@ -27,29 +27,29 @@ const style = {
   border: '2px solid var(--black-color)',
   boxShadow: 24,
   p: 4
-};
+}
 
-const taskTime = 150000;
+const taskTime = 150000
 
 export const TaskPage = () => {
-  const { id } = useParams();
+  const { id } = useParams()
 
-  const socket = useRef();
-  const { isLoading, user } = useAuth();
-  const navigate = useNavigate();
+  const socket = useRef()
+  const { isLoading, user } = useAuth()
+  const navigate = useNavigate()
 
-  const [isConnected, setIsConnected] = useState(false);
-  const [isOpponent, setIsOpponent] = useState(false);
-  const [code, setCode] = useState('');
-  const [opponentCode, setOpponentCode] = useState('');
-  const [taskData, setTaskData] = useState({});
-  const [rightResult, setRightResult] = useState(null);
-  const [attempts, setAttempts] = useState(0);
-  const [opponentAttempts, setOpponentAttempts] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [gameMessage, setGameMessage] = useState('');
-  const [timer, setTimer] = useState(false);
+  const [isConnected, setIsConnected] = useState(false)
+  const [isOpponent, setIsOpponent] = useState(false)
+  const [code, setCode] = useState('')
+  const [opponentCode, setOpponentCode] = useState('')
+  const [taskData, setTaskData] = useState({})
+  const [rightResult, setRightResult] = useState(null)
+  const [attempts, setAttempts] = useState(0)
+  const [opponentAttempts, setOpponentAttempts] = useState(0)
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState('')
+  const [gameMessage, setGameMessage] = useState('')
+  const [timer, setTimer] = useState(false)
 
   useEffect(() => {
     if (!isLoading) {
@@ -57,138 +57,140 @@ export const TaskPage = () => {
         .get('/tasks/' + id, {
           headers: { Authorization: `Bearer ${user.token}` }
         })
-        .then((res) => {
-          console.log('res', res);
-          setTaskData(res.data);
-          setRightResult(res.data.results[0][1]);
+        .then(res => {
+          console.log('res', res)
+          setTaskData(res.data)
+          setRightResult(res.data.results[0][1])
         })
         .catch(function (error) {
-          console.log(error);
-        });
+          console.log(error)
+        })
     }
-  }, [isLoading]);
+  }, [isLoading])
 
   function connect() {
-    socket.current = new WebSocket('ws://134.0.116.26:4442');
+    socket.current = new WebSocket('ws://134.0.116.26:4442')
 
     socket.current.onopen = () => {
-      setIsConnected(true);
-      const message = { event: 'ready' };
-      socket.current.send(JSON.stringify(message));
-    };
-    socket.current.onmessage = (event) => {
-      const message = JSON.parse(event.data);
+      setIsConnected(true)
+      const message = { event: 'ready' }
+      socket.current.send(JSON.stringify(message))
+    }
+    socket.current.onmessage = event => {
+      const message = JSON.parse(event.data)
       switch (message.event) {
         case 'connect':
-          break;
+          break
         case 'pair':
-          setIsOpponent(true);
-          break;
+          setIsOpponent(true)
+          break
         case 'ready':
-          break;
+          break
         case 'pull':
-          setOpponentCode(message.data);
-          break;
+          setOpponentCode(message.data)
+          break
         case 'attempt':
-          setOpponentAttempts((opponentAttempts) => opponentAttempts + 1);
-          break;
+          setOpponentAttempts(opponentAttempts => opponentAttempts + 1)
+          break
         case 'lose':
-          setGameMessage(`Вы проиграли, было ${attempts} попыток!`);
-          setOpen(true);
-          break;
+          setGameMessage(`Вы проиграли, было ${attempts} попыток!`)
+          setOpen(true)
+          break
         case 'disconnect':
-          setIsConnected(false);
-          setIsOpponent(false);
-          socket.current.close();
-          socket.current = null;
-          break;
+          setIsConnected(false)
+          setIsOpponent(false)
+          socket.current.close()
+          socket.current = null
+          break
         default:
-          break;
+          break
       }
-    };
-    socket.current.onclose = () => {};
-    socket.current.onerror = () => {};
+    }
+    socket.current.onclose = () => {}
+    socket.current.onerror = () => {}
   }
 
-  const sendCode = (evn) => {
-    setCode(evn.target.value);
+  const sendCode = evn => {
+    setCode(evn.target.value)
     const message = {
       event: 'push',
       data: evn.target.value
-    };
-    socket.current.send(JSON.stringify(message));
-  };
+    }
+    socket.current.send(JSON.stringify(message))
+  }
 
   const handleAttempt = async () => {
-    const message = { event: 'attempt' };
-    socket.current.send(JSON.stringify(message));
-    setAttempts(attempts + 1);
-  };
+    const message = { event: 'attempt' }
+    socket.current.send(JSON.stringify(message))
+    setAttempts(attempts + 1)
+  }
 
   const handleWin = async () => {
-    const message = { event: 'win' };
-    socket.current.send(JSON.stringify(message));
-    setGameMessage(`Вы победили с ${attempts} попытки!`);
-    setOpen(true);
-  };
+    const message = { event: 'win' }
+    socket.current.send(JSON.stringify(message))
+    setGameMessage(`Вы победили с ${attempts} попытки!`)
+    setOpen(true)
+  }
 
   const handleDecline = async () => {
-    const message = { event: 'decline' };
-    socket.current.send(JSON.stringify(message));
-  };
+    const message = { event: 'decline' }
+    socket.current.send(JSON.stringify(message))
+  }
 
   const handleDisconnect = async () => {
-    const message = { event: 'decline' };
-    socket.current.send(JSON.stringify(message));
-    setIsConnected(false);
-    setIsOpponent(false);
-    socket.current.close();
-    socket.current = null;
-    navigate('/tasks');
-  };
+    const message = { event: 'decline' }
+    socket.current.send(JSON.stringify(message))
+    setIsConnected(false)
+    setIsOpponent(false)
+    socket.current.close()
+    socket.current = null
+    navigate('/tasks')
+  }
 
   const isTimeOutLose = () => {
-    setGameMessage(`Вы проиграли, было ${attempts} попыток!`);
-    setOpen(true);
-  };
+    setGameMessage(`Вы проиграли, было ${attempts} попыток!`)
+    setOpen(true)
+  }
 
   const handleValidateCode = async (timeout = false) => {
-    let result = null;
+    let result = null
 
     try {
-      result = eval(code);
+      result = eval(code)
     } catch (e) {}
 
-    handleAttempt();
+    handleAttempt()
 
     if (result && result !== code) {
       if (result.toString() === rightResult) {
-        await handleWin();
-        setMessage('Результат выполнения совпал с ответом');
+        await handleWin()
+        setMessage('Результат выполнения совпал с ответом')
       } else {
         if (timeout) {
-          isTimeOutLose();
-          return;
+          isTimeOutLose()
+
+          return
         }
-        setMessage('Результат выполнения не совпал с ответом');
+        setMessage('Результат выполнения не совпал с ответом')
       }
     } else {
       if (timeout) {
-        isTimeOutLose();
-        return;
+        isTimeOutLose()
+
+        return
       }
-      setMessage('Ошибка в коде');
+      setMessage('Ошибка в коде')
     }
-  };
+  }
 
   useEffect(() => {
     if (timer) {
-      handleValidateCode(timer);
+      handleValidateCode(timer)
     }
-  }, [timer]);
+  }, [timer])
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading />
   }
 
   if (!isOpponent) {
@@ -217,7 +219,7 @@ export const TaskPage = () => {
           variant='contained'
           size='large'
           onClick={() => {
-            navigate('/tasks');
+            navigate('/tasks')
           }}
         >
           Выйти
@@ -229,7 +231,7 @@ export const TaskPage = () => {
           </Typography>
         )}
       </Grid>
-    );
+    )
   }
 
   return (
@@ -281,8 +283,8 @@ export const TaskPage = () => {
             value={code}
             language='js'
             placeholder='Ваш код'
-            onChange={(evn) => {
-              sendCode(evn);
+            onChange={evn => {
+              sendCode(evn)
             }}
             padding={15}
             style={{
@@ -296,7 +298,7 @@ export const TaskPage = () => {
           <Button
             variant='contained'
             onClick={async () => {
-              await handleValidateCode();
+              await handleValidateCode()
             }}
             sx={{ mt: '10px' }}
           >
@@ -352,7 +354,7 @@ export const TaskPage = () => {
           </Typography>
           <Button
             onClick={() => {
-              navigate('/tasks');
+              navigate('/tasks')
             }}
             variant='contained'
             sx={{ mt: '10px' }}
@@ -362,5 +364,5 @@ export const TaskPage = () => {
         </Box>
       </Modal>
     </Grid>
-  );
-};
+  )
+}

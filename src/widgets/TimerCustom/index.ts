@@ -1,1 +1,1 @@
-export { TimerCustom } from './TimerCustom';
+export { TimerCustom } from './TimerCustom'

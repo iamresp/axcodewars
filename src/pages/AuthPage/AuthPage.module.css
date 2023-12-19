@@ -14,6 +14,7 @@
 }
 
 @media (width <= 1600px) {
+
   .main {
     justify-content: space-between;
     padding: 90px 0;
@@ -29,6 +30,7 @@
 }
 
 @media (width <= 1200px) {
+
   .main {
     flex-direction: column;
   }
@@ -39,12 +41,14 @@
 }
 
 @media (width <= 768px) {
+
   .main .regInput {
     width: 350px;
   }
 }
 
 @media (width <= 480px) {
+
   .main .regInput {
     width: 270px;
   }

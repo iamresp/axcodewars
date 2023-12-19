@@ -1,7 +1,10 @@
 import React, { type FC } from 'react'
 import cls from './ThemeSwitcher.module.css'
 
-interface ThemeSwitcherProps { isOn: boolean, handleToggle: () => void }
+interface ThemeSwitcherProps {
+  isOn: boolean
+  handleToggle: () => void
+}
 export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ handleToggle }) => {
   const themeIsOn = localStorage.getItem('theme') !== 'light'
 
@@ -19,7 +22,7 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ handleToggle }) => {
         className={cls.switchLabel}
         htmlFor='switch-new'
       >
-      <span className={cls.switchButton} />
+        <span className={cls.switchButton}>{}</span>
       </label>
     </>
   )
