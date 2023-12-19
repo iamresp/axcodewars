@@ -4,7 +4,7 @@ import api from '../service/axios/axiosClient'
 export function useAuth () {
   const [isAuth, setIsAuth] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [user, setUser] = useState({ username: '', avatar: '' })
+  const [user, setUser] = useState({ username: '', avatar: '', token: '' })
 
   const hasAccessToken = localStorage.getItem('access_token') ?? false
 
@@ -15,7 +15,7 @@ export function useAuth () {
       setIsLoading(true)
       api
         .get('/auth/user', { headers: { Authorization: `Bearer ${token}` } })
-        .then((res) => {
+        .then(res => {
           if (res?.data?.uuid) {
             setIsAuth(true)
             setUser({ ...res.data, token })
@@ -30,5 +30,6 @@ export function useAuth () {
       setIsLoading(false)
     }
   }, [hasAccessToken])
+
   return { isLoading, isAuth, user }
 }
