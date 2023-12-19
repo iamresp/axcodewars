@@ -14,12 +14,13 @@
 
   &:hover {
     background-color: #dbdbdb;
+    color: var(--black-color);
   }
 }
 
 .orangeBtn {
   background: var(--orange-color);
-  color: var(--white-color);
+  color: var(--white-color) !important;
 
   &:hover {
     background-color: #cb5d1d;
