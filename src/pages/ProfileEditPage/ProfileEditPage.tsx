@@ -11,6 +11,7 @@ import { AvatarLoading } from 'features/AvatarLoading'
 import { Button } from 'shared/components'
 import Avatar from 'shared/images/userlogo.png'
 import PasswordVisible from 'shared/images/password-visible.svg'
+import { type IEditUser } from 'entities/UserApi/user.interface'
 
 import cls from './styles.module.css'
 
@@ -24,6 +25,7 @@ export const ProfileEditPage: FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passCompare, setPassCompare] = useState('')
+  const [error, setError] = useState('')
 
   const handleVisible = (type: 'password' | 'pass-compare'): void => {
     type === 'password'
@@ -65,12 +67,25 @@ export const ProfileEditPage: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
+    const bodyObj: IEditUser = {
+      avatar: avatar?.name
+    }
+
+    if (password.trim() !== '') {
+      if (password === passCompare) {
+        bodyObj.hash = password
+      } else {
+        setError('Пароли не совпадают!')
+
+        throw new Error()
+      }
+    }
+
+    if (username.length > 0) bodyObj.username = username
+
     try {
-      await userService.editUser({
-        hash: password,
-        username,
-        avatar: avatar?.name
-      })
+      await userService.editUser(bodyObj)
+      setError('')
     } catch (error) {
       throw new Error()
     }
@@ -175,6 +190,9 @@ export const ProfileEditPage: FC = () => {
                 </button>
               </div>
             </div>
+            <span className={cls.error}>
+              {error}
+            </span>
           </div>
           <Button
             className={cls.submitBtn}

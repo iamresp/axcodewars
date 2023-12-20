@@ -77,12 +77,14 @@ button {
 }
 
 @media (width <= 1600px) {
+
   body {
     padding: 0 100px;
   }
 }
 
 @media (width <= 768px) {
+
   .main-title-modal {
     font-size: 32px;
     max-width: 360px;
@@ -90,6 +92,7 @@ button {
 }
 
 @media (width <= 480px) {
+
   body {
     padding: 0 20px;
   }
@@ -97,5 +100,9 @@ button {
   .main-title-modal {
     font-size: 24px;
     margin-bottom: 32px;
+  }
+
+  .main_title {
+    font-size: 24px;
   }
 }

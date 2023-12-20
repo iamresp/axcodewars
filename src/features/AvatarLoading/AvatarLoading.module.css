@@ -15,4 +15,8 @@
 
 .regSpan {
   font-size: 16px;
+
+  &:hover {
+    color: var(--orange-color);
+  }
 }
