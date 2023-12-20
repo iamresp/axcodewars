@@ -1,77 +1,67 @@
-import React, { useState } from 'react'
-import { useAuth } from '../../shared/hooks/useAuth'
+import React, { type FC } from 'react'
+import { useAuth } from 'shared/hooks/useAuth'
 import { Link } from 'react-router-dom'
-// import api from '../../shared/service/axios/axiosClient.js'
 
 import cls from './ProfilePage.module.css'
 
-export const ProfilePage = () => {
-  const { isAuth, user } = useAuth()
+export const ProfilePage: FC = () => {
+  const { isLoading, user } = useAuth()
 
   return (
-    <>
-      <main className={cls.main}>
-        <h1
-          className={cls.h1}
-          style={{
-            marginTop: '50px',
-            marginBottom: '100px'
-          }}
-        >
-          Профиль
-        </h1>
-        <div className={cls.profile_cont}>
-          <div className={cls.profile_cont_top}>
+    <main className={cls.main}>
+      <h1 className={cls.mainTitle}>Профиль</h1>
+      <div className={cls.profileCont}>
+        {isLoading && 'Loading...'}
+        {!isLoading && (
+          <div className={cls.profileContTop}>
             <img
-              className={cls.user_avatar}
-              src={user.avatar}
-              alt='user-avatar'
+              className={cls.userAvatar}
+              src={
+                user.avatar !== ''
+                  ? process.env.REACT_APP_SERVER_URL + user.avatar
+                  : './images/userlogo.png'
+              }
+              alt={'user.avatar'}
             />
-            <span className={cls.user_username}>{user.username}</span>
-            <Link className={cls.user_edit} to={'/profile/edit'}>
+            <span className={cls.userUsername}>{user.username}</span>
+            <Link className={cls.userEdit} to={'/tasks'}>
               Редактировать
             </Link>
           </div>
-          <div className={cls.profile_cont_bottom}>
-            <div className={cls.user_history}>
-              <p className={cls.user_history_title}>Название таски</p>
-              <p className={cls.user_history_subtext}>
-                Описание таски Описание таски Описание таски Описание
-                таскиОписание таскиОписание таскиОписание таскиОписание
-                таскиОписание таскиОписание таски
-              </p>
-              <p className={cls.user_history_subtext}>
-                Время выполнения: 10:00
-              </p>
-              <p className={cls.user_history_subtext}>Статус: победа</p>
-            </div>
-            <div className={cls.user_history}>
-              <p className={cls.user_history_title}>Название таски</p>
-              <p className={cls.user_history_subtext}>
-                Описание таски Описание таски Описание таски Описание
-                таскиОписание таскиОписание таскиОписание таскиОписание
-                таскиОписание таскиОписание таски
-              </p>
-              <p className={cls.user_history_subtext}>
-                Время выполнения: 10:00
-              </p>
-              <p className={cls.user_history_subtext}>Статус: победа</p>
-            </div>
-            <div className={cls.user_history}>
-              <p className={cls.user_history_title}>Название таски</p>
-              <p className={cls.user_history_subtext}>
-                Описание таски Описание таски Описание таски Описание
-                таскиОписание таскиОписание таскиОписание таскиОписание
-                таскиОписание таскиОписание таски
-              </p>
-              <p className={cls.user_history_subtext}>
-                Время выполнения: 10:00
-              </p>
-              <p className={cls.user_history_subtext}>Статус: победа</p>
-            </div>
+        )}
+        <div className={cls.profileContBottom}>
+          <div className={cls.userHistory}>
+            <p className={cls.userHistory_title}>Название таски</p>
+            <p className={cls.userHistorySubtext}>
+              Описание таски Описание таски Описание таски Описание
+              таскиОписание таскиОписание таскиОписание таскиОписание
+              таскиОписание таскиОписание таски
+            </p>
+            <p className={cls.userHistorySubtext}>Время выполнения: 10:00</p>
+            <p className={cls.userHistorySubtext}>Статус: победа</p>
+          </div>
+          <div className={cls.userHistory}>
+            <p className={cls.userHistoryTitle}>Название таски</p>
+            <p className={cls.userHistorySubtext}>
+              Описание таски Описание таски Описание таски Описание
+              таскиОписание таскиОписание таскиОписание таскиОписание
+              таскиОписание таскиОписание таски
+            </p>
+            <p className={cls.userHistorySubtext}>Время выполнения: 10:00</p>
+            <p className={cls.userHistorySubtext}>Статус: победа</p>
+          </div>
+          <div className={cls.userHistory}>
+            <p className={cls.userHistoryTitle}>Название таски</p>
+            <p className={cls.userHistorySubtext}>
+              Описание таски Описание таски Описание таски Описание
+              таскиОписание таскиОписание таскиОписание таскиОписание
+              таскиОписание таскиОписание таски
+            </p>
+            <p className={cls.userHistorySubtext}>Время выполнения: 10:00</p>
+            <p className={cls.userHistorySubtext}>Статус: победа</p>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   )
 }

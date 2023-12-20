@@ -1,45 +1,54 @@
-/*TODO: move colors to global vars*/
+/* TODO: move colors to global vars */
+
 .form {
-    height: 190px;
-    width: 480px;
-    text-align: center;
-    position: relative;
+  height: 190px;
+  position: relative;
+  text-align: center;
+  width: 480px;
 }
 
 .input {
-    display: none;
+  display: none;
 }
 
 .label {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    border-width: 1px;
-    border-radius: 3px;
-    border-style: dashed;
-    border-color: #F37022;
-    background-color: #FFF;
+  align-items: center;
+  background-color: var(--main-color);
+  border-color: var(--orange-color);
+  border-radius: 3px;
+  border-style: dashed;
+  border-width: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  justify-content: center;
+  padding: 0 12px;
 }
 
 .label.dragActive {
-    background-color: rgba(243, 112, 34, 0.3);
+  background-color: rgb(243 112 34 / 30%);
 }
 
 .uploadButton {
-    color: #000;
-    font-family: Montserrat;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
+  background-color: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .uploadButton:hover {
-    text-decoration-line: underline;
+  text-decoration-line: underline;
+}
+
+@media screen and (width <= 768px) {
+
+  .form {
+    max-width: 480px;
+    width: 100%;
+  }
 }

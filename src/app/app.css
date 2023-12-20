@@ -1,21 +1,95 @@
-body{
-    margin: 0;
-    padding: 0px 197px;
-    box-sizing: border-box;
-
-    font-family: 'Montserrat', sans-serif;
+:root {
+  --main-color: #fff;
+  --submain-color: #fffaf8;
+  --text-color: #000;
+  --orange-color: #f37022;
+  --black-color: #000;
+  --white-color: #fff;
+  --modal-mobile-color: #fffaf8;
+  --btn-disabled-color: grey;
+  --font-family: 'Montserrat', sans-serif;
 }
 
-@media (max-width: 1600px){
-
-    body{
-        padding: 0px 100px;
-    }
-
+[data-theme='light'] {
+  --main-color: #fff;
+  --submain-color: #fffaf8;
+  --text-color: #000;
+  --orange-color: #f37022;
+  --black-color: #000;
+  --white-color: #fff;
+  --btn-disabled-color: grey;
+  --modal-mobile-color: #fffaf8;
 }
 
-@media (max-width: 480px){
-    body{
-        padding: 0px 20px;
-    }
+[data-theme='dark'] {
+  --main-color: #000;
+  --submain-color: #2f1506;
+  --text-color: #fff;
+  --orange-color: #f37022;
+  --black-color: #000;
+  --white-color: #fff;
+  --btn-disabled-color: #2f1506;
+  --modal-mobile-color: #000;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: Montserrat, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--main-color);
+  box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+  margin: 0;
+  padding: 0 197px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.main-title {
+  background-color: #2f1506;
+  color: red;
+}
+
+.main-title-modal {
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: 60px;
+
+  &::first-letter {
+    color: var(--orange-color);
+  }
+}
+
+@media (width <= 1600px) {
+  body {
+    padding: 0 100px;
+  }
+}
+
+@media (width <= 768px) {
+  .main-title-modal {
+    font-size: 32px;
+    max-width: 360px;
+  }
+}
+
+@media (width <= 480px) {
+  body {
+    padding: 0 20px;
+  }
+
+  .main-title-modal {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
 }

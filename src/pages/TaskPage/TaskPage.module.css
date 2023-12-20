@@ -1,0 +1,217 @@
+.main {
+  background: var(--main-color);
+  margin: 0 auto;
+  max-width: 1530px;
+}
+
+.container {
+  background: var(--main-color);
+  border: 1px solid var(--orange-color);
+  border-radius: 3px;
+  color: var(--text-color);
+  padding: 50px;
+}
+
+.leaveRoomButton {
+  align-items: center;
+  background: var(--main-color);
+  border: 1px solid var(--orange-color);
+  border-radius: 3px;
+  box-shadow: 0 4px 4px 0 rgb(38 50 56 / 25%);
+  color: var(--text-color);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  height: 60px;
+  margin: 50px 0 100px;
+  width: 220px;
+}
+
+.mainTitle {
+  color: var(--text-color);
+  margin: 0 0 40px 0;
+}
+
+.mainTitle::first-letter {
+  color: var(--orange-color);
+}
+
+.descriptionContainer {
+  display: flex;
+  gap: 70px;
+}
+
+.description {
+  margin: 0;
+  max-width: 670px;
+  width: 100%;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  max-width: 670px;
+  width: 100%;
+}
+
+.resultsText {
+  margin: 0;
+}
+
+.codeEditorsContainer {
+  display: flex;
+  gap: 70px;
+  justify-content: space-between;
+}
+
+.attempts {
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.codeEditorContainer {
+  max-width: 670px;
+  width: 100%;
+}
+
+.codeEditor {
+  height: 670px;
+}
+
+.submitContainer {
+  margin: 0;
+}
+
+.alarm {
+  background: var(--submain-color);
+  border-radius: 3px;
+  margin: 17px 0 0;
+  padding: 18px 36px;
+}
+
+.mainButton {
+  background-color: var(--orange-color);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 4px 4px #26323820;
+  color: azure;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  height: 55px;
+  justify-self: flex-end;
+  transition: 0.4s;
+  width: 180px;
+}
+
+.mainButton:hover {
+  background-color: #cb5d1d;
+  transition: 0.4s;
+}
+
+.readyButton {
+  margin: 70px 0;
+}
+
+.submitButton {
+  margin: 50px 0 0;
+}
+
+@media (width <= 1200px) {
+
+  .main {
+    max-width: 1000px;
+  }
+
+  .descriptionContainer {
+    display: block;
+  }
+
+  .resultsText {
+    margin-top: 40px;
+  }
+
+  .results {
+    gap: 0;
+  }
+
+  .codeEditorsContainer {
+    display: block;
+  }
+
+  .codeEditorContainer {
+    max-width: none;
+  }
+
+  .codeEditor {
+    height: 380px;
+  }
+
+  .submitContainer {
+    display: flex;
+    gap: 25px;
+    justify-content: end;
+    margin: 10px 0 50px;
+  }
+
+  .alarm {
+    flex: 1 1 0;
+    margin: 0;
+  }
+
+  .submitButton {
+    margin: 0;
+  }
+}
+
+@media (width <= 768px) {
+
+  body {
+    padding: 0 30px;
+  }
+
+  .main {
+    max-width: 700px;
+  }
+
+  .readyButton {
+    margin: 50px 0;
+  }
+
+  .submitContainer {
+    display: block;
+  }
+
+  .alarm {
+    margin-bottom: 20px;
+  }
+}
+
+@media (width <= 480px) {
+
+  .main {
+    max-width: 420px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+}
+
+@media (width <= 380px) {
+
+  body {
+    padding: 0 15px;
+  }
+
+  .main {
+    max-width: 290px;
+  }
+
+  .leaveRoomButton {
+    margin: 50px 0;
+  }
+}

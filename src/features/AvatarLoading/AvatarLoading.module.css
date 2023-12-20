@@ -11,10 +11,11 @@
     cursor: pointer;
     user-select: none;
 
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
 }
 
 .regSpan{
     margin-left: 20px;
 }
+

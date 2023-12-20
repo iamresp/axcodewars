@@ -1,113 +1,110 @@
 .main{
-    max-width: 1920px;
-
+    background-color: var(--main-color);
     margin: auto;
+    max-width: 1920px;
 }
 
-.h1:first-letter{
-    color: #f37022;
+.mainTitle{
+    margin-bottom: 100px;
+    margin-top: 50px;
 }
 
-.profile_cont{
+.mainTitle::first-letter{
+    color: var(--orange-color);
+}
+
+.profileCont{
     width: 100%;
 }
 
-.profile_cont_top{
+.profileContTop{
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
 }
 
-.user_avatar{
-    background: #f37022;
+.userAvatar{
+    background: var(--orange-color);
+    border-radius: 100%;
     height: 200px;
     width: 200px;
-
-    border-radius: 100%;
 }
 
-.user_username{
+.userUsername{
     font-size: 24px;
-    text-transform: uppercase;
-
     margin-top: 25px;
+    text-transform: uppercase;
 }
 
-.user_edit{
+.userEdit{
     margin-top: 10px;
-
-    color: black;
     text-decoration: none;
 
     &:hover{
-        color: #f37022;
+        color: var(--orange-color);
     }
 }
 
-.profile_cont_bottom{
-    padding: 50px 100px;
+.profileContBottom{
+    border: 1px solid var(--orange-color);
     box-sizing: border-box;
-
-    width: 100%;
-
     margin-top: 100px;
-
-    border: 1px solid #f37022;
-}
-
-.user_history{
+    padding: 50px 100px;
     width: 100%;
+}
 
-    padding: 40px 30px;
+.userHistory{
+    background-color: var(--submain-color);
     box-sizing: border-box;
-
-    background-color: #FFFAF8;
-
     margin-bottom: 40px;
+    padding: 40px 30px;
+    width: 100%;
 }
 
-.user_history:last-child{
-    margin-bottom: 0px;
+.userHistory:last-child{
+    margin-bottom: 0;
 }
 
-.user_history_title{
+.userHistoryTitle{
     font-size: 18px;
     font-weight: 600;
 }
 
-.user_history_subtext{
+.userHistorySubtext{
     font-size: 18px;
     font-weight: 300;
 }
 
-@media (max-width: 1600px) {
+@media (width <= 1200px) {
 
-}
-
-@media (max-width: 1200px) {
     body{
-        padding: 0px 30px;
+        padding: 0 30px;
     }
-    .profile_cont_bottom{
-        padding: 50px 50px;
+
+    .profileContBottom{
+        padding: 50px;
     }
 }
 
-@media (max-width: 768px) {
-    .profile_cont_bottom{
+@media (width <= 768px) {
+
+    .profileContBottom{
         padding: 50px 20px;
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
+
     body{
-        padding: 0px 15px;
+        padding: 0 15px;
     }
-    .profile_cont_top{
+
+    .profileContTop{
         min-width: 295px;
     }
-    .profile_cont_bottom{
+
+    .profileContBottom{
         min-width: 295px;
         padding: 0;
     }
