@@ -25,20 +25,24 @@
 .profileImg{
     background-color: var(--orange-color);
     border-radius: 100%;
-    height: 35px;
+    max-height: 35px;
     margin-right: 25px;
-    width: 35px;
+    max-width: 35px;
+}
+
+.profileContWrapper{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-right: 67px;
+    position: relative;
 }
 
 .profileCont{
     align-items: center;
     display: flex;
     justify-content: center;
-    margin-right: 67px;
-}
-
-.link:hover{
-    color: var(--orange-color);
 }
 
 @media (width = 480px) {
