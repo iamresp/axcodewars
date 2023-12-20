@@ -8,6 +8,7 @@
   --modal-mobile-color: #fffaf8;
   --btn-disabled-color: grey;
   --font-family: 'Montserrat', sans-serif;
+  --border-radius: 3px;
 }
 
 [data-theme='light'] {
@@ -54,9 +55,14 @@ button {
   cursor: pointer;
 }
 
-.main-title {
-  background-color: #2f1506;
-  color: red;
+.main_title {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+
+  &::first-letter {
+    color: var(--orange-color);
+  }
 }
 
 .main-title-modal {

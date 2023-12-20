@@ -24,7 +24,7 @@ export const ProfilePage: FC = () => {
               alt={'user.avatar'}
             />
             <span className={cls.userUsername}>{user.username}</span>
-            <Link className={cls.userEdit} to={'/tasks'}>
+            <Link className={cls.userEdit} to={'/profile/edit'}>
               Редактировать
             </Link>
           </div>

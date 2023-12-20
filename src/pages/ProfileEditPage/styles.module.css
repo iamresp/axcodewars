@@ -1,0 +1,89 @@
+.content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 0;
+}
+
+.contentForm {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.username {
+  color: #000;
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 25px;
+  text-align: center;
+}
+
+.userAvatar {
+  border-radius: 100%;
+  height: 200px;
+  object-fit: cover;
+  width: 200px;
+}
+
+.avatarLoading {
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.inputWrapper {
+  border: 1px solid #f37022;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin: 100px auto 0;
+  max-width: 1040px;
+  padding: 36px 100px;
+  width: 100%;
+}
+
+.inputContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+  background: var(--submain-color);
+  border: none;
+  border-radius: var(--border-radius);
+  max-width: 580px;
+  padding: 15px 55px 15px 45px;
+  width: 100%;
+
+  &:focus-visible {
+    outline: 1px solid var(--orange-color);
+  }
+}
+
+.inputLabel {
+  font-weight: 500;
+}
+
+.inputPassword {
+  max-width: 580px;
+  position: relative;
+  width: 100%;
+}
+
+.passwordVisible {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  transform: translate(-50%, 50%);
+}
+
+.submitBtn {
+  max-width: 219px;
+}

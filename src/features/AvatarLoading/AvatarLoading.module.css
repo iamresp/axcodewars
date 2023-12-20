@@ -1,21 +1,18 @@
 .regInput[type='file'] {
-    display: none;
+  display: none;
 }
 
-.regLabel{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 30px;
-
-    cursor: pointer;
-    user-select: none;
-
-    font-size: 18px;
-    font-weight: 400;
+.regLabel {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-size: 18px;
+  font-weight: 400;
+  gap: 20px;
+  margin-top: 30px;
+  user-select: none;
 }
 
-.regSpan{
-    margin-left: 20px;
+.regSpan {
+  font-size: 16px;
 }
-

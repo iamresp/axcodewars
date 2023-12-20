@@ -35,7 +35,7 @@ export const TasksPage: FC = () => {
     (searchTerm: string) => {
       const filtered = tasks.filter(
         task =>
-          task.title.length > 0 &&
+          task.title?.length > 0 &&
           task.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredTasks(filtered)
