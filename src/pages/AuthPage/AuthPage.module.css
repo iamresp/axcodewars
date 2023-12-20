@@ -14,6 +14,10 @@
     margin: 12px 0;
 }
 
+.regImage {
+    width: 55%;
+}
+
 @media (width <= 1600px) {
   
   .main {
@@ -65,13 +69,10 @@
 .regFormContainer {
     display: flex;
     flex-direction: column;
+    padding: 20px 0;
     font-size: 32px;
     font-weight: 600;
     height: 500px;
-}
-
-.regImage {
-    width: 55%;
 }
 
 .regInput {
