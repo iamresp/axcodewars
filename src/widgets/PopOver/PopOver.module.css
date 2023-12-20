@@ -1,11 +1,11 @@
 .popOver{
     border-radius: 5px;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     position: absolute;
     top: 50px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+    width: 100%;
 }
 
 .link{

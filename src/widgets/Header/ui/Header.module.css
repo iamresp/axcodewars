@@ -25,16 +25,16 @@
 .profileImg{
     background-color: var(--orange-color);
     border-radius: 100%;
-    max-height: 35px;
     margin-right: 25px;
+    max-height: 35px;
     max-width: 35px;
 }
 
 .profileContWrapper{
     align-items: center;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
     margin-right: 67px;
     position: relative;
 }

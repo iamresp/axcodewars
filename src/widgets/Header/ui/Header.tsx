@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { ThemeSwitcher } from '../../ThemeSwitcher'
-import { PopOver } from 'widgets/PopOver/popOver'
-import { useAuth } from '../../../shared/hooks/useAuth'
+import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
+import { PopOver } from 'widgets/PopOver/PopOver'
+import { useAuth } from 'shared/hooks/useAuth'
 
-import cls from '../ui/Header.module.css'
 import { Link } from 'react-router-dom'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
 import { useRef, useState } from 'react'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
+import cls from '../ui/Header.module.css'
 
 export default function Header (): JSX.Element {
   const [value, setValue] = React.useState(false)
@@ -58,7 +58,7 @@ export default function Header (): JSX.Element {
       </div>
       <div className={cls.headerRight}>
         {isAuth && (
-          <div className={cls.profileContWrapper} onClick={handleClick} ref={node}>
+          <div tabIndex={0} role={'button'} className={cls.profileContWrapper} onKeyDown={() => {}} onClick={handleClick} ref={node}>
             <div className={cls.profileCont}>
               <img className={cls.profileImg}
                 src={(user.avatar !== '') ? process.env.REACT_APP_SERVER_URL + user.avatar : './images/userlogo.png'}

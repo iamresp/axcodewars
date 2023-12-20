@@ -1,8 +1,10 @@
 import cls from './PopOver.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import * as React from 'react'
 
 export const PopOver = () => {
+  const navigate = useNavigate()
+
   return (
     <>
       <div className={cls.popOver}>
@@ -12,7 +14,7 @@ export const PopOver = () => {
         <Link className={cls.link} to={'/tasks'}>
               Таски
         </Link>
-        <Link className={cls.link} onClick={() => {
+        <Link type={'button'} className={cls.link} onClick={() => {
           localStorage.removeItem('access_token')
         }} to={'/auth'}>
             Выйти

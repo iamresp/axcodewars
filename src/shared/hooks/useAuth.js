@@ -15,7 +15,7 @@ export function useAuth () {
       setIsLoading(true)
       api
         .get('/auth/user', { headers: { Authorization: `Bearer ${token}` } })
-        .then((res) => {
+        .then(res => {
           if (res?.data?.uuid) {
             setIsAuth(true)
             setUser({ ...res.data, token })
@@ -27,8 +27,10 @@ export function useAuth () {
           setIsLoading(false)
         })
     } else {
+      setIsAuth(false)
       setIsLoading(false)
     }
   }, [hasAccessToken])
+
   return { isLoading, isAuth, user }
 }
