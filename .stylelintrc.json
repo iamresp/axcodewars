@@ -7,9 +7,15 @@
   ],
   "overrides": [
     {
-      "files": "**/*.module.css",
+      "files": ["**/*.module.css"],
       "rules": {
         "selector-class-pattern": [
+          "^[a-z]+([A-Z][a-z]+)?$|^[a-z]+([A-Z][a-z]+)+$",
+          {
+            "message": "Expected class current selector to be camelCase"
+          }
+        ],
+        "keyframes-name-pattern": [
           "^[a-z]+([A-Z][a-z]+)?$|^[a-z]+([A-Z][a-z]+)+$",
           {
             "message": "Expected class current selector to be camelCase"
@@ -24,6 +30,7 @@
     "media-feature-range-operator-space-after": "always",
     "media-feature-colon-space-before": "never",
     "selector-class-pattern": null,
+    "keyframes-name-pattern": null,
     "order/order": [
       "custom-properties",
       "declarations"

@@ -1,36 +1,38 @@
 .textAreaCustom {
-  width: 100%;
-  border-radius: 3px;
-  border: 1px solid var(--orange-color);
   background: var(--main-color);
-  padding: 20px 30px;
-  font-family: Montserrat;
-  font-weight: 400;
+  border: 1px solid var(--orange-color);
+  border-radius: 3px;
+  font-family: var(--font-family);
   font-size: 16px;
-  outline: none;
+  font-weight: 400;
   min-height: 112px;
+  outline: none;
+  padding: 20px 30px;
   resize: none;
+  width: 100%;
 }
 
 .textAreaCustom::-webkit-scrollbar {
   background-color: var(--main-color);
   width: 16px;
 }
+
 .textAreaCustom::-webkit-scrollbar-track {
   background-color: var(--main-color);
 }
 
 .textAreaCustom::-webkit-scrollbar-thumb {
   background-color: var(--orange-color);
-  border-radius: 16px;
   border: 4px solid var(--main-color);
+  border-radius: 16px;
 }
 
 .textAreaCustom::-webkit-scrollbar-button {
   display: none;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (width <= 480px) {
+
   .textAreaCustom {
     font-size: 14px;
     padding: 21px 15px;

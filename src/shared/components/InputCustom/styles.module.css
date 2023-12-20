@@ -1,19 +1,17 @@
 .inputCustom {
-  width: 100%;
-  border-radius: 3px;
-  border: 1px solid var(--orange-color);
-
   background: var(--main-color);
-  padding: 20px 30px;
-
-  font-family: Montserrat;
-  font-weight: 400;
+  border: 1px solid var(--orange-color);
+  border-radius: 3px;
+  font-family: var(--font-family);
   font-size: 16px;
-
+  font-weight: 400;
   outline: none;
+  padding: 20px 30px;
+  width: 100%;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (width <= 480px) {
+
   .inputCustom {
     font-size: 14px;
     padding: 18px 15px;
