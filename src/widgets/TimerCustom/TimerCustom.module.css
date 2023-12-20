@@ -1,0 +1,20 @@
+.timer {
+  font-size: 64px;
+  font-weight: 400;
+  margin: 80px auto;
+  text-align: center;
+}
+
+@media (width <= 768px) {
+
+  .timer {
+    font-size: 48px;
+  }
+}
+
+@media (width <= 480px) {
+
+  .timer {
+    margin: 50px auto;
+  }
+}

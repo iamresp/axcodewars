@@ -8,7 +8,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended'
-
   ],
   overrides: [
     {
@@ -23,7 +22,8 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    tsconfigRootDir: __dirname
   },
   plugins: ['react', 'jsx-a11y', 'react-hooks'],
   rules: {
@@ -38,6 +38,7 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': 'warn',
     '@typescript-eslint/promise-function-async': 'warn',
     '@typescript-eslint/prefer-optional-chain': 'warn',
+    '@typescript-eslint/indent': ['warn', 2],
 
     'react/button-has-type': 'warn',
     'react/prop-types': 'warn',
@@ -49,7 +50,6 @@ module.exports = {
     'brace-style': ['warn', '1tbs'],
     'comma-spacing': ['warn', { before: false, after: true }],
     'comma-style': ['warn', 'last'],
-    'computed-property-spacing': ['warn', 'always'],
     'eol-last': ['warn', 'always'],
     'function-call-argument-newline': ['warn', 'consistent'],
     'generator-star-spacing': ['error', { before: false, after: true }],

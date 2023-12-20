@@ -1,12 +1,26 @@
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, type FC } from 'react'
+import cls from './TimerCustom.module.css'
 
-export const TimerCustom = (millySec: number, setTime: any) => {
+interface TimerCustomProps {
+  ms: number
+  setTime: (bool: boolean) => void
+}
+
+interface TimerType {
+  total: number
+  hours: number
+  minutes: number
+  seconds: number
+}
+
+export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
   const Ref = useRef<NodeJS.Timer | null>(null)
 
-  const [timer, setTimer] = useState('00:00:00')
+  const [timer, setTimer] = useState('')
 
-  const getTimeRemaining = (e: Date) => {
-    const total = Date.parse(e.toString()) - Date.parse(new Date().toString())
+  const getTimeRemaining = (date: Date): TimerType => {
+    const total = Date.parse(
+      date.toString()) - Date.parse(new Date().toString())
     const seconds = Math.floor((total / 1000) % 60)
     const minutes = Math.floor((total / 1000 / 60) % 60)
     const hours = Math.floor((total / 1000 / 60 / 60) % 24)
@@ -19,8 +33,8 @@ export const TimerCustom = (millySec: number, setTime: any) => {
     }
   }
 
-  const startTimer = (e: Date) => {
-    const { total, hours, minutes, seconds } = getTimeRemaining(e)
+  const startTimer = (date: Date): void => {
+    const { total, hours, minutes, seconds } = getTimeRemaining(date)
     if (total >= 0) {
       setTimer(
         (hours > 9 ? hours : '0' + hours) +
@@ -33,22 +47,19 @@ export const TimerCustom = (millySec: number, setTime: any) => {
     setTime(total === 0)
   }
 
-  const clearTimer = (e: Date) => {
-    setTimer('00:00:15')
-
-    if (Ref.current) clearInterval(Ref.current)
+  const clearTimer = (date: Date): void => {
+    if (Ref.current !== null) clearInterval(Ref.current)
 
     const timerId = setInterval(() => {
-      startTimer(e)
-    }, 1000)
+      startTimer(date)
+    })
 
     Ref.current = timerId
   }
 
   const getDeadTime = (): Date => {
     const deadline = new Date()
-
-    deadline.setSeconds(deadline.getSeconds() + millySec / 1000)
+    deadline.setSeconds(deadline.getSeconds() + ms / 1000)
 
     return deadline
   }
@@ -57,9 +68,5 @@ export const TimerCustom = (millySec: number, setTime: any) => {
     clearTimer(getDeadTime())
   }, [])
 
-  return (
-    <div className='App'>
-      <h2>{timer}</h2>
-    </div>
-  )
+  return <h2 className={cls.timer}>{timer}</h2>
 }

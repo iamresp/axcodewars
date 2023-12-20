@@ -1,0 +1,21 @@
+.regInput[type='file'] {
+    display: none;
+}
+
+.regLabel{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+
+    cursor: pointer;
+    user-select: none;
+
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.regSpan{
+    margin-left: 20px;
+}
+

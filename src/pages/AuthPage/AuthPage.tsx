@@ -1,9 +1,10 @@
 import React, { type FC, type FormEvent, useState } from 'react'
 import { AUTH_STATE } from './constants'
 import userService from '../../entities/UserApi/user.service'
+import { AvatarLoading } from 'features/AvatarLoading/AvatarLoading'
 
 import cls from './AuthPage.module.css'
-import { Wrapper } from '../../entities/Wrapper/Wrapper'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 
 export const AuthPage: FC = () => {
   const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
@@ -50,74 +51,68 @@ export const AuthPage: FC = () => {
   }
 
   return (
-      <Wrapper>
-        <main className={cls.main}>
-          <img
-            className={cls.regImage}
-            src='/images/reg-img.svg'
-            alt='reg-avatar'
+    <main className={cls.main}>
+      <img
+        className={cls.regImage}
+        src='/images/reg-img.svg'
+        alt='reg-avatar'
+      />
+      <div className={cls.regFormContainer}>
+        {auth === AUTH_STATE.LOGIN ? 'Логин' : 'Регистрация'}
+        <div className={cls.regSelectText}>
+          {auth === AUTH_STATE.LOGIN ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
+          <button
+            type='button'
+            className={cls.regSelectTextButton}
+            onClick={() => {
+              setAuth(
+                auth === AUTH_STATE.LOGIN
+                  ? AUTH_STATE.REGISTRATION
+                  : AUTH_STATE.LOGIN
+              )
+              setErrorMessage('')
+            }}
+          >
+            {auth === AUTH_STATE.LOGIN ? ' Регистрация' : ' Войти'}
+          </button>
+        </div>
+        <form
+          className={cls.form}
+          onSubmit={e => {
+            void handleAuth(e)
+          }}
+        >
+          <input
+            required
+            className={cls.regInput}
+            placeholder='Имя'
+            value={username}
+            onChange={event => {
+              setUsername(event.target.value)
+            }}
           />
-          <div className={cls.regFormContainer}>
-            {auth === AUTH_STATE.LOGIN ? 'Логин' : 'Регистрация'}
-            <div className={cls.regSelectText}>
-              {auth === AUTH_STATE.LOGIN ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
-              <button
-                type='button'
-                className={cls.regSelectTextButton}
-                onClick={() => {
-                  setAuth(
-                    auth === AUTH_STATE.LOGIN
-                      ? AUTH_STATE.REGISTRATION
-                      : AUTH_STATE.LOGIN
-                  )
-                  setErrorMessage('')
-                }}
-              >
-                {auth === AUTH_STATE.LOGIN ? ' Регистрация' : ' Войти'}
-              </button>
-            </div>
-            <form
-              className={cls.form}
-              onSubmit={e => {
-                void handleAuth(e)
-              }}
-            >
-              <input
-                required
-                className={cls.regInput}
-                placeholder='Имя'
-                value={username}
-                onChange={event => {
-                  setUsername(event.target.value)
-                }}
-              />
-              <input
-                required
-                className={cls.regInput}
-                placeholder='Пароль'
-                type='password'
-                value={password}
-                onChange={event => {
-                  setPassword(event.target.value)
-                }}
-              />
-              {auth === AUTH_STATE.REGISTRATION && (
-                <input
-                  className={cls.regInput}
-                  placeholder='Загузка аватара'
-                  value={imageUrl}
-                  onChange={event => {
-                    setImageUrl(event.target.value)
-                  }}
-                />
-              )}
-              <span className={cls.errorText}>{errorMessage}</span>
-              <button type='submit' className={cls.regButton}>
-                {auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
-              </button>
-            </form>
-          </div>
-        </main>
-      </Wrapper>
+          <input
+            required
+            className={cls.regInput}
+            placeholder='Пароль'
+            type='password'
+            value={password}
+            onChange={event => {
+              setPassword(event.target.value)
+            }}
+          />
+          {auth === AUTH_STATE.REGISTRATION && (
+            <AvatarLoading imageUrl={imageUrl} setImageUrl={setImageUrl}/>
+          )}
+          <span className={cls.errorText}>{errorMessage}</span>
+          {(errorMessage !== '') &&
+              (<span className={cls.errorText}>{errorMessage}</span>)
+          }
+          <button type='submit' className={cls.regButton}>
+            {auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
+          </button>
+        </form>
+      </div>
+    </main>
   )
 }

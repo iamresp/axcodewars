@@ -1,15 +1,15 @@
-import { Button } from '@mui/material';
-import { FieldLocalStorage } from '../../shared/constants/constants';
+import { Button } from '@mui/material'
+import { FIELD_LOCAL_STORAGE } from '../../shared/constants/constants'
 
 export const LogoutButton = () => {
   const handleLogout = () => {
-    localStorage.removeItem(FieldLocalStorage.ACCESS_TOKEN);
-    window.location.reload();
-  };
+    localStorage.removeItem(FIELD_LOCAL_STORAGE.ACCESS_TOKEN)
+    window.location.reload()
+  }
 
   return (
     <Button variant='contained' onClick={handleLogout}>
       Выйти
     </Button>
-  );
-};
+  )
+}

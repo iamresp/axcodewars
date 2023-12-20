@@ -5,3 +5,7 @@ footer{
     height: 100px;
     margin: auto;
 }
+
+.wrapperFooter{
+    padding: 0;
+}
