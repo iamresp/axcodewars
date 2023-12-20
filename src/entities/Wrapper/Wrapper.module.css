@@ -7,24 +7,28 @@
 }
 
 @media (max-width: 1200px){
+
     .wrapper{
         padding: 0 98px;
     }
 }
 
 @media (max-width: 940px){
+
     .wrapper{
         padding: 0 40px;
     }
 }
 
 @media (max-width: 480px){
+
     .wrapper{
         padding: 0 30px;
     }
 }
 
 @media (max-width: 320px){
+
     .wrapper{
         padding: 0 15px;
     }

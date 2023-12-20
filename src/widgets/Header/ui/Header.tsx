@@ -35,7 +35,7 @@ export default function Header (): JSX.Element {
   }
 
   return (
-    <Wrapper className={cls.wrapperHeader}>
+    <Wrapper>
       <header className={cls.header}>
         <div className={cls.headerLeft}>
           <Link to={'/tasks'}>

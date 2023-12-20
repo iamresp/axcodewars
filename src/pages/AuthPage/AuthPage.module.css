@@ -17,11 +17,10 @@
   
   .main {
     justify-content: space-between;
-    padding: 90px 0;
   }
 
   .regImage {
-    width: 30%;
+    width: 50%;
   }
 
   .main .regForm {
@@ -119,6 +118,7 @@
     cursor: pointer;
     font-size: 18px;
     font-weight: 400;
+    padding-left: 5px;
 }
 
 .form {
