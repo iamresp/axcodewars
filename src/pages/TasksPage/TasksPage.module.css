@@ -10,6 +10,10 @@
   font-weight: 400;
 }
 
+.main {
+  padding-top: 66px;
+}
+
 .title {
   font-size: 32px;
   font-style: normal;
@@ -77,15 +81,14 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-  padding-bottom: 47px;
-  padding-right: 47px;
-  padding-left: 47px;
-  width: 250px;
-  height: 182px;
+  gap: 40px;
+  padding: 50px;
+  width: 353px;
+  height: 282px;
   border-radius: 3px;
   border: 1px solid var(--orange-color);
   background: var(--submain-color);
-  box-shadow: 0px 4px 8px 0px var(--black-color);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
   transition: all 0.6s ease;
 }
 .task:hover {
@@ -101,6 +104,7 @@
   word-wrap: break-word;
   max-width: 200px;
   max-height: 46%;
+
   overflow: hidden;
 }
 
@@ -117,10 +121,16 @@
   font-weight: 300;
   text-decoration: none;
   transition: all 0.3s ease;
+  background: none;
+  border: none;
 }
 
 .taskEdit:hover {
   color: var(--main-color);
+}
+
+.taskEnter{
+  color: white;
 }
 
 @media (max-width: 1200px) {

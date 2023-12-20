@@ -34,8 +34,7 @@ export const TasksPage: FC = () => {
   const handleSearch = useCallback(
     (searchTerm: string) => {
       const filtered = tasks.filter(
-        task =>
-          task.title.length > 0 &&
+        task => task.title?.length > 0 &&
           task.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredTasks(filtered)
@@ -77,32 +76,34 @@ export const TasksPage: FC = () => {
         </button>
       </div>
       <div className={cls.tasks}>
-        {filteredTasks.length > 0 ? (
-          filteredTasks.map(task => (
-            <div className={cls.task} key={task.title}>
-              <h1 className={cls.taskTitle}>{task.title}</h1>
-              <div className={cls.taskOperations}>
-                <button
-                  type='button'
-                  className={cls.taskEdit}
-                  onClick={() => {
-                    handleEditOpen(task.uuid)
-                  }}
-                >
+        {filteredTasks.length > 0
+          ? (
+            filteredTasks.map(task => (
+              <div className={cls.task} key={task.title}>
+                <h2 className={cls.taskTitle}>{task.title}</h2>
+                <div className={cls.taskOperations}>
+                  <button
+                    type='button'
+                    className={cls.taskEdit}
+                    onClick={() => {
+                      handleEditOpen(task.uuid)
+                    }}
+                  >
                   Редактировать
-                </button>
-                <Link to={'/'} className={cls.taskEnter}>
-                  <img src='arrow-right.svg' alt='arrow' />
-                </Link>
+                  </button>
+                  <Link to={'/'} className={cls.taskEnter}>
+                    <img src='arrow-right.svg' alt='arrow' />
+                  </Link>
+                </div>
               </div>
+            ))
+          )
+          : (
+            <div className={cls.notFound}>
+              <img src='logo192.png' alt='' />
+              <p>Not Found Tasks</p>
             </div>
-          ))
-        ) : (
-          <div className={cls.notFound}>
-            <img src='logo192.png' alt='' />
-            <p>Not Found Tasks</p>
-          </div>
-        )}
+          )}
       </div>
       <CreateTaskModal
         isOpen={isCreateOpen}
