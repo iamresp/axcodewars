@@ -1,6 +1,7 @@
 .main {
     align-items: center;
     display: flex;
+    column-gap: 30px;
     justify-content: space-evenly;
     margin: auto;
     max-width: 1920px;
@@ -29,6 +30,14 @@
 }
 
 @media (width <= 1200px) {
+
+    .regImage {
+        width: 459px;
+        height: 446px;
+    }
+}
+
+@media (width <= 1100px) {
 
   .main {
     flex-direction: column;
@@ -99,6 +108,13 @@
     text-transform: uppercase;
     transition: 0.4s;
     width: 220px;
+}
+
+@media (width <= 785px) {
+
+    .regButton {
+        margin: 60px auto 0;
+    }
 }
 
 .regButton:hover {
