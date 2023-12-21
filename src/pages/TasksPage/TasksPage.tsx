@@ -93,7 +93,6 @@ export const TasksPage: FC = () => {
                   Редактировать
                   </button>
                   <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
-
                     <img src='arrow-right.svg' alt='arrow' />
                   </Link>
                 </div>
