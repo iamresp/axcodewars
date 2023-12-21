@@ -1,6 +1,7 @@
 import React, {
   useState,
   useEffect,
+  useContext,
   type FC,
   type MutableRefObject
 } from 'react'
@@ -8,6 +9,8 @@ import { TimerCustom } from 'features/TimerCustom'
 import CodeMirror from '@uiw/react-codemirror'
 import { javascript } from '@codemirror/lang-javascript'
 import { darcula } from '@uiw/codemirror-theme-darcula'
+import { duotoneLight } from '@uiw/codemirror-theme-duotone'
+import { ThemeContext } from 'app/context/ThemeContext'
 import cls from './CodeEditor.module.css'
 import classNames from 'classnames'
 
@@ -38,6 +41,7 @@ export const CodeEditor: FC<CodeEditorProps> = ({
   const [code, setCode] = useState('')
   const [message, setMessage] = useState('')
   const [timer, setTimer] = useState(false)
+  const { currentTheme } = useContext(ThemeContext)
 
   const sendCode = (value: string): void => {
     setCode(value)
@@ -110,7 +114,7 @@ export const CodeEditor: FC<CodeEditorProps> = ({
           <CodeMirror
             value={code}
             className={cls.codeEditor}
-            theme={darcula}
+            theme={currentTheme === 'light' ? duotoneLight : darcula}
             height='100%'
             extensions={[javascript({ jsx: true })]}
             onChange={sendCode}
@@ -141,7 +145,7 @@ export const CodeEditor: FC<CodeEditorProps> = ({
             className={cls.codeEditor}
             height='100%'
             editable={false}
-            theme={darcula}
+            theme={currentTheme === 'light' ? duotoneLight : darcula}
             extensions={[javascript({ jsx: true })]}
           />
         </div>
