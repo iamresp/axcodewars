@@ -7,6 +7,7 @@ import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
 import cls from './TasksPage.module.css'
+import { toast } from 'react-toastify'
 
 export const TasksPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
@@ -16,6 +17,7 @@ export const TasksPage: FC = () => {
   const [isCreateOpen, openCreateModal, closeCreateModal] = useModalState()
   const [isEditOpen, openEditModal, closeEditModal] = useModalState()
   const [isCSVOpen, openCSVModal, closeCSVModal] = useModalState()
+  const [err, setErr] = useState<any>()
 
   const handleCreateOpen = (): void => {
     openCreateModal()
@@ -34,8 +36,7 @@ export const TasksPage: FC = () => {
   const handleSearch = useCallback(
     (searchTerm: string) => {
       const filtered = tasks.filter(
-        task =>
-          task.title.length > 0 &&
+        task => task.title?.length > 0 &&
           task.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredTasks(filtered)
@@ -48,8 +49,13 @@ export const TasksPage: FC = () => {
       const tasks = await taskService.getTasks()
       setTasks(tasks)
       setFilteredTasks(tasks)
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      // console.log(error)
+      // throw error
+      toast.error(error?.message)
+      setErr(error)
+
+      // throw new Error()
     }
   }
 
@@ -77,32 +83,34 @@ export const TasksPage: FC = () => {
         </button>
       </div>
       <div className={cls.tasks}>
-        {filteredTasks.length > 0 ? (
-          filteredTasks.map(task => (
-            <div className={cls.task} key={task.title}>
-              <h1 className={cls.taskTitle}>{task.title}</h1>
-              <div className={cls.taskOperations}>
-                <button
-                  type='button'
-                  className={cls.taskEdit}
-                  onClick={() => {
-                    handleEditOpen(task.uuid)
-                  }}
-                >
+        {filteredTasks.length > 0
+          ? (
+            filteredTasks.map(task => (
+              <div className={cls.task} key={task.title}>
+                <h1 className={cls.taskTitle}>{task.title}</h1>
+                <div className={cls.taskOperations}>
+                  <button
+                    type='button'
+                    className={cls.taskEdit}
+                    onClick={() => {
+                      handleEditOpen(task.uuid)
+                    }}
+                  >
                   Редактировать
-                </button>
-                <Link to={'/'} className={cls.taskEnter}>
-                  <img src='arrow-right.svg' alt='arrow' />
-                </Link>
+                  </button>
+                  <Link to={'/'} className={cls.taskEnter}>
+                    <img src='arrow-right.svg' alt='arrow' />
+                  </Link>
+                </div>
               </div>
+            ))
+          )
+          : (
+            <div className={cls.notFound}>
+              <img src='logo192.png' alt='' />
+              <p>Not Found Tasks</p>
             </div>
-          ))
-        ) : (
-          <div className={cls.notFound}>
-            <img src='logo192.png' alt='' />
-            <p>Not Found Tasks</p>
-          </div>
-        )}
+          )}
       </div>
       <CreateTaskModal
         isOpen={isCreateOpen}

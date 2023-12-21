@@ -16,9 +16,31 @@ class TaskService {
     Authorization: `Bearer ${this._token}`
   }
 
-  async getTasks(): Promise<IGetTasks> {
+  private readonly _status = (response: Response) => {
+    switch (response.status) {
+      case 401:
+        console.log('Ошибка: Неавторизованный доступ')
+        break
+      case 400:
+        console.error('Ошибка: Неверный запрос')
+        break
+      case 403:
+        console.error('Ошибка: Доступ запрещен')
+        break
+      case 404:
+        console.error('Ошибка: Ресурс не найден')
+        break
+      case 500:
+        console.error('Ошибка: Внутренняя ошибка сервера')
+        break
+      default:
+        console.error('Ошибка: Неизвестная ошибка')
+    }
+  }
+
+  async getTasks (): Promise<IGetTasks> {
     try {
-      const response = await fetch(`${this._URL}/tasks`, {
+      const response = await fetch(`${this._URL}/taskws`, {
         method: 'GET',
         headers: this._headers
       })
@@ -53,7 +75,7 @@ class TaskService {
     }
   }
 
-  async createTask(body: ICreateTask) {
+  async createTask (body: ICreateTask) {
     try {
       const res = await fetch(`${this._URL}/tasks`, {
         method: 'POST',
@@ -74,7 +96,7 @@ class TaskService {
     }
   }
 
-  async getTaskById(id: string): Promise<IGetTaskById> {
+  async getTaskById (id: string): Promise<IGetTaskById> {
     try {
       const response = await fetch(`${this._URL}/tasks/${id}`, {
         method: 'GET',
