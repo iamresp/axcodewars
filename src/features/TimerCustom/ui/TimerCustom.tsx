@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, type FC } from 'react'
-import { startTimer } from '../lib/startTimer'
+import { getTimeRemaining } from '../lib/getTimeRemaining'
 import cls from './TimerCustom.module.css'
 
 interface TimerCustomProps {
@@ -12,12 +12,26 @@ export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
 
   const [timer, setTimer] = useState('')
 
+  const startTimer = (date: Date): void => {
+    const { total, hours, minutes, seconds } = getTimeRemaining(date)
+    if (total >= 0) {
+      setTimer(
+        (hours > 9 ? hours : '0' + hours) +
+          ':' +
+          (minutes > 9 ? minutes : '0' + minutes) +
+          ':' +
+          (seconds > 9 ? seconds : '0' + seconds)
+      )
+    }
+
+    setTime(total === 0)
+  }
+
   const clearTimer = (date: Date): void => {
     if (Ref.current !== null) clearInterval(Ref.current)
 
     const timerId = setInterval(() => {
-      const newTimer = startTimer(date)
-      newTimer === false ? setTime(!newTimer) : setTimer(newTimer.toString())
+      startTimer(date)
     })
 
     Ref.current = timerId
