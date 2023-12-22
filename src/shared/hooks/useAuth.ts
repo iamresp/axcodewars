@@ -40,5 +40,5 @@ export function useAuth () {
     }
   }
 
-  return { isLoading, isAuth, user }
+  return { isLoading, isAuth, user, fetchUser }
 }
