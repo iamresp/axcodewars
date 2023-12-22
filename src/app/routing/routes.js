@@ -4,6 +4,7 @@ import { TaskPage } from '../../pages/TaskPage/TaskPage'
 import { TasksPage } from '../../pages/TasksPage/TasksPage'
 import { ProfilePage } from '../../pages/ProfilePage/ProfilePage'
 import React from 'react'
+import ErrorPage from 'pages/ErrorPage/ErrorPage'
 window.React = React
 
 export const publicRoutes = [
@@ -27,5 +28,9 @@ export const userRoutes = [
     path: '/profile',
     element: <ProfilePage />
   },
-  { path: '*', element: <Navigate to='/tasks' replace /> }
+  {
+    path: '/error',
+    element: <ErrorPage />
+  },
+  { path: '*', element: <Navigate to='/error' replace /> }
 ]
