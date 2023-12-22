@@ -73,6 +73,38 @@
     font-size: 32px;
     font-weight: 600;
     height: 500px;
+    max-width: 620px;
+    padding: 50px 100px;
+}
+
+@media (max-width <= 1200px) {
+    .regFormContainer{
+        width: 510px;
+        padding: 50px 45px;
+    }
+}
+
+@media (max-width: 768px) {
+    .regFormContainer{
+        width: 510px;
+        padding: 50px 30px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .regFormContainer{
+        width: 400px;
+        padding: 50px 30px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 320px) {
+    .regFormContainer{
+        width: 285px;
+        padding: 50px 20px;
+    }
 }
 
 .regInput {
