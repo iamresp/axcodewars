@@ -6,9 +6,9 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
-import cls from './TasksPage.module.css'
+import cls from './TaskListPage.module.css'
 
-export const TasksPage: FC = () => {
+export const TaskListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
   const [filteredTasks, setFilteredTasks] = useState<IGetTaskById[]>([])
   const [getId, setGetId] = useState('')
@@ -100,7 +100,7 @@ export const TasksPage: FC = () => {
           )
           : (
             <div className={cls.notFound}>
-              <img src='logo192.png' alt='' />
+              <img src='logo192.png' alt='loading' />
               <p>Not Found Tasks</p>
             </div>
           )}

@@ -1,7 +1,7 @@
 import { AuthPage } from '../../pages/AuthPage/AuthPage'
 import { Navigate } from 'react-router-dom'
 import { TaskPage } from '../../pages/TaskPage/TaskPage'
-import { TasksPage } from '../../pages/TasksPage/TasksPage'
+import { TaskListPage } from '../../pages/TasksPage/TaskListPage'
 import { ProfilePage } from '../../pages/ProfilePage/ProfilePage'
 import React from 'react'
 window.React = React
@@ -17,7 +17,7 @@ export const publicRoutes = [
 export const userRoutes = [
   {
     path: '/tasks',
-    element: <TasksPage />
+    element: <TaskListPage />
   },
   {
     path: '/tasks/:id',
