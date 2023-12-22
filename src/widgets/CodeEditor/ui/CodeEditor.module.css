@@ -29,33 +29,14 @@
   padding: 18px 36px;
 }
 
-.mainButton {
-  background-color: var(--orange-color);
-  border: none;
-  border-radius: 3px;
-  box-shadow: 0 4px 4px #26323820;
-  color: azure;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 500;
-  height: 55px;
-  justify-self: flex-end;
-  transition: 0.4s;
-  width: 180px;
-}
-
-.mainButton:hover {
-  background-color: #cb5d1d;
-  transition: 0.4s;
-}
-
 .readyButton {
   margin: 70px 0;
+  width: 180px;
 }
 
 .submitButton {
   margin: 50px 0 0;
+  width: 180px;
 }
 
 

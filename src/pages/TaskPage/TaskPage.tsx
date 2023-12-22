@@ -2,9 +2,10 @@ import React, { type FC, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { type ICreateTask } from 'entities/TaskApi/task.interface'
 import taskService from 'entities/TaskApi/task.service'
+import { Button } from 'shared/components'
 import {
   Alert,
-  Button,
+  Button as ButtonMaterial,
   CircularProgress,
   Grid,
   Typography
@@ -128,15 +129,15 @@ export const TaskPage: FC = () => {
           height: '100vh'
         }}
       >
-        <Button
+        <ButtonMaterial
           variant='contained'
           size='large'
           onClick={connect}
           disabled={isConnected}
         >
           Присоединиться
-        </Button>
-        <Button
+        </ButtonMaterial>
+        <ButtonMaterial
           variant='contained'
           size='large'
           onClick={() => {
@@ -144,7 +145,7 @@ export const TaskPage: FC = () => {
           }}
         >
           Выйти
-        </Button>
+        </ButtonMaterial>
         {isConnected && <CircularProgress />}
         {isConnected && (
           <Typography component='div' variant='h6'>
@@ -157,15 +158,16 @@ export const TaskPage: FC = () => {
 
   return (
     <main className={cls.main}>
-      <button
+      <Button
         className={cls.leaveRoomButton}
         type='button'
+        isOrange={false}
+        text='Выйти из комнаты'
         onClick={() => {
           void handleDisconnect()
         }}
       >
-        Выйти из комнаты
-      </button>
+      </Button>
       <div className={cls.container}>
         <h1 className={cls.mainTitle}>{taskData?.title}</h1>
         <div className={cls.descriptionContainer}>

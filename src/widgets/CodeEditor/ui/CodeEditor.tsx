@@ -11,8 +11,8 @@ import { javascript } from '@codemirror/lang-javascript'
 import { darcula } from '@uiw/codemirror-theme-darcula'
 import { duotoneLight } from '@uiw/codemirror-theme-duotone'
 import { ThemeContext } from 'app/context/ThemeContext'
+import { Button } from 'shared/components'
 import cls from './CodeEditor.module.css'
-import classNames from 'classnames'
 
 interface CodeEditorProps {
   socket: MutableRefObject<WebSocket | null | undefined>
@@ -98,15 +98,16 @@ export const CodeEditor: FC<CodeEditorProps> = ({
           <TimerCustom ms={taskTime} setTime={setTimer} />
         )
         : (
-          <button
-            className={classNames(cls.mainButton, cls.readyButton)}
+          <Button
+            className={cls.readyButton}
             type='button'
+            text='Готов'
+            isOrange
             onClick={() => {
               setIsReady(true)
             }}
           >
-          Готов
-          </button>
+          </Button>
         )}
       <div className={cls.codeEditorsContainer}>
         <div className={cls.codeEditorContainer}>
@@ -122,15 +123,16 @@ export const CodeEditor: FC<CodeEditorProps> = ({
           <div className={cls.submitContainer}>
             {message.length > 0 && <div className={cls.alarm}>{message}</div>}
             {isReady && (
-              <button
-                className={classNames(cls.mainButton, cls.submitButton)}
+              <Button
+                className={cls.submitButton}
                 type='button'
+                isOrange
+                text='Отправить'
                 onClick={() => {
                   void handleValidateCode()
                 }}
               >
-                Отправить
-              </button>
+              </Button>
             )}
           </div>
         </div>
