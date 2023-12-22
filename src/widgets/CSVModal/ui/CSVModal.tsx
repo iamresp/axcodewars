@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 import { DropzoneCsv } from 'features/DropzoneCSV'
 import { Button, Modal } from 'shared/components'
 import taskService from 'entities/TaskApi/task.service'
-import { type ICreateTask } from 'entities/TaskApi/task.interface'
 
 import cls from './styles.module.css'
 
@@ -45,7 +44,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
     e.preventDefault()
 
     try {
-      const promiseArr: Array<Promise<ICreateTask>> = []
+      const promiseArr = []
 
       for (const [title, description, ...results] of data) {
         promiseArr.push(
@@ -65,7 +64,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
       } else {
         tasksData.forEach((res, i) => {
           if (res.status === 'rejected') {
-            toast.error(`Ошибка таски: ${data[i][0]} - ${res.reason}`, {
+            toast.error(`${data[i][0]} - ${res.reason.message}`, {
               autoClose: 15000 + i * 2000
             })
             console.error(res)

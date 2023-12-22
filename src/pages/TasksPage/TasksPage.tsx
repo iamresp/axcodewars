@@ -50,9 +50,9 @@ export const TasksPage: FC = () => {
       setTasks(tasks)
       setFilteredTasks(tasks)
     } catch (error: any) {
-      // console.log(error)
+      console.error(error)
       // throw error
-      toast.error(error?.message)
+      // toast.error(error?.message)
       setErr(error)
 
       // throw new Error()

@@ -29,10 +29,9 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
       setTitle(data.title)
       setDescription(data.description)
 
-      setTaskCase(() =>
-        data.results.map(([key, value]) => {
-          return { args: key, result: value }
-        })
+      setTaskCase(() => data.results.map(([key, value]) => {
+        return { args: key, result: value }
+      })
       )
     } catch (error) {
       console.error(error)
