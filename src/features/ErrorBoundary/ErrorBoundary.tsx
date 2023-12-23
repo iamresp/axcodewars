@@ -1,4 +1,6 @@
 import React, { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Button } from 'shared/components'
+import cls from './styles.module.css'
 
 interface Props {
   children: ReactNode
@@ -6,8 +8,9 @@ interface Props {
 
 interface State {
   hasError: boolean
-  error: string | number
+  error: string
 }
+
 class ErrorBoundary extends Component<Props, State> {
   constructor (props: Props) {
     super(props)
@@ -29,11 +32,15 @@ class ErrorBoundary extends Component<Props, State> {
 
   render (): ReactNode {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
       return (
-        <h1>
-          Something went wrong. Error: {this.state.error}
-        </h1>)
+        <div className={cls.errorBoundary}>
+          <h1 className={cls.title}>{this.state.error}</h1>
+          {/* <h2 className={cls.code}>{this.state.error}</h2> */}
+          <Button onClick={() => {
+            window.location.reload()
+          }} text='На главную' isOrange className={cls.redirectBtn}/>
+        </div>
+      )
     }
 
     return this.props.children

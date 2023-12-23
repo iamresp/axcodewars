@@ -21,7 +21,7 @@ class TaskService {
 
   async getTasks (): Promise<IGetTasks> {
     try {
-      const response = await fetch(`${this._URL}/taskws`, {
+      const response = await fetch(`${this._URL}/tasksERROR`, {
         method: 'GET',
         headers: this._headers
       })
