@@ -7,7 +7,7 @@ import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
 import cls from './TasksPage.module.css'
-import { toast } from 'react-toastify'
+import { useThrowAsyncError } from 'shared/hooks/useThrowAsyncError'
 
 export const TasksPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
@@ -17,7 +17,8 @@ export const TasksPage: FC = () => {
   const [isCreateOpen, openCreateModal, closeCreateModal] = useModalState()
   const [isEditOpen, openEditModal, closeEditModal] = useModalState()
   const [isCSVOpen, openCSVModal, closeCSVModal] = useModalState()
-  const [err, setErr] = useState<any>()
+
+  const throwError = useThrowAsyncError()
 
   const handleCreateOpen = (): void => {
     openCreateModal()
@@ -49,13 +50,8 @@ export const TasksPage: FC = () => {
       const tasks = await taskService.getTasks()
       setTasks(tasks)
       setFilteredTasks(tasks)
-    } catch (error: any) {
-      console.error(error)
-      // throw error
-      // toast.error(error?.message)
-      setErr(error)
-
-      // throw new Error()
+    } catch (error) {
+      throwError(error)
     }
   }
 
