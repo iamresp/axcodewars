@@ -109,8 +109,8 @@ export const ProfileEditPage: FC = () => {
             <AvatarLoading
               isProfile
               className={cls.avatarLoading}
-              imageUrl={avatar}
-              setImageUrl={setAvatar}
+              image={avatar}
+              setImage={setAvatar}
             />
           </div>
         )}

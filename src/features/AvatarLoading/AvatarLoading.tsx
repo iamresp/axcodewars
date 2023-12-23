@@ -3,21 +3,21 @@ import classNames from 'classnames'
 import cls from './AvatarLoading.module.css'
 
 interface AvatarLoadingProps {
-  imageUrl?: File
-  setImageUrl: React.Dispatch<React.SetStateAction<File | undefined>>
+  image?: File
+  setImage: React.Dispatch<React.SetStateAction<File | undefined>>
   isProfile?: boolean
   className?: string
 }
 
 export const AvatarLoading: FC<AvatarLoadingProps> = ({
-  imageUrl,
-  setImageUrl,
+  image,
+  setImage,
   isProfile = false,
   className
 }) => {
   const handleImage = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files?.[0] != null) {
-      setImageUrl(event.target.files[0])
+      setImage(event.target.files[0])
     }
   }
 
@@ -39,7 +39,7 @@ export const AvatarLoading: FC<AvatarLoadingProps> = ({
           <img src='/images/avatarDownload.svg' alt='avatarLoadingIcon' />
         )}
         <span className={cls.regSpan}>
-          {imageUrl != null ? imageUrl.name : 'Загрузить аватар'}
+          {image != null ? image.name : 'Загрузить аватар'}
         </span>
       </label>
     </>
