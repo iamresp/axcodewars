@@ -35,10 +35,10 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div className={cls.errorBoundary}>
           <h1 className={cls.title}>{this.state.error}</h1>
-          {/* <h2 className={cls.code}>{this.state.error}</h2> */}
           <Button onClick={() => {
             window.location.reload()
-          }} text='На главную' isOrange className={cls.redirectBtn}/>
+          }} text='Перезагрузить страницу'
+          isOrange className={cls.redirectBtn}/>
         </div>
       )
     }
