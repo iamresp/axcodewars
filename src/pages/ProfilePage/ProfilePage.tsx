@@ -1,5 +1,5 @@
 import React, { type FC } from 'react'
-import { useAuth } from '../../shared/hooks/useAuth'
+import { useAuth } from 'shared/hooks/useAuth'
 import { Link } from 'react-router-dom'
 
 import cls from './ProfilePage.module.css'
