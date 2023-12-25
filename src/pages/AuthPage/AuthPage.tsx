@@ -1,12 +1,11 @@
 import React, { type FC, type FormEvent, useState } from 'react'
 import { AUTH_STATE } from './constants'
 import userService from '../../entities/UserApi/user.service'
-import { AvatarLoading } from 'features/AvatarLoading/AvatarLoading'
-import { Button } from 'shared/components/Button/Button'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { AvatarLoading } from 'features/AvatarLoading'
+import { Button, InputCustom } from 'shared/components'
+import { Wrapper } from 'entities/Wrapper'
 
 import cls from './AuthPage.module.css'
-import { InputCustom } from 'shared/components'
 
 export const AuthPage: FC = () => {
   const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
@@ -86,7 +85,6 @@ export const AuthPage: FC = () => {
         >
           <InputCustom
             required
-            // className={cls.regInput}
             placeholder='Имя'
             value={username}
             onChange={event => {
@@ -95,7 +93,6 @@ export const AuthPage: FC = () => {
           />
           <InputCustom
             required
-            // className={cls.regInput}
             placeholder='Пароль'
             type='password'
             value={password}
@@ -109,7 +106,7 @@ export const AuthPage: FC = () => {
           {(errorMessage !== '') &&
               (<span className={cls.errorText}>{errorMessage}</span>)
           }
-          <Button text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'} type={'submit'} className={cls.regButton} />
+          <Button isOrange text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'} type={'submit'} className={cls.regButton} />
         </form>
       </div>
     </Wrapper>
