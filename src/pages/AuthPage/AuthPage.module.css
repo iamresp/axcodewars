@@ -4,8 +4,6 @@
   display: flex;
   justify-content: space-evenly;
   margin: auto;
-  max-width: 1920px;
-  width: 100%;
   height: calc(100vh - (var(--header-height) + var(--footer-height)));
 }
 
