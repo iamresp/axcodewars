@@ -8,28 +8,28 @@
 
 @media (width <= 1200px){
 
-.wrapper{
-  padding: 0 98px;
-}
+  .wrapper{
+    padding: 0 98px;
+  }
 }
 
 @media (width <= 940px){
 
   .wrapper{
-      padding: 0 40px;
+    padding: 0 40px;
   }
 }
 
 @media (width <= 480px){
 
   .wrapper{
-      padding: 0 30px;
+    padding: 0 30px;
   }
 }
 
 @media (width <= 320px){
 
   .wrapper{
-      padding: 0 15px;
+    padding: 0 15px;
   }
 }

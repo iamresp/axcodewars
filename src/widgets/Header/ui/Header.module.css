@@ -1,49 +1,49 @@
 .header {
-    align-self: center;
-    display: flex;
-    height: 100px;
-    justify-content: space-between;
-    margin: 0 auto 50px;
-    max-width: 1920px;
-    width: 100%;
+  align-self: center;
+  display: flex;
+  height: var(--footer-height);
+  justify-content: space-between;
+  margin: 0 auto 50px;
+  max-width: 1920px;
+  width: 100%;
 }
 
 .headerLeft {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .headerRight{
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .profileImg{
-    background-color: var(--orange-color);
-    border-radius: 100%;
-    height: 35px;
-    margin-right: 25px;
-    width: 35px;
+  background-color: var(--orange-color);
+  border-radius: 100%;
+  height: 35px;
+  margin-right: 25px;
+  width: 35px;
 }
 
 .profileCont{
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    margin-right: 67px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-right: 67px;
 }
 
 .link:hover{
-    color: var(--orange-color);
+  color: var(--orange-color);
 }
 
 @media (width = 480px) {
 
-    .profileCont{
-        margin-right: 10px;
-    }
+  .profileCont{
+    margin-right: 10px;
+  }
 }
