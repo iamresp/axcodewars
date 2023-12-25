@@ -1,7 +1,7 @@
 .main {
     align-items: center;
-    display: flex;
     column-gap: 30px;
+    display: flex;
     justify-content: space-evenly;
     margin: auto;
     max-width: 1920px;
@@ -36,8 +36,8 @@
 @media (width <= 1200px) {
 
     .regImage {
-        width: 459px;
         height: 446px;
+        width: 459px;
     }
 }
 
@@ -52,64 +52,48 @@
     }
 }
 
-@media (width <= 768px) {
-
-  .main .regInput {
-    width: 350px;
-  }
-}
-
-@media (width <= 480px) {
-
-  .main .regInput {
-    width: 270px;
-  }
-}
-
 .regFormContainer {
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
     font-size: 32px;
     font-weight: 600;
     height: 500px;
     max-width: 620px;
-    padding: 50px 100px;
+    padding: 50px 70px;
+    width: 100%;
 }
 
-@media (max-width <= 1200px) {
+@media (width <= 1200px) {
+
     .regFormContainer{
-        width: 510px;
         padding: 50px 45px;
     }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
+
     .regFormContainer{
-        width: 510px;
         padding: 50px 30px;
-        margin: 0 auto;
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
+
     .regFormContainer{
-        width: 400px;
         padding: 50px 30px;
-        margin: 0 auto;
     }
 }
 
-@media (max-width: 320px) {
+@media (width <= 340px) {
+
     .regFormContainer{
-        width: 285px;
-        padding: 50px 20px;
+        padding: 50px 0;
     }
 }
 
 .regInput {
-    border: 1px solid var(--orange-color);
     background-color: var(--main-color);
+    border: 1px solid var(--orange-color);
     border-radius: 3px;
     font-family: Montserrat, sans-serif;
     font-size: 16px;
@@ -143,13 +127,6 @@
     width: 220px;
 }
 
-@media (width <= 785px) {
-
-    .regButton {
-        margin: 60px auto 0;
-    }
-}
-
 .regButton:hover {
     background-color: #cb5d1d;
     transition: 0.4s;
@@ -168,6 +145,13 @@
     font-size: 18px;
     font-weight: 400;
     padding-left: 5px;
+}
+
+@media (width <= 320px){
+
+    .regSelectTextButton{
+        padding-left: 0;
+    }
 }
 
 .form {
