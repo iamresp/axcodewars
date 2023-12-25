@@ -3,7 +3,7 @@ footer{
   align-items: center;
   justify-content: space-between;
   height: var(--header-height);
-  margin: 70px auto 0;
+  margin: 0 auto;
 }
 
 @media (max-width: 780px){
