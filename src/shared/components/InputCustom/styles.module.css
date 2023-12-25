@@ -9,6 +9,11 @@
   margin-top: 30px;
   padding-left: 30px;
   width: 100%;
+
+  &::-ms-reveal {
+    width : 0;
+    height: 0;
+  }
 }
 
 @media screen and (width <= 480px) {
@@ -18,3 +23,5 @@
     padding: 18px 15px;
   }
 }
+
+

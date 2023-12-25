@@ -6,6 +6,10 @@ footer{
   margin: 0 auto;
 }
 
+.wrapper{
+  margin: 0 auto;
+}
+
 @media (max-width: 780px){
   footer{
     margin: 50px auto 0;

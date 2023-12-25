@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.wrapper{
+  margin: 0 auto;
+}
+
 .headerLeft {
   align-items: center;
   display: flex;
