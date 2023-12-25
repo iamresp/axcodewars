@@ -1,13 +1,13 @@
 footer{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 100px;
-    margin: 70px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  margin: 70px auto 0;
 }
 
 @media (max-width: 780px){
-    footer{
-        margin: 50px auto 0;
-    }
+  footer{
+      margin: 50px auto 0;
+  }
 }
