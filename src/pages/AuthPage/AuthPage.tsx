@@ -4,6 +4,7 @@ import userService from '../../entities/UserApi/user.service'
 import { AvatarLoading } from '../../features/AvatarLoading/AvatarLoading'
 
 import cls from './AuthPage.module.css'
+import { toast } from 'react-toastify'
 
 export const AuthPage: FC = () => {
   const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
@@ -30,7 +31,8 @@ export const AuthPage: FC = () => {
         await userService.authenticateUser({ hash: password, username })
         setErrorMessage('')
       } catch (error) {
-        throw new Error()
+        // throw new Error()
+        error instanceof Error && toast.error(error.message)
       }
 
       return
@@ -45,7 +47,8 @@ export const AuthPage: FC = () => {
       setErrorMessage('')
       await userService.authenticateUser({ hash: password, username })
     } catch (error) {
-      throw new Error()
+      // throw new Error()
+      error instanceof Error && toast.error(error.message)
     }
   }
 
@@ -101,7 +104,7 @@ export const AuthPage: FC = () => {
             }}
           />
           {auth === 'registration' && (
-              <AvatarLoading imageUrl={imageUrl} setImageUrl={setImageUrl}/>
+            <AvatarLoading imageUrl={imageUrl} setImageUrl={setImageUrl}/>
           )}
           {(errorMessage !== '') &&
               (<span className={cls.errorText}>{errorMessage}</span>)

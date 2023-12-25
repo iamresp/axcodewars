@@ -16,6 +16,7 @@ import {
 } from '@mui/material'
 
 import cls from './TaskPage.module.css'
+import { toast } from 'react-toastify'
 
 const taskTime = 300000
 
@@ -46,7 +47,8 @@ export const TaskPage: FC = () => {
         setTaskData(data)
         setRightResult(data.results[0][1])
       } catch (error) {
-        throw new Error()
+        // throw new Error()
+        error instanceof Error && toast.error(error.message)
       }
     }
 
@@ -239,19 +241,19 @@ export const TaskPage: FC = () => {
         </div>
         {isReady
           ? (
-          <TimerCustom ms={taskTime} setTime={setTimer} />
-            )
+            <TimerCustom ms={taskTime} setTime={setTimer} />
+          )
           : (
-          <button
-            className={classNames(cls.mainButton, cls.readyButton)}
-            type='button'
-            onClick={() => {
-              setIsReady(true)
-            }}
-          >
+            <button
+              className={classNames(cls.mainButton, cls.readyButton)}
+              type='button'
+              onClick={() => {
+                setIsReady(true)
+              }}
+            >
             Готов
-          </button>
-            )}
+            </button>
+          )}
         <div className={cls.codeEditorsContainer}>
           <div className={cls.codeEditorContainer}>
             {isReady && (
