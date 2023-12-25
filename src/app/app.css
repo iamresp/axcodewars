@@ -1,6 +1,6 @@
 :root {
   --main-color: #fff;
-  --submain-color: #fffaf8;
+  --submain-color: #ffe8df;
   --text-color: #000;
   --orange-color: #f37022;
   --black-color: #000;
@@ -12,7 +12,7 @@
 
 [data-theme='light'] {
   --main-color: #fff;
-  --submain-color: #fffaf8;
+  --submain-color: #ffe8df;
   --text-color: #000;
   --orange-color: #f37022;
   --black-color: #000;
