@@ -1,10 +1,11 @@
-import { AuthPage } from '../../pages/AuthPage/AuthPage'
+import { AuthPage } from 'pages/AuthPage/AuthPage'
 import { Navigate } from 'react-router-dom'
-import { TaskPage } from '../../pages/TaskPage/TaskPage'
-import { TasksPage } from '../../pages/TasksPage/TasksPage'
-import { ProfilePage } from '../../pages/ProfilePage/ProfilePage'
+import { TaskPage } from 'pages/TaskPage/TaskPage'
+import { TasksPage } from 'pages/TasksPage/TasksPage'
+import { ProfilePage } from 'pages/ProfilePage/ProfilePage'
+import { ErrorPage } from 'pages/ErrorPage/ErrorPage'
+
 import React from 'react'
-import ErrorPage from 'pages/ErrorPage/ErrorPage'
 window.React = React
 
 export const publicRoutes = [

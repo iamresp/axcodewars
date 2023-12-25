@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { type FC } from 'react'
 import cls from './ErrorPage.module.css'
 import Lottie from 'lottie-react'
 import animationData from '../../../public/error404.json'
 import { Button } from 'shared/components'
 import { Link } from 'react-router-dom'
 
-const ErrorPage = () => {
+export const ErrorPage: FC = () => {
   return (
     <div className={cls.main}>
       <Lottie animationData={animationData} style={{ height: 500 }} />
