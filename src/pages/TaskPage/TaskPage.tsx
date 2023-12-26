@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 
 import cls from './TaskPage.module.css'
-import { CodeEditor } from 'widgets/CodeEditor'
+import { CodeEditors } from 'widgets/CodeEditors'
 
 export const TaskPage: FC = () => {
   const { id } = useParams()
@@ -86,20 +86,20 @@ export const TaskPage: FC = () => {
     }
   }
 
-  const handleAttempt = async (): Promise<void> => {
+  const handleAttempt = (): void => {
     const message = { event: 'attempt' }
     socket.current?.send(JSON.stringify(message))
     setAttempts(attempts + 1)
   }
 
-  const handleWin = async (): Promise<void> => {
+  const handleWin = (): void => {
     const message = { event: 'win' }
     socket.current?.send(JSON.stringify(message))
     setGameMessage(`Вы победили с ${attempts} попытки!`)
     setOpen(true)
   }
 
-  const handleDisconnect = async (): Promise<void> => {
+  const handleDisconnect = (): void => {
     const message = { event: 'decline' }
     socket.current?.send(JSON.stringify(message))
 
@@ -164,7 +164,7 @@ export const TaskPage: FC = () => {
         isOrange={false}
         text='Выйти из комнаты'
         onClick={() => {
-          void handleDisconnect()
+          handleDisconnect()
         }}
       >
       </Button>
@@ -181,7 +181,7 @@ export const TaskPage: FC = () => {
             </p>
           </div>
         </div>
-        <CodeEditor
+        <CodeEditors
           socket={socket}
           rightResult={rightResult}
           attempts={attempts}

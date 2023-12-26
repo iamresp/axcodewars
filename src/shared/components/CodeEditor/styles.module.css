@@ -1,14 +1,3 @@
-.codeEditorsContainer {
-  display: flex;
-  gap: 70px;
-  justify-content: space-between;
-}
-
-.attempts {
-  font-weight: 500;
-  margin: 0 0 10px;
-}
-
 .codeEditorContainer {
   max-width: 670px;
   width: 100%;
@@ -18,20 +7,13 @@
   height: 670px;
 }
 
+.attempts {
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
 .submitContainer {
   margin: 0;
-}
-
-.alarm {
-  background: var(--submain-color);
-  border-radius: 3px;
-  margin: 17px 0 0;
-  padding: 18px 36px;
-}
-
-.readyButton {
-  margin: 70px 0;
-  width: 180px;
 }
 
 .submitButton {
@@ -39,12 +21,14 @@
   width: 180px;
 }
 
+.alarm {
+  background: var(--submain-color);
+  border-radius: 3px;
+  margin: 17px 0 0;
+  padding: 25px 36px;
+}
 
 @media (width <= 1200px) {
-
-  .codeEditorsContainer {
-    display: block;
-  }
 
   .codeEditorContainer {
     max-width: none;
@@ -73,22 +57,11 @@
 
 @media (width <= 768px) {
 
-  .readyButton {
-    margin: 50px 0;
-  }
-
   .submitContainer {
     display: block;
   }
 
   .alarm {
     margin-bottom: 20px;
-  }
-}
-
-@media (width <= 380px) {
-
-  .leaveRoomButton {
-    margin: 50px 0;
   }
 }
