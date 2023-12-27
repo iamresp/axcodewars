@@ -1,0 +1,35 @@
+.wrapper{
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1920px;
+  padding: 0 200px;
+  width: 100%;
+}
+
+@media (width <= 1200px){
+
+.wrapper{
+  padding: 0 98px;
+}
+}
+
+@media (width <= 940px){
+
+  .wrapper{
+      padding: 0 40px;
+  }
+}
+
+@media (width <= 480px){
+
+  .wrapper{
+      padding: 0 30px;
+  }
+}
+
+@media (width <= 320px){
+
+  .wrapper{
+      padding: 0 15px;
+  }
+}

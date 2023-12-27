@@ -16,27 +16,27 @@ export const AvatarLoading: FC<AvatarLoadingProps> = ({ imageUrl, setImageUrl })
   }
 
   return (
-        <>
-            <input
-                className={cls.regInput}
-                placeholder='Загузка аватара'
-                type='file'
-                id='avatarLoading'
-                accept='image/png, image/jpeg, image/svg'
-                onChange={handleImage}
-            />
-            <label
-                className={cls.regLabel}
-                htmlFor='avatarLoading'
-            >
-                <img src='/images/avatarDownload.svg' alt='avatarLoadingIcon'/>
-                <span className={cls.regSpan}>
-                    {(imageUrl != null) &&
-                    imageUrl?.length > 0
-                      ? imageUrl
-                      : 'Загрузить аватар'}
-                </span>
-            </label>
-        </>
+    <>
+      <input
+        className={cls.regInput}
+        placeholder='Загузка аватара'
+        type='file'
+        id='avatarLoading'
+        accept='image/png, image/jpeg, image/svg'
+        onChange={handleImage}
+      />
+      <label
+        className={cls.regLabel}
+        htmlFor='avatarLoading'
+      >
+        <img src='/images/avatarDownload.svg' alt='avatarLoadingIcon'/>
+        <span className={cls.regSpan}>
+          {(imageUrl != null) &&
+          imageUrl?.length > 0
+            ? imageUrl
+            : 'Загрузить аватар'}
+        </span>
+      </label>
+    </>
   )
 }

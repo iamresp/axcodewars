@@ -5,6 +5,7 @@ import { useAuth } from '../../../shared/hooks/useAuth'
 import cls from '../ui/Header.module.css'
 import { Link } from 'react-router-dom'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 
 export default function Header (): JSX.Element {
   const [value, setValue] = React.useState(false)
@@ -34,26 +35,28 @@ export default function Header (): JSX.Element {
   }
 
   return (
-    <header className={cls.header}>
-      <div className={cls.headerLeft}>
-        <Link to={'/tasks'}>
-          <LogoSvgComponent/>
-        </Link>
-      </div>
-      <div className={cls.headerRight}>
-        {isAuth && (
-          <div className={cls.profileCont}>
-            <img className={cls.profileImg} src={user.avatar} alt={'UserLogo'}/>
-            <Link className={cls.link} to={'/profile'}>
-              {user.username}
-            </Link>
-          </div>
-        )}
-        <ThemeSwitcher
-          isOn={value}
-          handleToggle={handleToggle}
-        />
-      </div>
-    </header>
+    <Wrapper>
+      <header className={cls.header}>
+        <div className={cls.headerLeft}>
+          <Link to={'/tasks'}>
+            <LogoSvgComponent/>
+          </Link>
+        </div>
+        <div className={cls.headerRight}>
+          {isAuth && (
+            <div className={cls.profileCont}>
+              <img className={cls.profileImg} src={user.avatar} alt={'UserLogo'}/>
+              <Link className={cls.link} to={'/profile'}>
+                {user.username}
+              </Link>
+            </div>
+          )}
+          <ThemeSwitcher
+            isOn={value}
+            handleToggle={handleToggle}
+          />
+        </div>
+      </header>
+    </Wrapper>
   )
 }
