@@ -6,6 +6,7 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 import cls from './TasksPage.module.css'
 
 export const TasksPage: FC = () => {
@@ -34,8 +35,7 @@ export const TasksPage: FC = () => {
   const handleSearch = useCallback(
     (searchTerm: string) => {
       const filtered = tasks.filter(
-        task =>
-          task.title?.length > 0 &&
+        task => task.title?.length > 0 &&
           task.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredTasks(filtered)
@@ -58,7 +58,7 @@ export const TasksPage: FC = () => {
   }, [])
 
   return (
-    <div className={cls.main}>
+    <Wrapper>
       <h1 className={cls.title}>Таски</h1>
       <div className={cls.taskControlPanel}>
         <div className={cls.taskInteraction}>
@@ -77,32 +77,34 @@ export const TasksPage: FC = () => {
         </button>
       </div>
       <div className={cls.tasks}>
-        {filteredTasks.length > 0 ? (
-          filteredTasks.map(task => (
-            <div className={cls.task} key={task.title}>
-              <h1 className={cls.taskTitle}>{task.title}</h1>
-              <div className={cls.taskOperations}>
-                <button
-                  type='button'
-                  className={cls.taskEdit}
-                  onClick={() => {
-                    handleEditOpen(task.uuid)
-                  }}
-                >
+        {filteredTasks.length > 0
+          ? (
+            filteredTasks.map(task => (
+              <div className={cls.task} key={task.title}>
+                <h1 className={cls.taskTitle}>{task.title}</h1>
+                <div className={cls.taskOperations}>
+                  <button
+                    type='button'
+                    className={cls.taskEdit}
+                    onClick={() => {
+                      handleEditOpen(task.uuid)
+                    }}
+                  >
                   Редактировать
-                </button>
-                <Link to={'/'} className={cls.taskEnter}>
-                  <img src='arrow-right.svg' alt='arrow' />
-                </Link>
+                  </button>
+                  <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
+                    <img src='arrow-right.svg' alt='arrow' />
+                  </Link>
+                </div>
               </div>
+            ))
+          )
+          : (
+            <div className={cls.notFound}>
+              <img src='logo192.png' alt='' />
+              <p>Not Found Tasks</p>
             </div>
-          ))
-        ) : (
-          <div className={cls.notFound}>
-            <img src='logo192.png' alt='' />
-            <p>Not Found Tasks</p>
-          </div>
-        )}
+          )}
       </div>
       <CreateTaskModal
         isOpen={isCreateOpen}
@@ -121,6 +123,6 @@ export const TasksPage: FC = () => {
         close={closeCSVModal}
         getTasks={fetchTasks}
       />
-    </div>
+    </Wrapper>
   )
 }
