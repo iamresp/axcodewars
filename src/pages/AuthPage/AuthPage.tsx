@@ -11,7 +11,7 @@ export const AuthPage: FC = () => {
   const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
+  const [image, setImage] = useState<File>()
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleAuth = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -20,7 +20,7 @@ export const AuthPage: FC = () => {
     if (
       username === '' ||
       password === '' ||
-      (auth === AUTH_STATE.REGISTRATION && imageUrl === '')
+      (auth === AUTH_STATE.REGISTRATION && image === undefined)
     ) {
       setErrorMessage('Поля не должны быть пустыми')
 
@@ -40,7 +40,7 @@ export const AuthPage: FC = () => {
 
     try {
       await userService.createUser({
-        avatar: imageUrl,
+        avatar: image?.name ?? '',
         hash: password,
         username
       })
@@ -104,12 +104,13 @@ export const AuthPage: FC = () => {
               }}
             />
             {auth === 'registration' && (
-              <AvatarLoading imageUrl={imageUrl} setImageUrl={setImageUrl}/>
+              <AvatarLoading image={image} setImage={setImage} />
             )}
-            {(errorMessage !== '') &&
-              (<span className={cls.errorText}>{errorMessage}</span>)
+            {errorMessage !== '' &&
+                <span className={cls.errorText}>{errorMessage}</span>
             }
-            <Button text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'} type={'submit'} className={cls.regButton} />
+            <Button text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
+              type={'submit'} className={cls.regButton} />
           </form>
         </div>
       </main>

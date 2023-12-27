@@ -6,8 +6,8 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
-import cls from './TasksPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
+import cls from './TasksPage.module.css'
 
 export const TasksPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
