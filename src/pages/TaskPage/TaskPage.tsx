@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 
 import cls from './TaskPage.module.css'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 import { CodeEditors } from 'widgets/CodeEditors'
 
 export const TaskPage: FC = () => {
@@ -157,7 +158,7 @@ export const TaskPage: FC = () => {
   }
 
   return (
-    <main className={cls.main}>
+    <Wrapper>
       <Button
         className={cls.leaveRoomButton}
         type='button'
@@ -192,6 +193,6 @@ export const TaskPage: FC = () => {
           isTimeOutLose={isTimeOutLose}
         />
       </div>
-    </main>
+    </Wrapper>
   )
 }

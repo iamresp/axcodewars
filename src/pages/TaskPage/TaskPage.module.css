@@ -70,10 +70,6 @@
 
 @media (width <= 768px) {
 
-  body {
-    padding: 0 30px;
-  }
-
   .main {
     max-width: 700px;
   }
@@ -91,10 +87,6 @@
 }
 
 @media (width <= 380px) {
-
-  body {
-    padding: 0 15px;
-  }
 
   .main {
     max-width: 290px;
