@@ -1,177 +1,179 @@
 .main {
-    align-items: center;
-    display: flex;
-    column-gap: 30px;
-    justify-content: space-evenly;
-    margin: auto;
-    max-width: 1920px;
-    width: 100%;
+  align-items: center;
+  column-gap: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+  max-width: 1920px;
+  width: 100%;
 }
 
 .errorText {
-    color: red;
-    font-size: 16px;
-    margin: 12px 0;
+  color: red;
+  font-size: 16px;
+  margin: 12px 0;
 }
 
 .regImage {
-    width: 55%;
+  width: 55%;
 }
 
 @media (width <= 1600px) {
-  
+
   .main {
-    justify-content: space-between;
+      justify-content: space-between;
   }
 
   .regImage {
-    width: 50%;
+      width: 50%;
   }
 
   .main .regForm {
-    height: 450px;
+      height: 450px;
   }
 }
 
 @media (width <= 1200px) {
 
-    .regImage {
-        width: 459px;
-        height: 446px;
-    }
+  .regImage {
+      height: 446px;
+      width: 459px;
+  }
 }
 
 @media (width <= 1100px) {
 
   .main {
-    flex-direction: column;
+      flex-direction: column;
   }
 
-    .regImage {
-        display: none;
-    }
+  .regImage {
+      display: none;
+  }
 }
 
 @media (width <= 768px) {
 
   .main .regInput {
-    width: 350px;
+      width: 350px;
   }
 }
 
 @media (width <= 480px) {
 
   .main .regInput {
-    width: 270px;
+      width: 270px;
   }
 }
 
 .regFormContainer {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0;
-    font-size: 32px;
-    font-weight: 600;
-    height: 500px;
-    max-width: 620px;
-    padding: 50px 100px;
+  display: flex;
+  flex-direction: column;
+  font-size: 32px;
+  font-weight: 600;
+  height: 500px;
+  max-width: 620px;
 }
 
-@media (max-width <= 1200px) {
-    .regFormContainer{
-        width: 510px;
-        padding: 50px 45px;
-    }
+@media (width <= 1200px) {
+
+  .regFormContainer{
+    padding: 50px 45px;
+    width: 510px;
+  }
 }
 
-@media (max-width: 768px) {
-    .regFormContainer{
-        width: 510px;
-        padding: 50px 30px;
-        margin: 0 auto;
-    }
+@media (width <= 768px) {
+
+  .regFormContainer{
+    margin: 0 auto;
+    padding: 50px 30px;
+    width: 510px;
+  }
 }
 
-@media (max-width: 480px) {
-    .regFormContainer{
-        width: 400px;
-        padding: 50px 30px;
-        margin: 0 auto;
-    }
+@media (width <= 480px) {
+
+  .regFormContainer{
+    margin: 0 auto;
+    padding: 50px 30px;
+    width: 400px;
+  }
 }
 
-@media (max-width: 320px) {
-    .regFormContainer{
-        width: 285px;
-        padding: 50px 20px;
-    }
+@media (width <= 320px) {
+
+  .regFormContainer{
+    padding: 50px 20px;
+    width: 285px;
+  }
 }
 
 .regInput {
-    border: 1px solid var(--orange-color);
-    background-color: var(--main-color);
-    border-radius: 3px;
-    font-family: Montserrat, sans-serif;
-    font-size: 16px;
-    height: 60px;
-    margin-top: 30px;
-    padding-left: 30px;
-    width: 420px;
+  background-color: var(--main-color);
+  border: 1px solid var(--orange-color);
+  border-radius: 3px;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  height: 60px;
+  margin-top: 30px;
+  padding-left: 30px;
+  width: 420px;
 }
 
 .regInput::placeholder {
-    color: var(--text-color);
-    font-family: Montserrat, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
+  color: var(--text-color);
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .regButton {
-    background-color: var(--orange-color);
-    border: none;
-    border-radius: 3px;
-    box-shadow: 0 4px 4px #26323820;
-    color: azure;
-    cursor: pointer;
-    font-family: Montserrat, sans-serif;
-    font-size: 18px;
-    height: 70px;
-    justify-self: flex-end;
-    margin-top: 60px;
-    text-transform: uppercase;
-    transition: 0.4s;
-    width: 220px;
+  background-color: var(--orange-color);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 4px 4px #26323820;
+  color: azure;
+  cursor: pointer;
+  font-family: Montserrat, sans-serif;
+  font-size: 18px;
+  height: 70px;
+  justify-self: flex-end;
+  margin-top: 60px;
+  text-transform: uppercase;
+  transition: 0.4s;
+  width: 220px;
 }
 
 @media (width <= 785px) {
 
-    .regButton {
-        margin: 60px auto 0;
-    }
+  .regButton {
+    margin: 60px auto 0;
+  }
 }
 
 .regButton:hover {
-    background-color: #cb5d1d;
-    transition: 0.4s;
+  background-color: #cb5d1d;
+  transition: 0.4s;
 }
 
 .regSelectText {
-    font-size: 18px;
-    font-weight: normal;
+  font-size: 18px;
+  font-weight: normal;
 }
 
 .regSelectTextButton {
-    background: none;
-    border: none;
-    color: var(--orange-color);
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 400;
-    padding-left: 5px;
+  background: none;
+  border: none;
+  color: var(--orange-color);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 400;
+  padding-left: 5px;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

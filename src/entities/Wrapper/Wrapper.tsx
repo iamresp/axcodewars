@@ -10,8 +10,8 @@ interface WrapperProp {
 
 export const Wrapper: FC <WrapperProp> = ({ children, className }) => {
   return (
-        <div className={classnames(cls.wrapper, className)}>
-            {children}
-        </div>
+    <div className={classnames(cls.wrapper, className)}>
+      {children}
+    </div>
   )
 }
