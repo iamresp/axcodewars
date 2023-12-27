@@ -18,8 +18,6 @@ export const TasksPage: FC = () => {
   const [isEditOpen, openEditModal, closeEditModal] = useModalState()
   const [isCSVOpen, openCSVModal, closeCSVModal] = useModalState()
 
-  // const throwError = useThrowAsyncError()
-
   const handleCreateOpen = (): void => {
     openCreateModal()
   }
@@ -51,7 +49,6 @@ export const TasksPage: FC = () => {
       setTasks(tasks)
       setFilteredTasks(tasks)
     } catch (error) {
-      // throwError(error)
       errorToast(error)
     }
   }

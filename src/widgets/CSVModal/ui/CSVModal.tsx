@@ -81,7 +81,6 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
 
       await getTasks()
     } catch (error) {
-      // throw new Error()
       errorToast(error)
     }
   }

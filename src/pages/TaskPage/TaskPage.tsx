@@ -47,7 +47,6 @@ export const TaskPage: FC = () => {
         setTaskData(data)
         setRightResult(data.results[0][1])
       } catch (error) {
-        // throw new Error()
         errorToast(error)
       }
     }
