@@ -6,9 +6,10 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
-import cls from './TaskListPage.module.css'
+import cls from './TasksListPage.module.css'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 
-export const TaskListPage: FC = () => {
+export const TasksListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
   const [filteredTasks, setFilteredTasks] = useState<IGetTaskById[]>([])
   const [getId, setGetId] = useState('')
@@ -57,7 +58,7 @@ export const TaskListPage: FC = () => {
   }, [])
 
   return (
-    <div className={cls.main}>
+    <Wrapper>
       <h1 className={cls.title}>Таски</h1>
       <div className={cls.taskControlPanel}>
         <div className={cls.taskInteraction}>
@@ -80,7 +81,7 @@ export const TaskListPage: FC = () => {
           ? (
             filteredTasks.map(task => (
               <div className={cls.task} key={task.title}>
-                <h2 className={cls.taskTitle}>{task.title}</h2>
+                <h1 className={cls.taskTitle}>{task.title}</h1>
                 <div className={cls.taskOperations}>
                   <button
                     type='button'
@@ -91,7 +92,7 @@ export const TaskListPage: FC = () => {
                   >
                   Редактировать
                   </button>
-                  <Link to={'/'} className={cls.taskEnter}>
+                  <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
                     <img src='arrow-right.svg' alt='arrow' />
                   </Link>
                 </div>
@@ -100,7 +101,7 @@ export const TaskListPage: FC = () => {
           )
           : (
             <div className={cls.notFound}>
-              <img src='logo192.png' alt='loading' />
+              <img src='logo192.png' alt='' />
               <p>Not Found Tasks</p>
             </div>
           )}
@@ -122,6 +123,6 @@ export const TaskListPage: FC = () => {
         close={closeCSVModal}
         getTasks={fetchTasks}
       />
-    </div>
+    </Wrapper>
   )
 }

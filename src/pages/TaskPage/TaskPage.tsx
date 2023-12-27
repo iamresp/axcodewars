@@ -16,6 +16,7 @@ import {
 } from '@mui/material'
 
 import cls from './TaskPage.module.css'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 
 const taskTime = 300000
 
@@ -214,7 +215,7 @@ export const TaskPage: FC = () => {
   }
 
   return (
-    <main className={cls.main}>
+    <Wrapper>
       <button
         className={cls.leaveRoomButton}
         type='button'
@@ -239,19 +240,19 @@ export const TaskPage: FC = () => {
         </div>
         {isReady
           ? (
-          <TimerCustom ms={taskTime} setTime={setTimer} />
-            )
+            <TimerCustom ms={taskTime} setTime={setTimer} />
+          )
           : (
-          <button
-            className={classNames(cls.mainButton, cls.readyButton)}
-            type='button'
-            onClick={() => {
-              setIsReady(true)
-            }}
-          >
+            <button
+              className={classNames(cls.mainButton, cls.readyButton)}
+              type='button'
+              onClick={() => {
+                setIsReady(true)
+              }}
+            >
             Готов
-          </button>
-            )}
+            </button>
+          )}
         <div className={cls.codeEditorsContainer}>
           <div className={cls.codeEditorContainer}>
             {isReady && (
@@ -298,6 +299,6 @@ export const TaskPage: FC = () => {
           </div>
         </div>
       </div>
-    </main>
+    </Wrapper>
   )
 }
