@@ -14,9 +14,9 @@ import {
   Grid,
   Typography
 } from '@mui/material'
-
-import cls from './TaskPage.module.css'
 import { errorToast } from 'shared/lib/error-toast'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
+import cls from './TaskPage.module.css'
 
 const taskTime = 300000
 
@@ -215,7 +215,7 @@ export const TaskPage: FC = () => {
   }
 
   return (
-    <main className={cls.main}>
+    <Wrapper>
       <button
         className={cls.leaveRoomButton}
         type='button'
@@ -299,6 +299,6 @@ export const TaskPage: FC = () => {
           </div>
         </div>
       </div>
-    </main>
+    </Wrapper>
   )
 }

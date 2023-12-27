@@ -3,7 +3,8 @@ import {
   type ICreateUser,
   type IAuthUser,
   type IEditUser,
-  type IGetConnectUser, type IGetUser
+  type IGetConnectUser,
+  type IGetUser
 } from './user.interface'
 import { serviceStatus } from 'entities/service-status'
 
@@ -90,10 +91,10 @@ class UserService {
     }
   }
 
-  async editUser (data: IEditUser): Promise<void> {
+  async editUser(data: IEditUser) {
     try {
       const response = await fetch(`${this._URL}/auth/user`, {
-        method: 'GET',
+        method: 'PUT',
         headers: this._headers,
         body: JSON.stringify(data)
       })

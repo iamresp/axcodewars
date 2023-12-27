@@ -6,10 +6,11 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
-import cls from './TasksPage.module.css'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 import { errorToast } from 'shared/lib/error-toast'
+import cls from './TasksListPage.module.css'
 
-export const TasksPage: FC = () => {
+export const TasksListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
   const [filteredTasks, setFilteredTasks] = useState<IGetTaskById[]>([])
   const [getId, setGetId] = useState('')
@@ -58,7 +59,7 @@ export const TasksPage: FC = () => {
   }, [])
 
   return (
-    <div className={cls.main}>
+    <Wrapper>
       <h1 className={cls.title}>Таски</h1>
       <div className={cls.taskControlPanel}>
         <div className={cls.taskInteraction}>
@@ -92,7 +93,7 @@ export const TasksPage: FC = () => {
                   >
                   Редактировать
                   </button>
-                  <Link to={'/'} className={cls.taskEnter}>
+                  <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
                     <img src='arrow-right.svg' alt='arrow' />
                   </Link>
                 </div>
@@ -123,6 +124,6 @@ export const TasksPage: FC = () => {
         close={closeCSVModal}
         getTasks={fetchTasks}
       />
-    </div>
+    </Wrapper>
   )
 }
