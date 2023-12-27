@@ -17,6 +17,7 @@ import {
 import { errorToast } from 'shared/lib/error-toast'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 import cls from './TaskPage.module.css'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 
 const taskTime = 300000
 
