@@ -16,7 +16,7 @@ import {
 } from '@mui/material'
 
 import cls from './TaskPage.module.css'
-import { toast } from 'react-toastify'
+import { errorToast } from 'shared/lib/error-toast'
 
 const taskTime = 300000
 
@@ -48,7 +48,7 @@ export const TaskPage: FC = () => {
         setRightResult(data.results[0][1])
       } catch (error) {
         // throw new Error()
-        error instanceof Error && toast.error(error.message)
+        errorToast(error)
       }
     }
 

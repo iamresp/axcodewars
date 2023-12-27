@@ -5,7 +5,7 @@ import { type TaskCaseTypes, taskObj } from '../constants'
 import taskService from 'entities/TaskApi/task.service'
 
 import cls from './styles.module.css'
-import { toast } from 'react-toastify'
+import { errorToast } from 'shared/lib/error-toast'
 
 interface EditTaskModalProps {
   isOpen: boolean
@@ -35,8 +35,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
       })
       )
     } catch (error) {
-      // console.error(error)
-      error instanceof Error && toast.error(error.message)
+      errorToast(error)
     }
   }
 

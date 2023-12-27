@@ -7,8 +7,7 @@ import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
 import cls from './TasksPage.module.css'
-import { useThrowAsyncError } from 'shared/hooks/useThrowAsyncError'
-import { toast } from 'react-toastify'
+import { errorToast } from 'shared/lib/error-toast'
 
 export const TasksPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
@@ -53,7 +52,7 @@ export const TasksPage: FC = () => {
       setFilteredTasks(tasks)
     } catch (error) {
       // throwError(error)
-      error instanceof Error && toast.error(error.message)
+      errorToast(error)
     }
   }
 

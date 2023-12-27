@@ -5,6 +5,7 @@ import { Button, Modal } from 'shared/components'
 import taskService from 'entities/TaskApi/task.service'
 
 import cls from './styles.module.css'
+import { errorToast } from 'shared/lib/error-toast'
 
 interface CSVModalProps {
   isOpen: boolean
@@ -81,7 +82,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
       await getTasks()
     } catch (error) {
       // throw new Error()
-      error instanceof Error && toast.error(error.message)
+      errorToast(error)
     }
   }
 
