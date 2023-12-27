@@ -1,4 +1,7 @@
-import { type ToastOptions, toast } from 'react-toastify'
+import {
+  type ToastOptions, toast,
+  type ToastContentProps
+} from 'react-toastify'
 
 export const toastFetchStatus = <T>(
   promise: Promise<T>,
@@ -12,7 +15,11 @@ export const toastFetchStatus = <T>(
   void toast.promise(
     promise,
     {
-      error,
+      error: {
+        render (body: ToastContentProps<{ message: string }>) {
+          return body.data?.message
+        }
+      },
       pending,
       success
     },

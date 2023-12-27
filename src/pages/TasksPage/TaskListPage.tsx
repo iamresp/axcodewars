@@ -6,8 +6,9 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
-import cls from './TasksListPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { errorToast } from 'shared/lib/error-toast'
+import cls from './TasksListPage.module.css'
 
 export const TasksListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
@@ -49,7 +50,7 @@ export const TasksListPage: FC = () => {
       setTasks(tasks)
       setFilteredTasks(tasks)
     } catch (error) {
-      console.log(error)
+      errorToast(error)
     }
   }
 

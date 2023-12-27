@@ -4,6 +4,7 @@ import {
   type IGetTaskById,
   type IGetTasks
 } from './task.interface'
+import { serviceStatus } from 'entities/service-status'
 
 class TaskService {
   private readonly _URL = process.env.REACT_APP_SERVER_URL
@@ -16,7 +17,9 @@ class TaskService {
     Authorization: `Bearer ${this._token}`
   }
 
-  async getTasks(): Promise<IGetTasks> {
+  private readonly _status = { ...serviceStatus }
+
+  async getTasks (): Promise<IGetTasks> {
     try {
       const response = await fetch(`${this._URL}/tasks`, {
         method: 'GET',
@@ -24,36 +27,19 @@ class TaskService {
       })
 
       if (!response.ok) {
-        switch (response.status) {
-          case 401:
-            console.log('Ошибка: Неавторизованный доступ')
-            break
-          case 400:
-            console.error('Ошибка: Неверный запрос')
-            break
-          case 403:
-            console.error('Ошибка: Доступ запрещен')
-            break
-          case 404:
-            console.error('Ошибка: Ресурс не найден')
-            break
-          case 500:
-            console.error('Ошибка: Внутренняя ошибка сервера')
-            break
-          default:
-            console.error('Ошибка: Неизвестная ошибка')
-        }
-        throw new Error('Ошибка сети')
+        throw new Error(
+          this._status[response.status]
+        )
       }
 
       return await response.json()
     } catch (error) {
-      console.error('Fetch error:', error)
+      console.error(error)
       throw error
     }
   }
 
-  async createTask(body: ICreateTask) {
+  async createTask (body: ICreateTask): Promise<void> {
     try {
       const res = await fetch(`${this._URL}/tasks`, {
         method: 'POST',
@@ -63,27 +49,33 @@ class TaskService {
 
       if (!res.ok) {
         throw new Error(
-          `Request failed with status ${res.status}: ${res.statusText}`
+          this._status[res.status]
         )
       }
 
       return await res.json()
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
-      throw new Error()
+      throw error
     }
   }
 
-  async getTaskById(id: string): Promise<IGetTaskById> {
+  async getTaskById (id: string): Promise<IGetTaskById> {
     try {
       const response = await fetch(`${this._URL}/tasks/${id}`, {
         method: 'GET',
         headers: this._headers
       })
 
+      if (!response.ok) {
+        throw new Error(
+          this._status[response.status]
+        )
+      }
+
       return await response.json()
     } catch (error) {
-      console.error('Fetch error:', error)
+      console.error(error)
       throw error
     }
   }
