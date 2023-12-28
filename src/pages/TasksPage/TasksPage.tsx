@@ -6,6 +6,7 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 import cls from './TasksPage.module.css'
 
 export const TasksPage: FC = () => {
@@ -57,7 +58,7 @@ export const TasksPage: FC = () => {
   }, [])
 
   return (
-    <div className={cls.main}>
+    <Wrapper>
       <h1 className={cls.title}>Таски</h1>
       <div className={cls.taskControlPanel}>
         <div className={cls.taskInteraction}>
@@ -122,6 +123,6 @@ export const TasksPage: FC = () => {
         close={closeCSVModal}
         getTasks={fetchTasks}
       />
-    </div>
+    </Wrapper>
   )
 }
