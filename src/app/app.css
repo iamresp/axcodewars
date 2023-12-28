@@ -1,6 +1,6 @@
 :root {
   --main-color: #fff;
-  --submain-color: #ffe8df;
+  --submain-color: #fffaf8;
   --text-color: #000;
   --orange-color: #f37022;
   --black-color: #000;
@@ -15,7 +15,7 @@
 
 [data-theme='light'] {
   --main-color: #fff;
-  --submain-color: #ffe8df;
+  --submain-color: #fffaf8;
   --text-color: #000;
   --orange-color: #f37022;
   --black-color: #000;
@@ -40,7 +40,7 @@
 *::before {
   box-sizing: border-box;
   color: var(--text-color);
-  font-family: var(--font-family);
+  font-family: Montserrat, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -56,9 +56,14 @@ button {
   cursor: pointer;
 }
 
-.main-title {
-  background-color: #2f1506;
-  color: red;
+.main_title {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+
+  &::first-letter {
+    color: var(--orange-color);
+  }
 }
 
 .main-title-modal {
@@ -85,5 +90,9 @@ button {
   .main-title-modal {
     font-size: 24px;
     margin-bottom: 32px;
+  }
+
+  .main_title {
+    font-size: 24px;
   }
 }
