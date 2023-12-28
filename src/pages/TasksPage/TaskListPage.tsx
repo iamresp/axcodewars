@@ -1,4 +1,4 @@
-import React, { type FC, useEffect, useState, useCallback } from 'react'
+import React, { type FC, useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SearchInput } from '../../shared/components/SearchInput/SearchInput'
 import taskService from '../../entities/TaskApi/task.service'
@@ -6,10 +6,10 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
-import cls from './TasksListPage.module.css'
+import cls from './TaskListPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 
-export const TasksListPage: FC = () => {
+export const TaskListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
   const [filteredTasks, setFilteredTasks] = useState<IGetTaskById[]>([])
   const [getId, setGetId] = useState('')

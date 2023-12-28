@@ -5,18 +5,14 @@
   padding-left: 30px;
   border-radius: 3px;
   border: 1px solid var(--orange-color);
-
   background-color: var(--main-color);
-
-
   font-family: Montserrat, sans-serif;
   font-weight: 400;
   font-size: 16px;
-
-  /*outline: none;*/
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (width <= 480px) {
+
   .inputCustom {
     font-size: 14px;
     padding: 18px 15px;

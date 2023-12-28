@@ -16,8 +16,9 @@
     outline: none;
 }
 
-@media (max-width: 1200px) {
-    .input_search {
+@media (width <= 1200px) {
+
+    .inputSearch {
         width: 100%;
     }
 }
