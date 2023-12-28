@@ -35,6 +35,7 @@
       "custom-properties",
       "declarations"
     ],
-    "order/properties-alphabetical-order": [true]
+    "order/properties-alphabetical-order": [true],
+    "indentation": 2
   }
 }

@@ -5,6 +5,7 @@ import { useAuth } from 'shared/hooks/useAuth'
 
 import { Link } from 'react-router-dom'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 import { useRef, useState } from 'react'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
 import cls from '../ui/Header.module.css'
@@ -50,30 +51,32 @@ export default function Header (): JSX.Element {
   }
 
   return (
-    <header className={cls.header}>
-      <div className={cls.headerLeft}>
-        <Link to={'/tasks'}>
-          <LogoSvgComponent/>
-        </Link>
-      </div>
-      <div className={cls.headerRight}>
-        {isAuth && (
-          <div tabIndex={0} role={'button'} className={cls.profileContWrapper} onKeyDown={() => {}} onClick={handleClick} ref={node}>
-            <div className={cls.profileCont}>
-              <img className={cls.profileImg}
-                src={(user.avatar !== '') ? process.env.REACT_APP_SERVER_URL + user.avatar : './images/userlogo.png'}
-                alt={'user.avatar'}/>
-              <p>{user.username}</p>
+    <Wrapper>
+      <header className={cls.header}>
+        <div className={cls.headerLeft}>
+          <Link to={'/tasks'}>
+            <LogoSvgComponent/>
+          </Link>
+        </div>
+        <div className={cls.headerRight}>
+          {isAuth && (
+            <div tabIndex={0} role={'button'} className={cls.profileContWrapper} onKeyDown={() => {}} onClick={handleClick} ref={node}>
+              <div className={cls.profileCont}>
+                <img className={cls.profileImg}
+                  src={(user.avatar !== '') ? process.env.REACT_APP_SERVER_URL + user.avatar : './images/userlogo.png'}
+                  alt={'user.avatar'}/>
+                <p>{user.username}</p>
+              </div>
+              {display && (<PopOver/>)}
             </div>
-            {display && (<PopOver/>)}
-          </div>
-        )}
+          )}
 
-        <ThemeSwitcher
-          isOn={value}
-          handleToggle={handleToggle}
-        />
-      </div>
-    </header>
+          <ThemeSwitcher
+            isOn={value}
+            handleToggle={handleToggle}
+          />
+        </div>
+      </header>
+    </Wrapper>
   )
 }

@@ -1,13 +1,14 @@
 .inputSearch {
-    border: none;
-    border-bottom: 1px solid #f37022;
-    font-size: 16px;
-    padding: 6px 30px;
     width: 1000px;
+    padding: 6px 30px;
+    border: none;
+    border-bottom: 1px solid var(--orange-color);
+    font-size: 16px;
+    background-color: var(--main-color);
 }
 
 .inputSearch::placeholder {
-    color: #f37022;
+    color: var(--orange-color);
     font-size: 16px;
 }
 

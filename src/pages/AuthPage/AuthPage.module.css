@@ -1,5 +1,6 @@
 .main {
   align-items: center;
+  column-gap: 30px;
   display: flex;
   justify-content: space-evenly;
   margin: auto;
@@ -13,15 +14,18 @@
   margin: 12px 0;
 }
 
+.regImage {
+  width: 55%;
+}
+
 @media (width <= 1600px) {
 
   .main {
     justify-content: space-between;
-    padding: 90px 0;
   }
 
   .regImage {
-    width: 30%;
+    width: 50%;
   }
 
   .main .regForm {
@@ -30,6 +34,14 @@
 }
 
 @media (width <= 1200px) {
+
+  .regImage {
+    height: 446px;
+    width: 459px;
+  }
+}
+
+@media (width <= 1100px) {
 
   .main {
     flex-direction: column;
@@ -60,16 +72,47 @@
   font-size: 32px;
   font-weight: 600;
   height: 500px;
+  max-width: 620px;
 }
 
-.regImage {
-  width: 55%;
+@media (width <= 1200px) {
+
+  .regFormContainer{
+    padding: 50px 45px;
+    width: 510px;
+  }
+}
+
+@media (width <= 768px) {
+
+  .regFormContainer{
+    margin: 0 auto;
+    padding: 50px 30px;
+    width: 510px;
+  }
+}
+
+@media (width <= 480px) {
+
+  .regFormContainer{
+    margin: 0 auto;
+    padding: 50px 30px;
+    width: 400px;
+  }
+}
+
+@media (width <= 320px) {
+
+  .regFormContainer{
+    padding: 50px 20px;
+    width: 285px;
+  }
 }
 
 .regInput {
+  background-color: var(--main-color);
   border: 1px solid var(--orange-color);
   border-radius: 3px;
-  color: black;
   font-family: Montserrat, sans-serif;
   font-size: 16px;
   height: 60px;
@@ -79,7 +122,7 @@
 }
 
 .regInput::placeholder {
-  color: black;
+  color: var(--text-color);
   font-family: Montserrat, sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -96,10 +139,17 @@
   font-size: 18px;
   height: 70px;
   justify-self: flex-end;
-  margin-top: auto;
+  margin-top: 60px;
   text-transform: uppercase;
   transition: 0.4s;
   width: 220px;
+}
+
+@media (width <= 785px) {
+
+  .regButton {
+    margin: 60px auto 0;
+  }
 }
 
 .regButton:hover {
@@ -119,6 +169,7 @@
   cursor: pointer;
   font-size: 18px;
   font-weight: 400;
+  padding-left: 5px;
 }
 
 .form {

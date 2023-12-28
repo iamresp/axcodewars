@@ -19,12 +19,12 @@ export const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
   }, [onSearch, debouncedSearchTerm])
 
   return (
-      <input
-          className={cls.input_search}
-          type='text'
-          value={value}
-          onChange={handleChange}
-          placeholder='Поиск'
-      />
+    <input
+      className={cls.inputSearch}
+      type='text'
+      value={value}
+      onChange={handleChange}
+      placeholder='Поиск'
+    />
   )
 }
