@@ -7,7 +7,7 @@
 .container {
   background: var(--main-color);
   border: 1px solid var(--orange-color);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   color: var(--text-color);
   padding: 50px;
 }
@@ -16,7 +16,7 @@
   align-items: center;
   background: var(--main-color);
   border: 1px solid var(--orange-color);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   box-shadow: 0 4px 4px 0 rgb(38 50 56 / 25%);
   color: var(--text-color);
   cursor: pointer;
@@ -30,7 +30,7 @@
 
 .mainTitle {
   color: var(--text-color);
-  margin: 0 0 40px 0;
+  margin: 0 0 40px;
 }
 
 .mainTitle::first-letter {
@@ -86,7 +86,7 @@
 
 .alarm {
   background: var(--submain-color);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   margin: 17px 0 0;
   padding: 18px 36px;
 }
@@ -94,7 +94,7 @@
 .mainButton {
   background-color: var(--orange-color);
   border: none;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   box-shadow: 0 4px 4px #26323820;
   color: azure;
   cursor: pointer;

@@ -15,7 +15,7 @@
   align-items: center;
   background-color: var(--main-color);
   border-color: var(--orange-color);
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   border-style: dashed;
   border-width: 1px;
   display: flex;
