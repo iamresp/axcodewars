@@ -101,12 +101,14 @@ export const AuthPage: FC = () => {
             }}
           />
           {auth === 'registration' && (
-            <AvatarLoading imageUrl={imageUrl} setImageUrl={setImageUrl}/>
+            <AvatarLoading image={image} setImage={setImage}/>
           )}
           {(errorMessage !== '') &&
               (<span className={cls.errorText}>{errorMessage}</span>)
           }
-          <Button isOrange text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'} type={'submit'} className={cls.regButton} />
+          <Button isOrange
+            text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
+            type={'submit'} className={cls.regButton} />
         </form>
       </div>
     </Wrapper>
