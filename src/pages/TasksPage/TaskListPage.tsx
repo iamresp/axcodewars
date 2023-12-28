@@ -6,10 +6,10 @@ import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
-import cls from './TasksPage.module.css'
+import cls from './TasksListPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 
-export const TasksPage: FC = () => {
+export const TasksListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
   const [filteredTasks, setFilteredTasks] = useState<IGetTaskById[]>([])
   const [getId, setGetId] = useState('')

@@ -68,7 +68,7 @@ class UserService {
   async editUser(data: IEditUser) {
     try {
       await fetch(`${this._URL}/auth/user`, {
-        method: 'GET',
+        method: 'PUT',
         headers: this._headers,
         body: JSON.stringify(data)
       })

@@ -1,17 +1,23 @@
 import React, { type ChangeEvent, type FC } from 'react'
+import classNames from 'classnames'
 import cls from './AvatarLoading.module.css'
 
 interface AvatarLoadingProps {
-  imageUrl?: string
-  setImageUrl?: React.Dispatch<React.SetStateAction<string>>
+  image?: File
+  setImage: React.Dispatch<React.SetStateAction<File | undefined>>
+  isProfile?: boolean
+  className?: string
 }
 
-export const AvatarLoading: FC<AvatarLoadingProps> = ({ imageUrl, setImageUrl }) => {
+export const AvatarLoading: FC<AvatarLoadingProps> = ({
+  image,
+  setImage,
+  isProfile = false,
+  className
+}) => {
   const handleImage = (event: ChangeEvent<HTMLInputElement>): void => {
-    if ((event.target.files?.[0]) != null) {
-      if (setImageUrl !== undefined) {
-        setImageUrl(event.target.files[0].name)
-      }
+    if (event.target.files?.[0] != null) {
+      setImage(event.target.files[0])
     }
   }
 
@@ -26,15 +32,14 @@ export const AvatarLoading: FC<AvatarLoadingProps> = ({ imageUrl, setImageUrl })
         onChange={handleImage}
       />
       <label
-        className={cls.regLabel}
+        className={classNames(cls.regLabel, className)}
         htmlFor='avatarLoading'
       >
-        <img src='/images/avatarDownload.svg' alt='avatarLoadingIcon'/>
+        {!isProfile && (
+          <img src='/images/avatarDownload.svg' alt='avatarLoadingIcon' />
+        )}
         <span className={cls.regSpan}>
-          {(imageUrl != null) &&
-          imageUrl?.length > 0
-            ? imageUrl
-            : 'Загрузить аватар'}
+          {image != null ? image.name : 'Загрузить аватар'}
         </span>
       </label>
     </>
