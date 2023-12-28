@@ -85,6 +85,7 @@ export const AuthPage: FC = () => {
         >
           <InputCustom
             required
+            className={cls.formInput}
             placeholder='Имя'
             value={username}
             onChange={event => {

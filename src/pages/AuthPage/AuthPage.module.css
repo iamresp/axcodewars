@@ -2,9 +2,9 @@
   align-items: center;
   column-gap: 30px;
   display: flex;
+  height: calc(100vh - (var(--header-height) + var(--footer-height)));
   justify-content: space-evenly;
   margin: auto;
-  height: calc(100vh - (var(--header-height) + var(--footer-height)));
 }
 
 .errorText {
@@ -15,6 +15,10 @@
 
 .regImage {
   width: 55%;
+}
+
+.formInput{
+  margin: 35px 0 30px;
 }
 
 @media (width <= 1600px) {
