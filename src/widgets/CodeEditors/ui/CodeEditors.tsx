@@ -34,6 +34,7 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
 }) => {
   const [isReady, setIsReady] = useState(false)
   const [timer, setTimer] = useState(false)
+  const [isWin, setIsWin] = useState(false)
 
   const handleValidateCode = (
     timeout = false,
@@ -54,6 +55,7 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
     if (result !== null && result?.toString() !== code) {
       if ((result ?? '').toString() === rightResult) {
         onWin()
+        setIsWin(true)
 
         return 'Результат выполнения совпал с ответом'
       } else {
@@ -77,7 +79,7 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
   }
 
   useEffect(() => {
-    if (timer) {
+    if (timer && !isWin) {
       void handleValidateCode(timer)
     }
   }, [timer])
@@ -86,7 +88,11 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
     <>
       {isReady
         ? (
-          <TimerCustom ms={taskTime} setTime={setTimer} />
+          <TimerCustom
+            isWin={isWin}
+            ms={taskTime}
+            time={timer}
+            setTime={setTimer} />
         )
         : (
           <Button

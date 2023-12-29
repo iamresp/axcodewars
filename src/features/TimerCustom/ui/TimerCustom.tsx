@@ -3,11 +3,18 @@ import { getTimeRemaining } from '../lib/getTimeRemaining'
 import cls from './TimerCustom.module.css'
 
 interface TimerCustomProps {
+  isWin: boolean
   ms: number
+  time: boolean
   setTime: (bool: boolean) => void
 }
 
-export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
+export const TimerCustom: FC<TimerCustomProps> = ({
+  isWin,
+  ms,
+  time,
+  setTime
+}) => {
   const Ref = useRef<NodeJS.Timer | null>(null)
 
   const [timer, setTimer] = useState('')
@@ -28,7 +35,11 @@ export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
   }
 
   const clearTimer = (date: Date): void => {
-    if (Ref.current !== null) clearInterval(Ref.current)
+    if (Ref.current !== null) {
+      clearInterval(Ref.current)
+
+      return
+    }
 
     const timerId = setInterval(() => {
       startTimer(date)
@@ -46,7 +57,7 @@ export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
 
   useEffect(() => {
     clearTimer(getDeadTime())
-  }, [])
+  }, [time, isWin])
 
   return <h2 className={cls.timer}>{timer}</h2>
 }
