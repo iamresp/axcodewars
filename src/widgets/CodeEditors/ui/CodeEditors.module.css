@@ -1,0 +1,31 @@
+.codeEditorsContainer {
+  display: flex;
+  gap: 70px;
+  justify-content: space-between;
+}
+
+.readyButton {
+  margin: 70px 0;
+  width: 180px;
+}
+
+@media (width <= 1200px) {
+
+  .codeEditorsContainer {
+    display: block;
+  }
+}
+
+@media (width <= 768px) {
+
+  .readyButton {
+    margin: 50px 0;
+  }
+}
+
+@media (width <= 380px) {
+
+  .leaveRoomButton {
+    margin: 50px 0;
+  }
+}

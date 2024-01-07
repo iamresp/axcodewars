@@ -5,6 +5,14 @@
   text-align: center;
 }
 
+.timerGreen {
+  color: rgb(0 150 0);
+}
+
+.timerRed {
+  color: rgb(200 0 0)
+}
+
 @media (width <= 768px) {
 
   .timer {

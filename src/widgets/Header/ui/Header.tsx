@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { ThemeSwitcher } from '../../ThemeSwitcher'
-import { useAuth } from '../../../shared/hooks/useAuth'
+import { useContext } from 'react'
+import { ThemeContext } from 'app/context/ThemeContext'
+import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
+import { useAuth } from 'shared/hooks/useAuth'
 
 import cls from '../ui/Header.module.css'
 import { Link } from 'react-router-dom'
@@ -10,6 +12,7 @@ import { Wrapper } from 'entities/Wrapper/Wrapper'
 export default function Header (): JSX.Element {
   const [value, setValue] = React.useState(false)
   const { isAuth, user } = useAuth()
+  const { setCurrentTheme } = useContext(ThemeContext)
 
   const theme = document.querySelector('body')
   const currentTheme = localStorage.getItem('theme')
@@ -17,6 +20,7 @@ export default function Header (): JSX.Element {
   function setTheme (name: string): void {
     theme?.setAttribute('data-theme', name)
     localStorage.setItem('theme', name)
+    setCurrentTheme(name)
   }
 
   if (currentTheme != null) {
