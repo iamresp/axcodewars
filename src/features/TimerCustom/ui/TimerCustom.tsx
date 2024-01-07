@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, type FC } from 'react'
 import { getTimeRemaining } from '../lib/getTimeRemaining'
 import cls from './TimerCustom.module.css'
+import classNames from 'classnames'
 
 interface TimerCustomProps {
   isWin: boolean
@@ -18,6 +19,13 @@ export const TimerCustom: FC<TimerCustomProps> = ({
   const Ref = useRef<NodeJS.Timer | null>(null)
 
   const [timer, setTimer] = useState('')
+
+  const timerStyle = classNames(
+    [cls.timer],
+    {
+      [cls.timerGreen]: isWin,
+      [cls.timerRed]: time
+    })
 
   const startTimer = (date: Date): void => {
     const { total, hours, minutes, seconds } = getTimeRemaining(date)
@@ -59,5 +67,5 @@ export const TimerCustom: FC<TimerCustomProps> = ({
     clearTimer(getDeadTime())
   }, [time, isWin])
 
-  return <h2 className={cls.timer}>{timer}</h2>
+  return <h2 className={timerStyle}>{timer}</h2>
 }
