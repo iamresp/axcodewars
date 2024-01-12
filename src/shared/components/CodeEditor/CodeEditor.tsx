@@ -21,6 +21,8 @@ interface CodeEditorProps {
   isOpponent: boolean
 }
 
+const initialCode = 'const task = () => {\n //TO DO\n}'
+
 export const CodeEditor: FC<CodeEditorProps> = ({
   socket,
   isReady,
@@ -29,7 +31,7 @@ export const CodeEditor: FC<CodeEditorProps> = ({
   isOpponent,
   onValidateCode
 }) => {
-  const [code, setCode] = useState('')
+  const [code, setCode] = useState(initialCode)
   const [message, setMessage] = useState('')
   const { currentTheme } = useContext(ThemeContext)
 
@@ -63,7 +65,7 @@ export const CodeEditor: FC<CodeEditorProps> = ({
       />
       {!isOpponent && (
         <div className={cls.submitContainer}>
-          {message.length > 0 && <div className={cls.alarm}>{message}</div>}
+          {message?.length > 0 && <div className={cls.alarm}>{message}</div>}
           {isReady && (
             <Button
               className={cls.submitButton}
