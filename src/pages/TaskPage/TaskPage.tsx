@@ -14,7 +14,8 @@ import {
   Grid,
   Typography
 } from '@mui/material'
-
+import { errorToast } from 'shared/lib/error-toast'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 import cls from './TaskPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 
@@ -47,7 +48,7 @@ export const TaskPage: FC = () => {
         setTaskData(data)
         setRightResult(data.results[0][1])
       } catch (error) {
-        throw new Error()
+        errorToast(error)
       }
     }
 

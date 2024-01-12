@@ -64,7 +64,8 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
       handleClose()
       await getTasks()
     } catch (error) {
-      throw new Error()
+      console.error(error)
+      throw error
     } finally {
       setIsLoading(false)
     }

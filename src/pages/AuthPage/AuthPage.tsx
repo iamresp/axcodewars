@@ -4,6 +4,7 @@ import userService from '../../entities/UserApi/user.service'
 import { AvatarLoading } from 'features/AvatarLoading/AvatarLoading'
 import { Button } from 'shared/components/Button/Button'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { errorToast } from 'shared/lib/error-toast'
 
 import cls from './AuthPage.module.css'
 
@@ -32,7 +33,7 @@ export const AuthPage: FC = () => {
         await userService.authenticateUser({ hash: password, username })
         setErrorMessage('')
       } catch (error) {
-        throw new Error()
+        errorToast(error)
       }
 
       return
@@ -47,7 +48,7 @@ export const AuthPage: FC = () => {
       setErrorMessage('')
       await userService.authenticateUser({ hash: password, username })
     } catch (error) {
-      throw new Error()
+      errorToast(error)
     }
   }
 
@@ -104,7 +105,7 @@ export const AuthPage: FC = () => {
               }}
             />
             {auth === 'registration' && (
-              <AvatarLoading image={image} setImage={setImage} />
+            <AvatarLoading image={image} setImage={setImage} />
             )}
             {errorMessage !== '' &&
                 <span className={cls.errorText}>{errorMessage}</span>
