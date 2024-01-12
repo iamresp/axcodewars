@@ -1,6 +1,6 @@
 import React, { type FC, useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { SearchInput } from '../../shared/components/SearchInput/SearchInput'
+import { SearchInput } from 'shared/components/SearchInput/SearchInput'
 import taskService from '../../entities/TaskApi/task.service'
 import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
@@ -8,6 +8,7 @@ import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
 import cls from './TaskListPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
+import ArrowRight from '../../../public/arrow-right.svg'
 
 export const TaskListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
@@ -49,7 +50,7 @@ export const TaskListPage: FC = () => {
       setTasks(tasks)
       setFilteredTasks(tasks)
     } catch (error) {
-      console.log(error)
+      errorToast(error)
     }
   }
 
@@ -93,7 +94,7 @@ export const TaskListPage: FC = () => {
                   Редактировать
                   </button>
                   <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
-                    <img src='arrow-right.svg' alt='arrow' />
+                    <ArrowRight />
                   </Link>
                 </div>
               </div>

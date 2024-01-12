@@ -31,6 +31,8 @@
 .createTask {
   background: none;
   border: none;
+  width: 7dvw;
+  text-align: start;
   color: var(--text-color);
   font-size: 16px;
   font-style: normal;
@@ -47,7 +49,7 @@
 .taskInteraction {
   align-items: center;
   display: flex;
-  gap: 70px;
+  gap: 100px;
   justify-content: center;
 }
 
@@ -69,7 +71,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  justify-content: start;
+  justify-content: center;
 }
 
 .task {
@@ -77,22 +79,14 @@
   background: var(--submain-color);
   border: 1px solid var(--orange-color);
   border-radius: 3px;
-  box-shadow: 0 4px 8px 0 var(--black-color);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-  height: 182px;
+  height: 252px;
   justify-content: space-between;
-  padding-bottom: 47px;
-  padding-left: 47px;
-  padding-right: 47px;
+  padding: 47px;
   transition: all 0.6s ease;
-  width: 250px;
-  height: 182px;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--orange-color);
-  background: var(--submain-color);
-  box-shadow: 0 4px 8px 0 var(--black-color);
-  transition: all 0.6s ease;
+  width: 310px;
 }
 
 .task:hover {
@@ -119,6 +113,8 @@
 }
 
 .taskEdit {
+  background: transparent;
+  border: none;
   color: var(--text-color);
   font-size: 14px;
   font-weight: 300;
@@ -130,7 +126,11 @@
   color: var(--main-color);
 }
 
-@media (width <= 1200px) {
+.taskEnter > svg {
+  fill: var(--text-color);
+}
+
+@media (width <= 1700px) {
 
   .taskControlPanel {
     align-items: center;
@@ -141,22 +141,16 @@
     padding-top: 50px;
   }
 
+  .createTask {
+    width: 15dvw;
+  }
+
   .taskInteraction {
     align-items: center;
     display: flex;
-    gap: 40px;
     justify-content: space-between;
     width: 100%;
   }
 }
 
-@media (width <= 1600px) {
 
-  .tasks {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-  }
-}
