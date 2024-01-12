@@ -1,5 +1,5 @@
 .inputSearch {
-    width: 1000px;
+    width: 50dvw;
     padding: 6px 30px;
     border: none;
     border-bottom: 1px solid var(--orange-color);
@@ -16,8 +16,8 @@
     outline: none;
 }
 
-@media (max-width: 1200px) {
-    .input_search {
-        width: 100%;
+@media (width <= 1700px) {
+    .inputSearch {
+        width: 90dvw;
     }
 }

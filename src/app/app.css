@@ -13,7 +13,7 @@
 
 [data-theme='light'] {
   --main-color: #fff;
-  --submain-color: #fffaf8;
+  --submain-color: #FFE8DE;
   --text-color: #000;
   --orange-color: #f37022;
   --black-color: #000;
@@ -48,7 +48,6 @@ body {
   box-sizing: border-box;
   font-family: Montserrat, sans-serif;
   margin: 0;
-  padding: 0 197px;
 }
 
 button {
