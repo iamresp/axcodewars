@@ -79,7 +79,9 @@ export const AuthPage: FC = () => {
         </div>
         <form
           className={cls.form}
-          onSubmit={e => handleAuth(e)}
+          onSubmit={e => {
+            void handleAuth(e)
+          }}
         >
           <InputCustom
             required
