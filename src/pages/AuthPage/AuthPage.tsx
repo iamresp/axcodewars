@@ -74,14 +74,12 @@ export const AuthPage: FC = () => {
               setErrorMessage('')
             }}
           >
-            {auth === AUTH_STATE.LOGIN ? ' Регистрация' : ' Войти'}
+            {auth === AUTH_STATE.LOGIN ? 'Регистрация' : 'Войти'}
           </button>
         </div>
         <form
           className={cls.form}
-          onSubmit={e => {
-            void handleAuth(e)
-          }}
+          onSubmit={e => handleAuth(e)}
         >
           <InputCustom
             required
