@@ -1,11 +1,11 @@
 import React, { type FC, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { TimerCustom } from '../../widgets/TimerCustom'
+import { TimerCustom } from 'widgets/TimerCustom'
 import CodeMirror from '@uiw/react-codemirror'
 import { javascript } from '@codemirror/lang-javascript'
 import { darcula } from '@uiw/codemirror-theme-darcula'
 import classNames from 'classnames'
-import { type ICreateTask } from '../../entities/TaskApi/task.interface'
+import { type ICreateTask } from 'entities/TaskApi/task.interface'
 import taskService from '../../entities/TaskApi/task.service'
 import {
   Alert,
@@ -17,7 +17,6 @@ import {
 import { errorToast } from 'shared/lib/error-toast'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 import cls from './TaskPage.module.css'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
 
 const taskTime = 300000
 

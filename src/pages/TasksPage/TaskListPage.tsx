@@ -9,6 +9,7 @@ import { type IGetTaskById } from 'entities/TaskApi/task.interface'
 import cls from './TaskListPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 import ArrowRight from '../../../public/arrow-right.svg'
+import { errorToast } from 'shared/lib/error-toast'
 
 export const TaskListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
