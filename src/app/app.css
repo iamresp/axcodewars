@@ -8,6 +8,8 @@
   --modal-mobile-color: #fffaf8;
   --btn-disabled-color: grey;
   --font-family: 'Montserrat', sans-serif;
+  --header-height: 100px;
+  --footer-height: 100px;
   --border-radius: 3px;
 }
 
@@ -46,7 +48,7 @@
 body {
   background-color: var(--main-color);
   box-sizing: border-box;
-  font-family: Montserrat, sans-serif;
+  font-family: var(--font-family);
   margin: 0;
 }
 
