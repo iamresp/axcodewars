@@ -5,6 +5,7 @@ import { type TaskCaseTypes, taskObj } from '../constants'
 import taskService from 'entities/TaskApi/task.service'
 
 import cls from './styles.module.css'
+import { errorToast } from 'shared/lib/error-toast'
 
 interface EditTaskModalProps {
   isOpen: boolean
@@ -29,13 +30,12 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
       setTitle(data.title)
       setDescription(data.description)
 
-      setTaskCase(() =>
-        data.results.map(([key, value]) => {
-          return { args: key, result: value }
-        })
+      setTaskCase(() => data.results.map(([key, value]) => {
+        return { args: key, result: value }
+      })
       )
     } catch (error) {
-      console.error(error)
+      errorToast(error)
     }
   }
 

@@ -14,6 +14,7 @@ import PasswordVisible from 'shared/images/password-visible.svg'
 import { type IEditUser } from 'entities/UserApi/user.interface'
 
 import cls from './styles.module.css'
+import { Wrapper } from 'entities/Wrapper'
 
 export const ProfileEditPage: FC = () => {
   const { user, isLoading } = useAuth()
@@ -92,7 +93,7 @@ export const ProfileEditPage: FC = () => {
   }
 
   return (
-    <div className={cls.profileEditPage}>
+    <Wrapper className={cls.profileEditPage}>
       <h2 className='main_title'>Редактирование профиля</h2>
       <div className={cls.content}>
         {isLoading && 'LOADING...'}
@@ -202,6 +203,6 @@ export const ProfileEditPage: FC = () => {
           />
         </form>
       </div>
-    </div>
+    </Wrapper>
   )
 }
