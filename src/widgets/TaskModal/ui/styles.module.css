@@ -3,20 +3,20 @@
 }
 
 .createTask {
-  width: 480px;
   display: flex;
   flex-direction: column;
   gap: var(--input-gap);
-  padding: 0 24px;
   max-height: 440px;
-  overflow-y: auto;
   max-width: 100%;
+  overflow-y: auto;
+  padding: 0 24px;
+  width: 480px;
 }
 
 .btnGp {
-  margin-top: 40px;
   display: flex;
   gap: 0 44px;
+  margin-top: 40px;
 }
 
 .answerForm {
@@ -25,16 +25,17 @@
   gap: var(--input-gap);
   padding-top: 35px;
   position: relative;
+
   &::before {
+    background: var(--orange-color);
     content: '';
     display: block;
-    max-width: 200px;
-    width: 100%;
     height: 1px;
-    background: var(--orange-color);
+    max-width: 200px;
     position: absolute;
     top: 0;
     transform: translateX(50%);
+    width: 100%;
   }
 }
 
@@ -57,13 +58,13 @@
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width <= 768px) {
+
   .createTask {
-    width: 360px;
     max-height: 100vh;
     overflow-y: visible;
-    max-height: 100%;
     padding: 0;
+    width: 360px;
   }
 
   :root {
@@ -81,14 +82,15 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (width <= 480px) {
+
   .createTask {
     width: 100%;
   }
 
   .answerForm::before {
-    transform: translateX(0);
     max-width: 100%;
+    transform: translateX(0);
   }
 
   .createTask::-webkit-scrollbar-thumb {

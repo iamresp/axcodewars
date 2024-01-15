@@ -1,23 +1,24 @@
 .inputSearch {
-    width: 50dvw;
-    padding: 6px 30px;
-    border: none;
-    border-bottom: 1px solid var(--orange-color);
-    font-size: 16px;
-    background-color: var(--main-color);
+  background-color: var(--main-color);
+  border: none;
+  border-bottom: 1px solid var(--orange-color);
+  font-size: 16px;
+  padding: 6px 30px;
+  width: 50dvw;
 }
 
 .inputSearch::placeholder {
-    color: var(--orange-color);
-    font-size: 16px;
+  color: var(--orange-color);
+  font-size: 16px;
 }
 
 .inputSearch:focus {
-    outline: none;
+  outline: none;
 }
 
 @media (width <= 1700px) {
-    .inputSearch {
-        width: 90dvw;
-    }
+
+  .inputSearch {
+    width: 90dvw;
+  }
 }
