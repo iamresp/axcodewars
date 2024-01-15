@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { publicRoutes, userRoutes } from './routes'
+import React, { type FC } from 'react'
+import { publicRoutes, userRoutes, type RoutesType } from './routes'
 import { Route, Routes } from 'react-router-dom'
-import api from '../../shared/service/axios/axiosClient'
-import { Loading } from '../../shared/components/Loading'
-import { useAuth } from '../../shared/hooks/useAuth'
+import { Loading } from 'shared/components/Loading'
+import { useAuth } from 'shared/hooks/useAuth'
 
-const AppRouter = () => {
+const AppRouter: FC = () => {
   const { isLoading, isAuth } = useAuth()
 
-  const getRouts = () => {
+  const getRouts = (): RoutesType[] => {
     if (!isAuth) {
       return publicRoutes
     } else {

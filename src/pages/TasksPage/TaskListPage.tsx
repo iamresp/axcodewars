@@ -1,14 +1,14 @@
 import React, { type FC, useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { SearchInput } from 'shared/components/SearchInput/SearchInput'
-import taskService from '../../entities/TaskApi/task.service'
+import { SearchInput } from 'shared/components'
+import taskService from 'entities/TaskApi/task.service'
 import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
 import cls from './TaskListPage.module.css'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
-import ArrowRight from '../../../public/arrow-right.svg'
+import { Wrapper } from 'entities/Wrapper'
+import ArrowRight from 'shared/images/arrow-right.svg'
 import { errorToast } from 'shared/lib/error-toast'
 
 export const TaskListPage: FC = () => {

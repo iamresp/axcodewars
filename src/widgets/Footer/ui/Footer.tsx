@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { Wrapper } from 'entities/Wrapper'
 
 import cls from '../ui/Footer.module.css'
 

@@ -9,8 +9,8 @@
   width: 100%;
 
   &::-ms-reveal {
-    width : 0;
     height: 0;
+    width : 0;
   }
 }
 
