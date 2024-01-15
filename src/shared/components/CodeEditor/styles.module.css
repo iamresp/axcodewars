@@ -1,0 +1,67 @@
+.codeEditorContainer {
+  max-width: 670px;
+  width: 100%;
+}
+
+.codeEditor {
+  height: 670px;
+}
+
+.attempts {
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.submitContainer {
+  margin: 0;
+}
+
+.submitButton {
+  margin: 50px 0 0;
+  width: 180px;
+}
+
+.alarm {
+  background: var(--submain-color);
+  border-radius: 3px;
+  margin: 17px 0 0;
+  padding: 25px 36px;
+}
+
+@media (width <= 1200px) {
+
+  .codeEditorContainer {
+    max-width: none;
+  }
+
+  .codeEditor {
+    height: 380px;
+  }
+
+  .submitContainer {
+    display: flex;
+    gap: 25px;
+    justify-content: end;
+    margin: 10px 0 50px;
+  }
+
+  .alarm {
+    flex: 1 1 0;
+    margin: 0;
+  }
+
+  .submitButton {
+    margin: 0;
+  }
+}
+
+@media (width <= 768px) {
+
+  .submitContainer {
+    display: block;
+  }
+
+  .alarm {
+    margin-bottom: 20px;
+  }
+}

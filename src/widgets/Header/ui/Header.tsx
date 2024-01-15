@@ -1,14 +1,15 @@
 import * as React from 'react'
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
 import { PopOver } from 'widgets/PopOver/PopOver'
 import { useAuth } from 'shared/hooks/useAuth'
+import { ThemeContext } from 'app/context/ThemeContext'
 
+import cls from '../ui/Header.module.css'
 import { Link } from 'react-router-dom'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
-import cls from '../ui/Header.module.css'
 
 export default function Header (): JSX.Element {
   const [value, setValue] = React.useState(false)
@@ -16,6 +17,7 @@ export default function Header (): JSX.Element {
   const [display, setDisplay] = useState(false)
 
   const node = useRef<HTMLDivElement | null>(null)
+  const { setCurrentTheme } = useContext(ThemeContext)
 
   const theme = document.querySelector('body')
   const currentTheme = localStorage.getItem('theme')
@@ -23,6 +25,7 @@ export default function Header (): JSX.Element {
   function setTheme (name: string): void {
     theme?.setAttribute('data-theme', name)
     localStorage.setItem('theme', name)
+    setCurrentTheme(name)
   }
 
   if (currentTheme != null) {
@@ -51,7 +54,7 @@ export default function Header (): JSX.Element {
   }
 
   return (
-    <Wrapper>
+    <Wrapper className={cls.wrapper}>
       <header className={cls.header}>
         <div className={cls.headerLeft}>
           <Link to={'/tasks'}>

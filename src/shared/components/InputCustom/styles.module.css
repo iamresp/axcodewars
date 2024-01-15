@@ -1,14 +1,17 @@
 .inputCustom {
-  width: 100%;
-  height: 52px;
-  margin-top: 30px;
-  padding-left: 30px;
-  border-radius: 3px;
-  border: 1px solid var(--orange-color);
   background-color: var(--main-color);
-  font-family: Montserrat, sans-serif;
-  font-weight: 400;
+  border: 1px solid var(--orange-color);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
   font-size: 16px;
+  font-weight: 400;
+  padding: 20px 30px;
+  width: 100%;
+
+  &::-ms-reveal {
+    height: 0;
+    width : 0;
+  }
 }
 
 @media screen and (width <= 480px) {

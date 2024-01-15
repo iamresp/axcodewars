@@ -1,11 +1,15 @@
 .header {
   align-self: center;
   display: flex;
-  height: 100px;
+  height: var(--footer-height);
   justify-content: space-between;
   margin: 0 auto 50px;
   max-width: 1920px;
   width: 100%;
+}
+
+.wrapper{
+  margin: 0 auto;
 }
 
 .headerLeft {
@@ -44,6 +48,10 @@
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+.link:hover{
+  color: var(--orange-color);
 }
 
 @media (width <= 480px) {

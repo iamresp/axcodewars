@@ -1,37 +1,31 @@
 import React, { useState, useRef, useEffect, type FC } from 'react'
+import { getTimeRemaining } from '../lib/getTimeRemaining'
 import cls from './TimerCustom.module.css'
+import classNames from 'classnames'
 
 interface TimerCustomProps {
+  isWin: boolean
   ms: number
+  time: boolean
   setTime: (bool: boolean) => void
 }
 
-interface TimerType {
-  total: number
-  hours: number
-  minutes: number
-  seconds: number
-}
-
-export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
+export const TimerCustom: FC<TimerCustomProps> = ({
+  isWin,
+  ms,
+  time,
+  setTime
+}) => {
   const Ref = useRef<NodeJS.Timer | null>(null)
 
   const [timer, setTimer] = useState('')
 
-  const getTimeRemaining = (date: Date): TimerType => {
-    const total = Date.parse(
-      date.toString()) - Date.parse(new Date().toString())
-    const seconds = Math.floor((total / 1000) % 60)
-    const minutes = Math.floor((total / 1000 / 60) % 60)
-    const hours = Math.floor((total / 1000 / 60 / 60) % 24)
-
-    return {
-      total,
-      hours,
-      minutes,
-      seconds
-    }
-  }
+  const timerStyle = classNames(
+    [cls.timer],
+    {
+      [cls.timerGreen]: isWin,
+      [cls.timerRed]: time
+    })
 
   const startTimer = (date: Date): void => {
     const { total, hours, minutes, seconds } = getTimeRemaining(date)
@@ -44,11 +38,16 @@ export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
           (seconds > 9 ? seconds : '0' + seconds)
       )
     }
+
     setTime(total === 0)
   }
 
   const clearTimer = (date: Date): void => {
-    if (Ref.current !== null) clearInterval(Ref.current)
+    if (Ref.current !== null) {
+      clearInterval(Ref.current)
+
+      return
+    }
 
     const timerId = setInterval(() => {
       startTimer(date)
@@ -66,7 +65,7 @@ export const TimerCustom: FC<TimerCustomProps> = ({ ms, setTime }) => {
 
   useEffect(() => {
     clearTimer(getDeadTime())
-  }, [])
+  }, [time, isWin])
 
-  return <h2 className={cls.timer}>{timer}</h2>
+  return <h2 className={timerStyle}>{timer}</h2>
 }
