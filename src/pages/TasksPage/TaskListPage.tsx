@@ -1,4 +1,4 @@
-import React, { type FC, useEffect, useState, useCallback } from 'react'
+import React, { type FC, useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SearchInput } from 'shared/components'
 import taskService from 'entities/TaskApi/task.service'
