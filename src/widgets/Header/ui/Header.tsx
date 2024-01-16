@@ -2,18 +2,20 @@ import * as React from 'react'
 import { useContext, useRef, useState } from 'react'
 import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
 import { PopOver } from 'widgets/PopOver/PopOver'
-import { useAuth } from 'shared/hooks/useAuth'
+// import { useAuth } from 'shared/hooks/useAuth'
 import { ThemeContext } from 'app/context/ThemeContext'
 
 import cls from '../ui/Header.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
 
 export default function Header (): JSX.Element {
+  const { pathname } = useLocation()
+
   const [value, setValue] = React.useState(false)
-  const { isAuth, user } = useAuth()
+  // const { user } = useAuth()
   const [display, setDisplay] = useState(false)
 
   const node = useRef<HTMLDivElement | null>(null)
@@ -62,17 +64,17 @@ export default function Header (): JSX.Element {
           </Link>
         </div>
         <div className={cls.headerRight}>
-          {isAuth && (
-            <div tabIndex={0} role={'button'} className={cls.profileContWrapper} onKeyDown={() => {}} onClick={handleClick} ref={node}>
-              <div className={cls.profileCont}>
-                <img className={cls.profileImg}
-                  src={(user.avatar !== '') ? process.env.REACT_APP_SERVER_URL + user.avatar : './images/userlogo.png'}
-                  alt={'user.avatar'}/>
-                <p className={cls.profileUsername}>{user.username}</p>
-              </div>
-              {display && (<PopOver/>)}
-            </div>
-          )}
+          {/* {pathname !== '/auth' && ( */}
+          {/*  <div tabIndex={0} role={'button'} className={cls.profileContWrapper} onKeyDown={() => {}} onClick={handleClick} ref={node}> */}
+          {/*    <div className={cls.profileCont}> */}
+          {/*      <img className={cls.profileImg} */}
+          {/*        src={(user.avatar !== '') ? process.env.REACT_APP_SERVER_URL + user.avatar : './images/userlogo.png'} */}
+          {/*        alt={'user.avatar'}/> */}
+          {/*      <p className={cls.profileUsername}>{user.username}</p> */}
+          {/*    </div> */}
+          {/*    {display && (<PopOver/>)} */}
+          {/*  </div> */}
+          {/* )} */}
 
           <ThemeSwitcher
             isOn={value}

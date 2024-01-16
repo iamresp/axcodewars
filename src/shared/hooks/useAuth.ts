@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import api from '../service/axios/axiosClient'
+import { useState, useEffect, type SetStateAction, type Dispatch } from 'react'
 import userService from 'entities/UserApi/user.service'
+import { errorToast } from 'shared/lib/error-toast'
 
 interface User {
   username: string
@@ -13,10 +13,11 @@ interface useAuthTypes {
   isAuth: boolean
   user: User
   fetchUser: () => Promise<void>
+  setIsAuth: Dispatch<SetStateAction<boolean>>
 }
 
 export function useAuth (): useAuthTypes {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [isAuth, setIsAuth] = useState(false)
   const [user, setUser] = useState<User>({
     username: '',
@@ -25,13 +26,18 @@ export function useAuth (): useAuthTypes {
   })
 
   useEffect(() => {
-    fetchUser()
-      .catch(error => {
-        console.log(error)
-      })
-  }, [])
+    if (localStorage.getItem('access_token') != null) {
+      setIsAuth(true)
+    }
+
+    if (isAuth) {
+      void fetchUser()
+    }
+  }, [isAuth])
 
   async function fetchUser (): Promise<void> {
+    setIsLoading(true)
+
     try {
       const token = localStorage.getItem('access_token')
       const user = await userService.getUser()
@@ -41,11 +47,11 @@ export function useAuth (): useAuthTypes {
         setUser({ ...user, token: token ?? '' })
       }
     } catch (error) {
-      console.log('auth error', error)
+      errorToast(error)
     } finally {
       setIsLoading(false)
     }
   }
 
-  return { isLoading, isAuth, user, fetchUser }
+  return { isLoading, isAuth, user, setIsAuth, fetchUser }
 }

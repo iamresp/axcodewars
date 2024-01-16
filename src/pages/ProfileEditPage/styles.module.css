@@ -90,11 +90,6 @@
   max-width: 219px;
 }
 
-.error {
-  color: red;
-  text-align: center;
-}
-
 @media (width <= 1200px) {
 
   .input,

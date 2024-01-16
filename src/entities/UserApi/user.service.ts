@@ -63,8 +63,6 @@ class UserService {
       )
 
       this._token = responseData.access_token
-
-      window.location.reload()
     } catch (error) {
       console.error(error)
       throw error
@@ -91,7 +89,7 @@ class UserService {
     }
   }
 
-  async editUser(data: IEditUser) {
+  async editUser (data: IEditUser) {
     try {
       const response = await fetch(`${this._URL}/auth/user`, {
         method: 'PUT',
