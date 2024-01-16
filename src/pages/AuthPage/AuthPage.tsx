@@ -8,6 +8,7 @@ import { errorToast } from 'shared/lib/error-toast'
 
 import cls from './AuthPage.module.css'
 import { useAuth } from 'shared/hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 export const AuthPage: FC = () => {
   const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
@@ -16,8 +17,8 @@ export const AuthPage: FC = () => {
   const [image, setImage] = useState<File>()
   const [errorMessage, setErrorMessage] = useState('')
 
-  const { setIsAuth } = useAuth()
-
+  const { authState, isAuth } = useAuth()
+  const navigate = useNavigate()
   const handleAuth = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
@@ -35,7 +36,8 @@ export const AuthPage: FC = () => {
       try {
         await userService.authenticateUser({ hash: password, username })
         setErrorMessage('')
-        setIsAuth(true)
+        authState(true)
+        navigate('/tasks')
       } catch (error) {
         errorToast(error)
       }
@@ -55,6 +57,8 @@ export const AuthPage: FC = () => {
       errorToast(error)
     }
   }
+
+  console.log(isAuth)
 
   return (
     <Wrapper className={cls.main}>

@@ -1,6 +1,7 @@
 import { useState, useEffect, type SetStateAction, type Dispatch } from 'react'
 import userService from 'entities/UserApi/user.service'
 import { errorToast } from 'shared/lib/error-toast'
+import { FIELD_LOCAL_STORAGE } from 'shared/constants/constants'
 
 interface User {
   username: string
@@ -13,7 +14,7 @@ interface useAuthTypes {
   isAuth: boolean
   user: User
   fetchUser: () => Promise<void>
-  setIsAuth: Dispatch<SetStateAction<boolean>>
+  authState: (bool: boolean) => void
 }
 
 export function useAuth (): useAuthTypes {
@@ -28,12 +29,19 @@ export function useAuth (): useAuthTypes {
   useEffect(() => {
     if (localStorage.getItem('access_token') != null) {
       setIsAuth(true)
+      console.log('sas')
     }
 
     if (isAuth) {
       void fetchUser()
     }
   }, [isAuth])
+
+  const token = localStorage.getItem(FIELD_LOCAL_STORAGE.ACCESS_TOKEN)
+
+  const authState = (bool: boolean): void => {
+    setIsAuth(bool)
+  }
 
   async function fetchUser (): Promise<void> {
     setIsLoading(true)
@@ -43,7 +51,6 @@ export function useAuth (): useAuthTypes {
       const user = await userService.getUser()
 
       if (user.uuid !== '') {
-        setIsAuth(true)
         setUser({ ...user, token: token ?? '' })
       }
     } catch (error) {
@@ -53,5 +60,7 @@ export function useAuth (): useAuthTypes {
     }
   }
 
-  return { isLoading, isAuth, user, setIsAuth, fetchUser }
+  console.log(isAuth, 'isAuthUse')
+
+  return { isLoading, isAuth, user, authState, fetchUser }
 }

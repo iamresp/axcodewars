@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { publicRoutes, userRoutes } from './routes'
+import React from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import api from '../../shared/service/axios/axiosClient'
-import { Loading } from '../../shared/components/Loading'
+import { publicRoutes, userRoutes } from './routes'
 import { useAuth } from '../../shared/hooks/useAuth'
+import { is } from 'date-fns/locale'
 
 const AppRouter = () => {
-  const { isLoading, isAuth } = useAuth()
+  const { isAuth, authState } = useAuth()
 
   const navigate = useNavigate()
 
   const getRouts = () => {
     if (!isAuth) {
       return publicRoutes
-    } else {
-      return userRoutes
     }
+
+    return userRoutes
   }
 
-  if (isLoading) {
-    return <Loading />
-  }
+  console.log(isAuth, 'isAuthRouter')
 
   return (
     <Routes>
