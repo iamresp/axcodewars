@@ -1,26 +1,20 @@
 import React, { type FC, useEffect, useRef, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { TimerCustom } from 'widgets/TimerCustom'
-import CodeMirror from '@uiw/react-codemirror'
-import { javascript } from '@codemirror/lang-javascript'
-import { darcula } from '@uiw/codemirror-theme-darcula'
-import classNames from 'classnames'
+import { useNavigate, useParams } from 'react-router-dom'
 import { type ICreateTask } from 'entities/TaskApi/task.interface'
-import taskService from '../../entities/TaskApi/task.service'
+import taskService from 'entities/TaskApi/task.service'
+import { Button } from 'shared/components'
 import {
   Alert,
-  Button,
+  Button as ButtonMaterial,
   CircularProgress,
   Grid,
   Typography
 } from '@mui/material'
 import { errorToast } from 'shared/lib/error-toast'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
 import cls from './TaskPage.module.css'
-import userService from 'entities/UserApi/user.service'
-import type { IGetConnectUser } from 'entities/UserApi/user.interface'
-
-const taskTime = 300000
+import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { CodeEditors } from 'widgets/CodeEditors'
+import {IGetConnectUser} from "entities/UserApi/user.interface";
 
 export const TaskPage: FC = () => {
   const { id } = useParams()
@@ -29,15 +23,11 @@ export const TaskPage: FC = () => {
 
   const [isConnected, setIsConnected] = useState(false)
   const [isOpponent, setIsOpponent] = useState(false)
-  const [isReady, setIsReady] = useState(false)
-  const [code, setCode] = useState('')
   const [opponentCode, setOpponentCode] = useState('')
-  const [taskData, setTaskData] = useState<ICreateTask>()
-  const [rightResult, setRightResult] = useState('')
-  const [attempts, setAttempts] = useState(0)
   const [opponentAttempts, setOpponentAttempts] = useState(0)
-  const [message, setMessage] = useState('')
-  const [timer, setTimer] = useState(false)
+  const [taskData, setTaskData] = useState<ICreateTask>()
+  const [attempts, setAttempts] = useState(0)
+  const [rightResult, setRightResult] = useState('')
 
   const [open, setOpen] = useState(false)
   const [gameMessage, setGameMessage] = useState('')
@@ -124,29 +114,20 @@ export const TaskPage: FC = () => {
     }
   }
 
-  const sendCode = (value: string): void => {
-    setCode(value)
-    const message = {
-      event: 'push',
-      data: value
-    }
-    socket.current?.send(JSON.stringify(message))
-  }
-
-  const handleAttempt = async (): Promise<void> => {
+  const handleAttempt = (): void => {
     const message = { event: 'attempt' }
     socket.current?.send(JSON.stringify(message))
     setAttempts(attempts + 1)
   }
 
-  const handleWin = async (): Promise<void> => {
+  const handleWin = (): void => {
     const message = { event: 'win' }
     socket.current?.send(JSON.stringify(message))
     setGameMessage(`Вы победили с ${attempts} попытки!`)
     setOpen(true)
   }
 
-  const handleDisconnect = async (): Promise<void> => {
+  const handleDisconnect = (): void => {
     const message = { event: 'decline' }
     socket.current?.send(JSON.stringify(message))
 
@@ -162,45 +143,6 @@ export const TaskPage: FC = () => {
     setOpen(true)
   }
 
-  const handleValidateCode = async (timeout = false): Promise<void> => {
-    let result = null
-
-    try {
-      result = eval(code)
-    } catch (e) {
-      throw new Error()
-    }
-
-    await handleAttempt()
-
-    if (result !== null && result !== code) {
-      if (result.toString() === rightResult) {
-        await handleWin()
-        setMessage('Результат выполнения совпал с ответом')
-      } else {
-        if (timeout) {
-          isTimeOutLose()
-
-          return
-        }
-        setMessage('Результат выполнения не совпал с ответом')
-      }
-    } else {
-      if (timeout) {
-        isTimeOutLose()
-
-        return
-      }
-      setMessage('Ошибка в коде')
-    }
-  }
-
-  useEffect(() => {
-    if (timer) {
-      void handleValidateCode(timer)
-    }
-  }, [timer])
-
   if (!isOpponent) {
     return (
       <Grid
@@ -215,15 +157,15 @@ export const TaskPage: FC = () => {
           height: '100vh'
         }}
       >
-        <Button
+        <ButtonMaterial
           variant='contained'
           size='large'
           onClick={connect}
           disabled={isConnected}
         >
           Присоединиться
-        </Button>
-        <Button
+        </ButtonMaterial>
+        <ButtonMaterial
           variant='contained'
           size='large'
           onClick={() => {
@@ -231,7 +173,7 @@ export const TaskPage: FC = () => {
           }}
         >
           Выйти
-        </Button>
+        </ButtonMaterial>
         {isConnected && <CircularProgress />}
         {isConnected && (
           <Typography component='div' variant='h6'>
@@ -244,15 +186,16 @@ export const TaskPage: FC = () => {
 
   return (
     <Wrapper>
-      <button
+      <Button
         className={cls.leaveRoomButton}
         type='button'
+        isOrange={false}
+        text='Выйти из комнаты'
         onClick={() => {
-          void handleDisconnect()
+          handleDisconnect()
         }}
       >
-        Выйти из комнаты
-      </button>
+      </Button>
       <div className={cls.container}>
         <div className={cls.header}>
           <h1 className={cls.mainTitle}>{taskData?.title}</h1>
@@ -273,66 +216,16 @@ export const TaskPage: FC = () => {
             </p>
           </div>
         </div>
-        {isReady
-          ? (
-            <TimerCustom ms={taskTime} setTime={setTimer} />
-          )
-          : (
-            <button
-              className={classNames(cls.mainButton, cls.readyButton)}
-              type='button'
-              onClick={() => {
-                setIsReady(true)
-              }}
-            >
-            Готов
-            </button>
-          )}
-        <div className={cls.codeEditorsContainer}>
-          <div className={cls.codeEditorContainer}>
-            {isReady && (
-              <p className={cls.attempts}>Ваши попытки: {attempts}</p>
-            )}
-            <CodeMirror
-              value={code}
-              className={cls.codeEditor}
-              theme={darcula}
-              height='100%'
-              extensions={[javascript({ jsx: true })]}
-              onChange={sendCode}
-            />
-            <div className={cls.submitContainer}>
-              {(message.length > 0) &&
-              (<div className={cls.alarm}>{message}</div>)}
-              {isReady && (
-                <button
-                  className={classNames(cls.mainButton, cls.submitButton)}
-                  type='button'
-                  onClick={() => {
-                    void handleValidateCode()
-                  }}
-                >
-                  Отправить
-                </button>
-              )}
-            </div>
-          </div>
-          <div className={cls.codeEditorContainer}>
-            {isReady && (
-              <p className={cls.attempts}>
-                Попытки противника: {opponentAttempts}
-              </p>
-            )}
-            <CodeMirror
-              value={opponentCode}
-              className={cls.codeEditor}
-              height='100%'
-              editable={false}
-              theme={darcula}
-              extensions={[javascript({ jsx: true })]}
-            />
-          </div>
-        </div>
+        <CodeEditors
+          socket={socket}
+          rightResult={rightResult}
+          attempts={attempts}
+          opponentCode={opponentCode}
+          opponentAttempts={opponentAttempts}
+          onAttempt={handleAttempt}
+          onWin={handleWin}
+          isTimeOutLose={isTimeOutLose}
+        />
       </div>
     </Wrapper>
   )
