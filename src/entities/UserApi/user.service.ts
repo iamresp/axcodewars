@@ -91,7 +91,7 @@ class UserService {
     }
   }
 
-  async editUser(data: IEditUser) {
+  async editUser (data: IEditUser) {
     try {
       const response = await fetch(`${this._URL}/auth/user`, {
         method: 'PUT',
@@ -122,6 +122,8 @@ class UserService {
           this._status[response.status]
         )
       }
+
+      console.log('response', response)
 
       return await response.json()
     } catch (error) {

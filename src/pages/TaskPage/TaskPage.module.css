@@ -12,6 +12,35 @@
   padding: 50px;
 }
 
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.opponentBlock{
+  display: flex;
+}
+
+.opponent{
+  font-size: 18px;
+  font-weight: 500;
+  margin-right: 15px;
+}
+
+.opponentAvatar{
+  background-color: var(--orange-color);
+  border-radius: 100%;
+  height: 35px;
+  margin-right: 25px;
+  width: 35px;
+}
+
+.opponentlink{
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 15px;
+}
+
 .leaveRoomButton {
   align-items: center;
   background: var(--main-color);

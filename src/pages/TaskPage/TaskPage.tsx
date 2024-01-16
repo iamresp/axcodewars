@@ -1,5 +1,5 @@
 import React, { type FC, useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { TimerCustom } from 'widgets/TimerCustom'
 import CodeMirror from '@uiw/react-codemirror'
 import { javascript } from '@codemirror/lang-javascript'
@@ -17,6 +17,8 @@ import {
 import { errorToast } from 'shared/lib/error-toast'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 import cls from './TaskPage.module.css'
+import userService from 'entities/UserApi/user.service'
+import type { IGetConnectUser } from 'entities/UserApi/user.interface'
 
 const taskTime = 300000
 
@@ -40,6 +42,9 @@ export const TaskPage: FC = () => {
   const [open, setOpen] = useState(false)
   const [gameMessage, setGameMessage] = useState('')
 
+  const [opponent, setOpponent] = useState<IGetConnectUser>()
+  const [conId, setConId] = useState('')
+
   useEffect(() => {
     const getTask = async (): Promise<void> => {
       try {
@@ -54,6 +59,25 @@ export const TaskPage: FC = () => {
     void getTask()
   }, [])
 
+  useEffect(() => {
+    const getConnectUsers = async (): Promise<void> => {
+      console.log('useEffectConId', conId)
+      try {
+        const opponent = await userService.getConnectUser(conId)
+        setOpponent(opponent)
+      } catch (error) {
+        errorToast(error)
+      }
+    }
+    if (conId) {
+      void getConnectUsers()
+    }
+  }, [conId])
+
+  console.log('conID', conId)
+
+  console.log(opponent, 'opp')
+
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
 
@@ -66,10 +90,14 @@ export const TaskPage: FC = () => {
     socket.current.onmessage = (event: MessageEvent<string>) => {
       const message = JSON.parse(event.data)
 
+      // console.log('message.data', message.data)
+
       switch (message.event) {
         case 'connect':
           break
         case 'pair':
+          setConId(message.data)
+          console.log('message.data123', message.data)
           setIsOpponent(true)
           break
         case 'ready':
@@ -226,7 +254,14 @@ export const TaskPage: FC = () => {
         Выйти из комнаты
       </button>
       <div className={cls.container}>
-        <h1 className={cls.mainTitle}>{taskData?.title}</h1>
+        <div className={cls.header}>
+          <h1 className={cls.mainTitle}>{taskData?.title}</h1>
+          <div className={cls.opponentBlock}>
+            <p className={cls.opponent}>Оппонент:</p>
+            <img className={cls.opponentAvatar} alt={'Logo'}/>
+            <p className={cls.opponentlink}>glhf</p>
+          </div>
+        </div>
         <div className={cls.descriptionContainer}>
           <p className={cls.description}>{taskData?.description}</p>
           <div className={cls.results}>
