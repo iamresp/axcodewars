@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { publicRoutes, userRoutes } from './routes'
 import { Route, Routes, useNavigate } from 'react-router-dom'
-import api from '../../shared/service/axios/axiosClient'
 import { Loading } from '../../shared/components/Loading'
 import { useAuth } from '../../shared/hooks/useAuth'
 
