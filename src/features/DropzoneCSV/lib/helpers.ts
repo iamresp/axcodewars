@@ -1,4 +1,4 @@
-import {CSVSeparator, IRegexParser} from '../model/types'
+import {CSVSeparator} from '../model/types'
 import { Parsers } from '../model/parsers'
 
 export const arrBufToStr = (buf: ArrayBuffer): string => {
