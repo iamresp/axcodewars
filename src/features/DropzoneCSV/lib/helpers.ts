@@ -1,17 +1,21 @@
 import { CSVSeparator } from './types'
 import { Parsers } from '../model/parsers'
 
-export function arrBufToStr (buf: ArrayBuffer) {
+export function arrBufToStr (buf: ArrayBuffer): string {
   return String.fromCharCode.apply(null, Array.from(new Uint16Array(buf)))
 }
 
-const isValidCSVrow = (row: string[]) => row.length > 4 && row.length % 2 === 0
+const isValidCSVrow = (row: string[]): boolean => (
+  row.length > 4 && row.length % 2 === 0
+)
 
 function parseCSVstring (str: string, separator: CSVSeparator): string[] {
   // Return empty array if input string is not well formed CSV string.
-  if (!Parsers[ separator ].regValid.test(str)) return []
+  if (!Parsers[separator].regValid.test(str)) return []
   const a = [] // Initialize array to receive values.
-  str.replace(Parsers[ separator ].regValue, // "Walk" the string using replace with callback.
+  str.replace(
+    // "Walk" the string using replace with callback.
+    Parsers[separator].regValue,
     function (m0: string, m1: string, m2: string, m3: string) {
       // Remove backslash from \' in single quoted values.
       if (m1 !== undefined) a.push(m1.replace(/\\'/g, "'"))
@@ -20,7 +24,8 @@ function parseCSVstring (str: string, separator: CSVSeparator): string[] {
       else if (m3 !== undefined) a.push(m3)
 
       return '' // Return empty string.
-    })
+    }
+  )
   // Handle special case of empty last value.
   if (/,\s*$/.test(str)) a.push('')
 
@@ -38,7 +43,7 @@ function getAllSeparators (): CSVSeparator[] {
   return separatorsArr
 }
 
-export function CSVtoArray (text: string) {
+export function CSVtoArray (text: string): string[][] {
   // split CSV table to array of rows
   const CSVData: string[] = text.split(/\r\n|\r|\n/)
   // go through all separators
@@ -48,15 +53,16 @@ export function CSVtoArray (text: string) {
 
     // parse every row of CSV
     for (let row = 0; row < CSVData?.length; row++) {
-      currentData[ row ] = parseCSVstring(CSVData[ row ], separator as CSVSeparator)
+      currentData[row] = parseCSVstring(CSVData[row], separator as CSVSeparator)
     }
 
     // remove last subarray if empty
-    if ((currentData.length > 0) && currentData.at(-1)?.length === 0) {
+    if (currentData.length > 0 && currentData.at(-1)?.length === 0) {
       currentData.pop()
     }
 
-    // validation: go through array and check if all subarrays length more than 4 and divides by 2
+    // validation: go through array and check
+    // if all subarrays length more than 4 and divides by 2
     if (currentData.every(isValidCSVrow)) return currentData
   }
 

@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { DropzoneCsv } from 'features/DropzoneCSV'
 import { Button, Modal } from 'shared/components'
 import taskService from 'entities/TaskApi/task.service'
+import { type ResultsType } from 'entities/TaskApi/task.interface'
 
 import cls from './styles.module.css'
 import { errorToast } from 'shared/lib/error-toast'
@@ -15,7 +16,7 @@ interface CSVModalProps {
 
 const INIT_STATE = [['']]
 
-const resArr = (arr: string[], chunkSize: number = 2) => {
+const resArr = (arr: string[], chunkSize: number = 2): ResultsType => {
   const res = []
   while (arr.length > 0) {
     const chunk = arr.splice(0, chunkSize)

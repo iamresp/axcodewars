@@ -4,7 +4,6 @@ import { type ICreateTask } from 'entities/TaskApi/task.interface'
 import taskService from 'entities/TaskApi/task.service'
 import { Button } from 'shared/components'
 import {
-  Alert,
   Button as ButtonMaterial,
   CircularProgress,
   Grid, Modal,
@@ -12,7 +11,7 @@ import {
 } from '@mui/material'
 import { errorToast } from 'shared/lib/error-toast'
 import cls from './TaskPage.module.css'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { Wrapper } from 'entities/Wrapper'
 import { CodeEditors } from 'widgets/CodeEditors'
 import { type IGetConnectUser } from 'entities/UserApi/user.interface'
 import userService from 'entities/UserApi/user.service'

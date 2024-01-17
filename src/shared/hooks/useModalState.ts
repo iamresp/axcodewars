@@ -5,11 +5,11 @@ export const useModalState = (
 ): [boolean, () => void, () => void] => {
   const [isOpen, setOpen] = useState(defaultValue)
 
-  const open = () => {
+  const open = (): void => {
     setOpen(true)
   }
 
-  const close = () => {
+  const close = (): void => {
     setOpen(false)
   }
 
