@@ -22,3 +22,10 @@
     width: 90dvw;
   }
 }
+
+@media (width <= 480px) {
+
+  .inputSearch {
+    width: 40dvw;
+  }
+}

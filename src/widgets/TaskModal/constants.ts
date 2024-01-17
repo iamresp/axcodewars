@@ -11,7 +11,11 @@ export interface TaskObjTypes {
 
 export const taskObj: TaskObjTypes = {
   description: '',
-  taskCase: [{ args: '', result: '' }, { args: '', result: '' }, { args: '', result: '' }],
+  taskCase: [
+    { args: '', result: '' },
+    { args: '', result: '' },
+    { args: '', result: '' }
+  ],
   title: ''
 }
 

@@ -40,9 +40,9 @@ module.exports = {
     '@typescript-eslint/prefer-optional-chain': 'warn',
     '@typescript-eslint/indent': ['warn', 2],
 
-    'react/button-has-type': 'warn',
     'react/prop-types': 'warn',
     'react/react-in-jsx-scope': 'warn',
+    'react-hooks/exhaustive-deps': 'off',
 
     'arrow-parens': ['warn', 'as-needed'],
     'arrow-spacing': ['warn', { before: true, after: true }],
@@ -60,9 +60,9 @@ module.exports = {
     'lines-around-comment': ['warn', { beforeBlockComment: true }],
     'yield-star-spacing': ['warn', 'after'],
     'multiline-ternary': ['warn', 'always-multiline'],
-    'max-len': ['warn', { code: 80 }],
+    'max-len': ['warn', { code: 80 }, { "ignoreRegExpLiterals": true }],
     'no-restricted-imports': ['warn', { patterns: ['../../*'] }],
     'newline-before-return': ['warn'],
-    'no-eval': 'warn'
+    'no-eval': 'off'
   }
 }
