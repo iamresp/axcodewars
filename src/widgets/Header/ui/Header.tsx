@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { useContext, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
-import { PopOver } from 'widgets/PopOver/PopOver'
+import { PopOver } from 'widgets/PopOver'
 import { useAuth } from 'shared/hooks/useAuth'
 import { ThemeContext } from 'app/context/ThemeContext'
-import { Link, useLocation } from 'react-router-dom'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { Wrapper } from 'entities/Wrapper'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
 import cls from '../ui/Header.module.css'
 
@@ -64,17 +64,25 @@ export default function Header (): JSX.Element {
         </div>
         <div className={cls.headerRight}>
           {pathname !== '/auth' && (
-            <div tabIndex={0} role={'button'} className={cls.profileContWrapper} onKeyDown={() => {}} onClick={handleClick} ref={node}>
+            <div
+              tabIndex={0}
+              role={'button'}
+              className={cls.profileContWrapper}
+              onKeyDown={() => {}}
+              onClick={handleClick}
+              ref={node}
+            >
               <div className={cls.profileCont}>
                 <img className={cls.profileImg}
-                  src={(user.avatar !== '') ? process.env.REACT_APP_SERVER_URL + user.avatar : './images/userlogo.png'}
+                  src={(user.avatar !== '')
+                    ? process.env.REACT_APP_SERVER_URL + user.avatar
+                    : './images/userlogo.png'}
                   alt={'user.avatar'}/>
                 <p className={cls.profileUsername}>{user.username}</p>
               </div>
               {display && (<PopOver/>)}
             </div>
           )}
-
           <ThemeSwitcher
             isOn={value}
             handleToggle={handleToggle}

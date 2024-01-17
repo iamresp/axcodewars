@@ -90,7 +90,7 @@ class UserService {
     }
   }
 
-  async editUser (data: IEditUser) {
+  async editUser (data: IEditUser): Promise<void> {
     try {
       const response = await fetch(`${this._URL}/auth/user`, {
         method: 'PUT',

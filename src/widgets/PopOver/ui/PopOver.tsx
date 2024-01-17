@@ -1,13 +1,14 @@
-import cls from './PopOver.module.css'
-import { Link, useNavigate } from 'react-router-dom'
-import * as React from 'react'
+import React, { type FC } from 'react'
+import { Link } from 'react-router-dom'
 import {
-  PopOverExit, PopOverProfile,
+  PopOverExit,
+  PopOverProfile,
   PopOverTask
 } from 'widgets/Header/assets/SvgComponents/LogoSvgComponent'
 import { useAuth } from 'shared/hooks/useAuth'
+import cls from './PopOver.module.css'
 
-export const PopOver = () => {
+export const PopOver: FC = () => {
   const { logout } = useAuth()
 
   return (

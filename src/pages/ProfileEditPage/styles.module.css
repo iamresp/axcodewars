@@ -121,15 +121,15 @@
 
 @media (width <= 480px) {
 
-.content {
-  padding: 61px 0;
-}
+  .content {
+    padding: 61px 0;
+  }
 
-.inputWrapper {
-  padding: 36px 20px;
-}
+  .inputWrapper {
+    padding: 36px 20px;
+  }
 
-.username {
-  font-size: 20px;
-}
+  .username {
+    font-size: 20px;
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { publicRoutes, userRoutes } from './routes'
-import { useAuth } from '../../shared/hooks/useAuth'
+import { useAuth } from 'shared/hooks/useAuth'
 
 const AppRouter = () => {
   const { isAuth } = useAuth()
