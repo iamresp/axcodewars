@@ -1,7 +1,7 @@
 import React, { type FC } from 'react'
 import cls from './ErrorPage.module.css'
 import Lottie from 'lottie-react'
-import animationData from '../../../public/error404.json'
+import animationData from 'shared/images/error404.json'
 import { Button } from 'shared/components'
 import { Link } from 'react-router-dom'
 
@@ -14,7 +14,6 @@ export const ErrorPage: FC = () => {
         <Button className={cls.btnRedirect} text='На главную' isOrange></Button>
       </Link>
     </div>
-
   )
 }
 export default ErrorPage

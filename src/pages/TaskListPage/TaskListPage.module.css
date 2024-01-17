@@ -31,15 +31,14 @@
 .createTask {
   background: none;
   border: none;
-  width: 7dvw;
-  text-align: start;
   color: var(--text-color);
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
+  text-align: start;
   text-decoration: none;
-  text-underline: none;
   transition: all 0.3s ease;
+  width: 7dvw;
 }
 
 .createTask:hover {
@@ -79,7 +78,7 @@
   background: var(--submain-color);
   border: 1px solid var(--orange-color);
   border-radius: 3px;
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 25%);
   display: flex;
   flex-direction: column;
   height: 252px;

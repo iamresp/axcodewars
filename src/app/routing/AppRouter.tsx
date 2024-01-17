@@ -1,15 +1,13 @@
-import React from 'react'
-import { publicRoutes, userRoutes } from './routes'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import { Loading } from '../../shared/components/Loading'
-import { useAuth } from '../../shared/hooks/useAuth'
+import React, { type FC } from 'react'
+import { publicRoutes, userRoutes, type RoutesType } from './routes'
+import { Route, Routes } from 'react-router-dom'
+import { Loading } from 'shared/components/Loading'
+import { useAuth } from 'shared/hooks/useAuth'
 
-const AppRouter = () => {
+const AppRouter: FC = () => {
   const { isLoading, isAuth } = useAuth()
 
-  const navigate = useNavigate()
-
-  const getRouts = () => {
+  const getRouts = (): RoutesType[] => {
     if (!isAuth) {
       return publicRoutes
     } else {
