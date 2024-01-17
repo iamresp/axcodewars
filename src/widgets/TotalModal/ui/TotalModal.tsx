@@ -22,7 +22,7 @@ export const TotalModal: FC<TotalModalProps> = ({ isOpen, isWin }) => {
       title={ isWin ? 'Наши поздравления!' : 'Повезёт в другой раз!' }
       isOpen={isOpen}
     >
-      <div>
+      <div className={cls.modalBlock}>
         <p className={cls.subtitle}>{ isWin ? 'Вы победили!' : 'Вы проиграли!' }</p>
         <img src={ isWin ? './gifs/win.gif' : './gifs/lose.gif' } alt='TotalImage' className={cls.gifs}/>
         <Button
