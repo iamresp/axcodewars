@@ -2,7 +2,7 @@ import React, { type FC } from 'react'
 import { Button, Modal } from 'shared/components'
 import { useNavigate } from 'react-router-dom'
 
-import cls from './style.module.css'
+import cls from './TotalModal.module.css'
 import { AUTH_STATE } from 'pages/AuthPage/constants'
 
 interface TotalModalProps {
