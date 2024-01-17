@@ -5,9 +5,8 @@ import React, {
   type MutableRefObject
 } from 'react'
 import { TimerCustom } from 'features/TimerCustom'
-import { Button } from 'shared/components'
+import { Button, CodeEditor } from 'shared/components'
 import cls from './CodeEditors.module.css'
-import { CodeEditor } from 'shared/components/CodeEditor/CodeEditor'
 
 interface CodeEditorsProps {
   socket: MutableRefObject<WebSocket | null | undefined>

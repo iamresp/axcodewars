@@ -1,5 +1,5 @@
 import React, { type ChangeEvent, useEffect, useState } from 'react'
-import { useDebounce } from '../../hooks/useDebounce'
+import { useDebounce } from 'shared/hooks/useDebounce'
 import cls from './SearchInput.module.css'
 
 interface SearchInputProps {
@@ -10,7 +10,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
   const [value, setValue] = useState('')
   const debouncedSearchTerm = useDebounce(value, 500)
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value)
   }
 
