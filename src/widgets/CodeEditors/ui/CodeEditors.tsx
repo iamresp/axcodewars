@@ -21,6 +21,8 @@ interface CodeEditorsProps {
   isTimeOutLose: () => void
 }
 
+type ResultType = number | string | boolean | null
+
 const taskTime = 300_000
 
 export const CodeEditors: FC<CodeEditorsProps> = ({
@@ -41,20 +43,24 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
     timeout = false,
     code = ''
   ): string => {
-    let result: any = null
+    let result: ResultType = null
 
     onAttempt()
 
-    const convertParams = (arr: string[]): string[] => {
-      const newArr = arr.map(item => {
-        if (isNaN(Number(item))) {
-          return `${item}`
-        } else {
-          return item
+    const convertParams = (params: string[]): string => {
+      const newArr = params.map(param => {
+        try {
+          if (!isNaN(Number(JSON.parse(param)))) {
+            return param
+          }
+
+          return param
+        } catch (e) {
+          return JSON.stringify(param)
         }
       })
 
-      return newArr
+      return newArr.join(', ')
     }
 
     if (rightResults === undefined) return ''
@@ -62,7 +68,7 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
     for (const rightResult of rightResults) {
       try {
         const taskParams = rightResult[0].split(' ')
-        result = eval(code + `\ntask(${convertParams(taskParams)})`)
+        result = eval(`${code}\ntask(${convertParams(taskParams)})`)
       } catch (e) {
         if (e instanceof Error) {
           return `Ошибка в коде: ${e.message}`
