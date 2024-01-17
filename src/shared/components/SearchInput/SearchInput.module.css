@@ -22,3 +22,17 @@
     width: 90dvw;
   }
 }
+
+@media (width <= 480px) {
+
+  .inputSearch {
+    width: 50dvw;
+  }
+}
+
+@media (width <= 380px) {
+
+  .inputSearch {
+    width: 40dvw;
+  }
+}
