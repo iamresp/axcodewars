@@ -1,38 +1,82 @@
-import React, { useContext, useState } from 'react'
+import React, {
+  type FC, type ReactNode,
+  useEffect, useState
+} from 'react'
 import { AuthContext } from 'app/context/AuthContext'
+import { FIELD_LOCAL_STORAGE } from 'shared/constants'
+import userService from 'entities/UserApi/user.service'
+import { errorToast } from 'shared/lib/error-toast'
+import { type UserType } from 'shared/types'
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  // Using the useState hook to keep track of the value authed (if a
-  // user is logged in)
-  const [authed, setAuthed] = useState<boolean>(false)
+interface AuthContextProps {
+  children: ReactNode
+}
+export const AuthProvider: FC<AuthContextProps> = ({ children }) => {
+  const token = localStorage.getItem(FIELD_LOCAL_STORAGE.ACCESS_TOKEN)
 
-  const login = async (): Promise<void> => {
-    const result = await fakeAsyncLogin()
+  const [isLoading, setIsLoading] = useState(false)
+  const [isAuth, setIsAuth] = useState(Boolean(token))
+  const [user, setUser] = useState<UserType>({
+    username: '',
+    avatar: '',
+    token: ''
+  })
 
-    if (result) {
-      console.log('user has logged in')
-
-      setAuthed(true)
+  async function login (hash: string, username: string): Promise<void> {
+    try {
+      await userService.authenticateUser({ hash, username })
+      setIsAuth(true)
+    } catch (error) {
+      errorToast(error)
     }
   }
 
-  /// Mock Async Login API call.
-  const fakeAsyncLogin = async (): Promise<string> => {
-    return await new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('Logged In')
-      }, 300)
+  const logout = (): void => {
+    localStorage.removeItem(FIELD_LOCAL_STORAGE.ACCESS_TOKEN)
+    setIsAuth(false)
+    setUser({
+      username: '',
+      avatar: '',
+      token: ''
     })
   }
 
+  async function fetchUser (): Promise<void> {
+    setIsLoading(true)
+
+    try {
+      const user = await userService.getUser()
+
+      if (user.uuid !== '') {
+        setUser({ ...user, token: token ?? '' })
+      }
+    } catch (error) {
+      errorToast(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (token != null) {
+      setIsAuth(true)
+    }
+
+    if (isAuth) {
+      void fetchUser()
+    }
+  }, [isAuth])
+
   return (
-  // Using the provider so that ANY component in our application can
-  // use the values that we are sending.
-    <AuthContext.Provider value={{ isAuth: authed, setAuthed, login }}>
+    <AuthContext.Provider value={{
+      isLoading,
+      isAuth,
+      user,
+      fetchUser,
+      login,
+      logout
+    }}>
       {children}
     </AuthContext.Provider>
   )
-}
-export const useAuth = () => {
-  return useContext(AuthContext)
 }

@@ -5,10 +5,9 @@ import { AvatarLoading } from 'features/AvatarLoading'
 import { Button, InputCustom } from 'shared/components'
 import { Wrapper } from 'entities/Wrapper'
 import { errorToast } from 'shared/lib/error-toast'
+import { useAuth } from 'shared/hooks/useAuth'
 
 import cls from './AuthPage.module.css'
-import { useAuth } from 'shared/hooks/useAuth'
-import { useNavigate } from 'react-router-dom'
 
 export const AuthPage: FC = () => {
   const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
@@ -17,8 +16,8 @@ export const AuthPage: FC = () => {
   const [image, setImage] = useState<File>()
   const [errorMessage, setErrorMessage] = useState('')
 
-  const { authState, isAuth } = useAuth()
-  const navigate = useNavigate()
+  const { login } = useAuth()
+
   const handleAuth = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
@@ -33,14 +32,9 @@ export const AuthPage: FC = () => {
     }
 
     if (auth === AUTH_STATE.LOGIN) {
-      try {
-        await userService.authenticateUser({ hash: password, username })
-        setErrorMessage('')
-        authState(true)
-        navigate('/tasks')
-      } catch (error) {
-        errorToast(error)
-      }
+      await login(password, username)
+
+      setErrorMessage('')
 
       return
     }
@@ -51,14 +45,14 @@ export const AuthPage: FC = () => {
         hash: password,
         username
       })
+
       setErrorMessage('')
-      await userService.authenticateUser({ hash: password, username })
+
+      await login(password, username)
     } catch (error) {
       errorToast(error)
     }
   }
-
-  console.log(isAuth)
 
   return (
     <Wrapper className={cls.main}>

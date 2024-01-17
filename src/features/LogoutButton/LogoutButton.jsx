@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { FIELD_LOCAL_STORAGE } from '../../shared/constants/constants'
+import { FIELD_LOCAL_STORAGE } from '../../shared/constants'
 
 export const LogoutButton = () => {
   const handleLogout = () => {

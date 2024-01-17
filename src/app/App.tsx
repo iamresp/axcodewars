@@ -3,6 +3,7 @@ import React from 'react'
 import './app.css'
 
 import { ThemeProvider } from './context/ThemeProvider'
+import { AuthProvider } from './context/AuthProvider'
 import AppRouter from './routing/AppRouter.jsx'
 import Header from '../widgets/Header/ui/Header'
 import Footer from '../widgets/Footer/ui/Footer'
@@ -12,20 +13,22 @@ import 'react-toastify/dist/ReactToastify.css'
 function App (): JSX.Element {
   return (
     <ThemeProvider>
-      <Router>
-        <Header />
-        <AppRouter />
-        <Footer />
-        <ToastContainer
-          position='top-right'
-          closeOnClick
-          autoClose={3000}
-          hideProgressBar
-          draggable
-          theme='light'
-          limit={10}
-        />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Header />
+          <AppRouter />
+          <Footer />
+          <ToastContainer
+            position='top-right'
+            closeOnClick
+            autoClose={3000}
+            hideProgressBar
+            draggable
+            theme='light'
+            limit={10}
+          />
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   )
 }
