@@ -4,15 +4,14 @@ import { type ICreateTask } from 'entities/TaskApi/task.interface'
 import taskService from 'entities/TaskApi/task.service'
 import { Button } from 'shared/components'
 import {
-  Alert,
   Button as ButtonMaterial,
   CircularProgress,
   Grid,
   Typography
 } from '@mui/material'
-
+import { errorToast } from 'shared/lib/error-toast'
 import cls from './TaskPage.module.css'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { Wrapper } from 'entities/Wrapper'
 import { CodeEditors } from 'widgets/CodeEditors'
 
 export const TaskPage: FC = () => {
@@ -36,7 +35,7 @@ export const TaskPage: FC = () => {
         const data = await taskService.getTaskById(id ?? '')
         setTaskData(data)
       } catch (error) {
-        throw new Error()
+        errorToast(error)
       }
     }
 

@@ -3,9 +3,10 @@ import { toast } from 'react-toastify'
 import { DropzoneCsv } from 'features/DropzoneCSV'
 import { Button, Modal } from 'shared/components'
 import taskService from 'entities/TaskApi/task.service'
-import { type ICreateTask } from 'entities/TaskApi/task.interface'
+import { type ResultsType } from 'entities/TaskApi/task.interface'
 
 import cls from './styles.module.css'
+import { errorToast } from 'shared/lib/error-toast'
 
 interface CSVModalProps {
   isOpen: boolean
@@ -15,7 +16,7 @@ interface CSVModalProps {
 
 const INIT_STATE = [['']]
 
-const resArr = (arr: string[], chunkSize: number = 2) => {
+const resArr = (arr: string[], chunkSize: number = 2): ResultsType => {
   const res = []
   while (arr.length > 0) {
     const chunk = arr.splice(0, chunkSize)
@@ -45,7 +46,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
     e.preventDefault()
 
     try {
-      const promiseArr: Array<Promise<ICreateTask>> = []
+      const promiseArr = []
 
       for (const [title, description, ...results] of data) {
         promiseArr.push(
@@ -65,7 +66,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
       } else {
         tasksData.forEach((res, i) => {
           if (res.status === 'rejected') {
-            toast.error(`Ошибка таски: ${data[i][0]} - ${res.reason}`, {
+            toast.error(`${data[i][0]} - ${res.reason.message}`, {
               autoClose: 15000 + i * 2000
             })
             console.error(res)
@@ -81,7 +82,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
 
       await getTasks()
     } catch (error) {
-      throw new Error()
+      errorToast(error)
     }
   }
 

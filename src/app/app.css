@@ -8,12 +8,14 @@
   --modal-mobile-color: #fffaf8;
   --btn-disabled-color: grey;
   --font-family: 'Montserrat', sans-serif;
+  --header-height: 100px;
+  --footer-height: 100px;
   --border-radius: 3px;
 }
 
 [data-theme='light'] {
   --main-color: #fff;
-  --submain-color: #fffaf8;
+  --submain-color: #FFE8DE;
   --text-color: #000;
   --orange-color: #f37022;
   --black-color: #000;
@@ -46,9 +48,8 @@
 body {
   background-color: var(--main-color);
   box-sizing: border-box;
-  font-family: Montserrat, sans-serif;
+  font-family: var(--font-family);
   margin: 0;
-  padding: 0 197px;
 }
 
 button {

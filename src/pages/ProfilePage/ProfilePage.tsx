@@ -1,7 +1,7 @@
 import React, { type FC } from 'react'
 import { useAuth } from 'shared/hooks/useAuth'
 import { Link } from 'react-router-dom'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { Wrapper } from 'entities/Wrapper'
 
 import cls from './ProfilePage.module.css'
 

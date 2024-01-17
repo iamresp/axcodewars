@@ -1,0 +1,12 @@
+.errorBoundary {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  height: 100vh;
+  justify-content: center;
+}
+
+.redirectBtn {
+  width: 300px;
+}

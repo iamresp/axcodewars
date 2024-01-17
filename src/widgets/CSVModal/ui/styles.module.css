@@ -11,6 +11,7 @@
 }
 
 @media (width <= 768px) {
+
   .btnGr {
     flex-direction: column;
     gap: 30px;

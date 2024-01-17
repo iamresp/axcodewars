@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import api from '../service/axios/axiosClient'
 import userService from 'entities/UserApi/user.service'
 
 interface User {
@@ -8,7 +7,14 @@ interface User {
   token: string
 }
 
-export function useAuth () {
+interface useAuthTypes {
+  isLoading: boolean
+  isAuth: boolean
+  user: User
+  fetchUser: () => Promise<void>
+}
+
+export function useAuth (): useAuthTypes {
   const [isLoading, setIsLoading] = useState(true)
   const [isAuth, setIsAuth] = useState(false)
   const [user, setUser] = useState<User>({
@@ -24,14 +30,14 @@ export function useAuth () {
       })
   }, [])
 
-  async function fetchUser () {
+  async function fetchUser (): Promise<void> {
     try {
       const token = localStorage.getItem('access_token')
       const user = await userService.getUser()
 
-      if (user?.uuid) {
+      if (user.uuid !== '') {
         setIsAuth(true)
-        setUser({ ...user, token })
+        setUser({ ...user, token: token ?? '' })
       }
     } catch (error) {
       console.log('auth error', error)

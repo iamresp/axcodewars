@@ -1,17 +1,22 @@
 import * as React from 'react'
-import { useContext } from 'react'
-import { ThemeContext } from 'app/context/ThemeContext'
+import { useContext, useRef, useState } from 'react'
 import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
+import { PopOver } from 'widgets/PopOver'
 import { useAuth } from 'shared/hooks/useAuth'
+import { ThemeContext } from 'app/context/ThemeContext'
 
 import cls from '../ui/Header.module.css'
 import { Link } from 'react-router-dom'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
+import { Wrapper } from 'entities/Wrapper'
+import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
 
 export default function Header (): JSX.Element {
   const [value, setValue] = React.useState(false)
   const { isAuth, user } = useAuth()
+  const [display, setDisplay] = useState(false)
+
+  const node = useRef<HTMLDivElement | null>(null)
   const { setCurrentTheme } = useContext(ThemeContext)
 
   const theme = document.querySelector('body')
@@ -29,6 +34,16 @@ export default function Header (): JSX.Element {
     setTheme('light')
   }
 
+  const handleClick = (): void => {
+    setDisplay(!display)
+  }
+
+  const handleClose = (): void => {
+    setDisplay(false)
+  }
+
+  useOnClickOutside(node, handleClose)
+
   const handleToggle = (): void => {
     setValue(!value)
     if (theme?.getAttribute('data-theme') === 'light') {
@@ -39,7 +54,7 @@ export default function Header (): JSX.Element {
   }
 
   return (
-    <Wrapper>
+    <Wrapper className={cls.wrapper}>
       <header className={cls.header}>
         <div className={cls.headerLeft}>
           <Link to={'/tasks'}>
@@ -48,13 +63,26 @@ export default function Header (): JSX.Element {
         </div>
         <div className={cls.headerRight}>
           {isAuth && (
-            <div className={cls.profileCont}>
-              <img className={cls.profileImg} src={user.avatar} alt={'UserLogo'}/>
-              <Link className={cls.link} to={'/profile'}>
-                {user.username}
-              </Link>
+            <div
+              tabIndex={0}
+              role={'button'}
+              className={cls.profileContWrapper}
+              onKeyDown={() => {}}
+              onClick={handleClick}
+              ref={node}
+            >
+              <div className={cls.profileCont}>
+                <img className={cls.profileImg}
+                  src={(user.avatar !== '')
+                    ? process.env.REACT_APP_SERVER_URL + user.avatar
+                    : './images/userlogo.png'}
+                  alt={'user.avatar'}/>
+                <p className={cls.profileUsername}>{user.username}</p>
+              </div>
+              {display && (<PopOver/>)}
             </div>
           )}
+
           <ThemeSwitcher
             isOn={value}
             handleToggle={handleToggle}
