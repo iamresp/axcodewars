@@ -1,0 +1,22 @@
+.modalTotal {
+  text-align: center;
+}
+
+.modalTotal > h2 {
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.gifs{
+  margin: 35px 0 40px;
+  max-width: 380px;
+}
+
+.totalButton{
+  max-width: 260px;
+}
+

@@ -71,7 +71,7 @@ export const TaskListPage: FC = () => {
           >
             Создать таску
           </button>
-          <SearchInput onSearch={handleSearch} />
+          <SearchInput onSearch={handleSearch}/>
         </div>
 
         <button type='button' className={cls.taskSortDate}>
@@ -92,10 +92,10 @@ export const TaskListPage: FC = () => {
                       handleEditOpen(task.uuid)
                     }}
                   >
-                  Редактировать
+                    Редактировать
                   </button>
                   <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
-                    <ArrowRight />
+                    <ArrowRight/>
                   </Link>
                 </div>
               </div>
@@ -103,7 +103,7 @@ export const TaskListPage: FC = () => {
           )
           : (
             <div className={cls.notFound}>
-              <img src='logo192.png' alt='' />
+              <img src='logo192.png' alt=''/>
               <p>Not Found Tasks</p>
             </div>
           )}
