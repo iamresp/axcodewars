@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
-import { Navigate } from 'react-router-dom'
-import { Loading } from 'shared/components/Loading'
+
+import { Navigate, type RouteProps } from 'react-router-dom'
+import { Loading } from 'shared/components'
 
 const AuthPage = React.lazy(async () => await import('pages/AuthPage').then(module => ({
   default: module.AuthPage
@@ -32,7 +33,7 @@ const ErrorPage = React.lazy(async () => await import('pages/ErrorPage').then(mo
 }))
 )
 
-export const publicRoutes = [
+export const publicRoutes: RouteProps[] = [
   {
     path: '/auth',
     element: (

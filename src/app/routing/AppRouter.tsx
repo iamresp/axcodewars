@@ -1,27 +1,22 @@
 import React, { type FC } from 'react'
-import { publicRoutes, userRoutes, type RoutesType } from './routes'
-import { Route, Routes } from 'react-router-dom'
-import { Loading } from 'shared/components/Loading'
+import { Route, type RouteProps, Routes } from 'react-router-dom'
+import { publicRoutes, userRoutes } from './routes'
 import { useAuth } from 'shared/hooks/useAuth'
 
 const AppRouter: FC = () => {
-  const { isLoading, isAuth } = useAuth()
+  const { isAuth } = useAuth()
 
-  const getRouts = (): RoutesType[] => {
+  const getRoutes = (): RouteProps[] => {
     if (!isAuth) {
       return publicRoutes
-    } else {
-      return userRoutes
     }
-  }
 
-  if (isLoading) {
-    return <Loading />
+    return userRoutes
   }
 
   return (
     <Routes>
-      {getRouts().map(route => (
+      {getRoutes().map(route => (
         <Route path={route.path} element={route.element} key={route.path} />
       ))}
     </Routes>

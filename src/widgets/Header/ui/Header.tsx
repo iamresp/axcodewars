@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useContext, useRef, useState } from 'react'
+import React, { type FC, useContext, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
 import { PopOver } from 'widgets/PopOver'
@@ -10,10 +9,10 @@ import { Wrapper } from 'entities/Wrapper'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
 import cls from '../ui/Header.module.css'
 
-export default function Header (): JSX.Element {
+export const Header: FC = () => {
   const { pathname } = useLocation()
 
-  const [value, setValue] = React.useState(false)
+  const [value, setValue] = useState(false)
   const { user } = useAuth()
   const [display, setDisplay] = useState(false)
 
