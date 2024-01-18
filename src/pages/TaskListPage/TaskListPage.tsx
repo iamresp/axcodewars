@@ -1,6 +1,6 @@
 import React, { type FC, useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SearchInput } from 'shared/components'
+import { SearchInput, Loading } from 'shared/components'
 import taskService from 'entities/TaskApi/task.service'
 import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
@@ -10,7 +10,7 @@ import cls from './TaskListPage.module.css'
 import { Wrapper } from 'entities/Wrapper'
 import ArrowRight from 'shared/images/arrow-right.svg'
 import { errorToast } from 'shared/lib/error-toast'
-import { Loading } from 'shared/components/Loading'
+import NotFound from 'shared/images/logo192.png'
 
 export const TaskListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
@@ -78,7 +78,6 @@ export const TaskListPage: FC = () => {
           </button>
           <SearchInput onSearch={handleSearch} />
         </div>
-
         <button type='button' className={cls.taskSortDate}>
           <p>по дате добавления</p>
         </button>
@@ -89,8 +88,8 @@ export const TaskListPage: FC = () => {
             <Loading />
           )
           : filteredTasks.length > 0
-            ? (filteredTasks.map(task => (
-              <div className={cls.task} key={task.title}>
+            ? (filteredTasks.map((task, i) => (
+              <div className={cls.task} key={task.title + i}>
                 <h1 className={cls.taskTitle}>{task.title}</h1>
                 <div className={cls.taskOperations}>
                   <button
@@ -108,13 +107,13 @@ export const TaskListPage: FC = () => {
                 </div>
               </div>
             ))
-          )
-          : (
-            <div className={cls.notFound}>
-              <img src='logo192.png' alt=''/>
-              <p>Not Found Tasks</p>
-            </div>
-          )}
+            )
+            : (
+              <div className={cls.notFound}>
+                <img src={NotFound} alt='not-found'/>
+                <p>Not Found Tasks</p>
+              </div>
+            )}
       </div>
       <CreateTaskModal
         isOpen={isCreateOpen}
