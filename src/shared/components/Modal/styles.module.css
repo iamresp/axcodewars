@@ -52,16 +52,13 @@
   max-width: 100%;
   padding: 80px;
   position: relative;
+  transform: scale(1);
 }
 
 .opened {
   opacity: 1;
   pointer-events: auto;
   z-index: 10;
-}
-
-.content {
-  transform: scale(1);
 }
 
 .cross {

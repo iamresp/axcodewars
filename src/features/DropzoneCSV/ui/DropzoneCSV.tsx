@@ -37,19 +37,17 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
     e.preventDefault()
     e.stopPropagation()
     setIsDragActive(false)
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0])
-    }
+    handleFile(e.dataTransfer.files?.[0])
   }
 
-  const handleFile = (file: File) => {
+  const handleFile = (file: File): void => {
     const fr = new FileReader()
     fr.onload = receivedText
     fr.readAsText(file)
 
-    function receivedText(): void {
+    function receivedText (): void {
       let result: string
-      if (fr.result) {
+      if (fr.result !== null) {
         // convert to string
         if (typeof fr.result !== 'string') {
           result = arrBufToStr(fr.result)
@@ -76,7 +74,7 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
   }
 
   // triggers the input when the button is clicked
-  const onButtonClick = () => {
+  const onButtonClick = (): void => {
     inputRef.current?.click()
   }
 

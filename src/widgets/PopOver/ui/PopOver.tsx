@@ -1,11 +1,13 @@
 import cls from './PopOver.module.css'
-import { Link, useNavigate } from 'react-router-dom'
-import * as React from 'react'
-import { PopOverExit, PopOverProfile, PopOverTask } from 'widgets/Header/assets/SvgComponents/LogoSvgComponent'
+import { Link } from 'react-router-dom'
+import React, { type FC } from 'react'
+import {
+  PopOverExit,
+  PopOverProfile,
+  PopOverTask
+} from 'widgets/Header/assets/SvgComponents/LogoSvgComponent'
 
-export const PopOver = () => {
-  const navigate = useNavigate()
-
+export const PopOver: FC = () => {
   return (
     <>
       <div className={cls.popOver}>

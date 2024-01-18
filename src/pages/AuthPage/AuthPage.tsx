@@ -1,6 +1,6 @@
 import React, { type FC, type FormEvent, useState } from 'react'
 import { AUTH_STATE } from './constants'
-import userService from '../../entities/UserApi/user.service'
+import userService from 'entities/UserApi/user.service'
 import { AvatarLoading } from 'features/AvatarLoading'
 import { Button, InputCustom } from 'shared/components'
 import { Wrapper } from 'entities/Wrapper'

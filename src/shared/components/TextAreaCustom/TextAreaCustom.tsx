@@ -7,8 +7,8 @@ interface TextAreaCustomProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 export const TextAreaCustom = forwardRef<
-  HTMLTextAreaElement,
-  TextAreaCustomProps
+HTMLTextAreaElement,
+TextAreaCustomProps
 >(({ className, ...props }, ref) => {
   return (
     <textarea

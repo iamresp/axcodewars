@@ -1,4 +1,4 @@
-import { FIELD_LOCAL_STORAGE } from 'shared/constants/constants'
+import { FIELD_LOCAL_STORAGE } from 'shared/constants'
 import {
   type ICreateUser,
   type IAuthUser,
@@ -91,7 +91,7 @@ class UserService {
     }
   }
 
-  async editUser (data: IEditUser) {
+  async editUser (data: IEditUser): Promise<void> {
     try {
       const response = await fetch(`${this._URL}/auth/user`, {
         method: 'PUT',
@@ -122,8 +122,6 @@ class UserService {
           this._status[response.status]
         )
       }
-
-      console.log('response', response)
 
       return await response.json()
     } catch (error) {

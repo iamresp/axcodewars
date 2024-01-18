@@ -1,4 +1,4 @@
-import { FIELD_LOCAL_STORAGE } from 'shared/constants/constants'
+import { FIELD_LOCAL_STORAGE } from 'shared/constants'
 import {
   type ICreateTask,
   type IGetTaskById,
