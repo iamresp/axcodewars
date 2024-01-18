@@ -200,11 +200,6 @@ export const TaskPage: FC = () => {
       <div className={cls.container}>
         <div className={cls.header}>
           <h1 className={cls.mainTitle}>{taskData?.title}</h1>
-          <div className={cls.opponentBlock}>
-            <p className={cls.opponent}>Оппонент:</p>
-            <img className={cls.opponentAvatar} alt={'Logo'}/>
-            <p className={cls.opponentlink}>glhf</p>
-          </div>
         </div>
         <div className={cls.descriptionContainer}>
           <p className={cls.description}>{taskData?.description}</p>
