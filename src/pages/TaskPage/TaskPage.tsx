@@ -60,11 +60,9 @@ export const TaskPage: FC = () => {
 
   useEffect(() => {
     const getConnectUsers = async (): Promise<void> => {
-      console.log('useEffectConId', conId)
       try {
         const opponent = await userService.getConnectUser(conId)
         setOpponent(opponent)
-        console.log('conID', opponent)
       } catch (error) {
         errorToast(error)
       }
@@ -73,8 +71,6 @@ export const TaskPage: FC = () => {
       void getConnectUsers()
     }
   }, [conId])
-
-  console.log(opponent, 'opp')
 
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
@@ -88,14 +84,11 @@ export const TaskPage: FC = () => {
     socket.current.onmessage = (event: MessageEvent<string>) => {
       const message = JSON.parse(event.data)
 
-      // console.log('message.data', message.data)
-
       switch (message.event) {
         case 'connect':
           break
         case 'pair':
           setConId(message.data)
-          console.log('message.data123', message.data)
           setIsOpponent(true)
           break
         case 'ready':
