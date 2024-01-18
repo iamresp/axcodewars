@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import api from '../service/axios/axiosClient'
 import userService from 'entities/UserApi/user.service'
 
 interface User {
