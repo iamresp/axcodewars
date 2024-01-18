@@ -1,19 +1,8 @@
-import React from 'react';
-import { CircularProgress, Grid } from '@mui/material';
+import React from 'react'
+import cls from './styles.module.css'
 
 export const Loading = () => {
   return (
-    <Grid
-      container
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100vh'
-      }}
-    >
-      <CircularProgress />
-    </Grid>
-  );
-};
+    <div className={cls.main}><div className={cls.loader}></div></div>
+  )
+}
