@@ -63,6 +63,11 @@
   &:focus-visible {
     outline: 1px solid var(--orange-color);
   }
+
+  &::-ms-reveal {
+    height: 0;
+    width : 0;
+  }
 }
 
 .inputLabel {

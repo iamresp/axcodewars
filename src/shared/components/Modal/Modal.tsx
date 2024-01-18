@@ -16,7 +16,7 @@ interface ModalProps {
   className?: string
   children?: ReactNode
   isOpen: boolean
-  close: () => void
+  close?: () => void
   title?: string
 }
 
@@ -37,7 +37,9 @@ export const Modal: FC<ModalProps> = ({
   const handleClose = useCallback(() => {
     setIsClosing(true)
     timerRef.current = setTimeout(() => {
-      close()
+      if (close !== undefined) {
+        close()
+      }
       setIsClosing(false)
     }, ANIMATION_DELAY)
   }, [close])
@@ -78,14 +80,16 @@ export const Modal: FC<ModalProps> = ({
         >
           <div className={cls.overlay}>
             <div ref={node} className={classNames(cls.content, className)}>
-              <div
+              {(close !== undefined) && <div
                 role='button'
                 tabIndex={0}
                 className={cls.cross}
                 onClick={handleClose}
-                onKeyDown={() => {}}
-              />
-              {Boolean(title) && <p className={'main-title-modal'}>{title}</p>}
+                onKeyDown={() => {
+                }}
+              />}
+              {Boolean(title) &&
+                <h2 className={'main-title-modal'}>{title}</h2>}
               {children}
             </div>
           </div>

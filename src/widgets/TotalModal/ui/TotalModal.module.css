@@ -1,0 +1,50 @@
+.modalTotal {
+  text-align: center;
+}
+
+.modalBlock{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.modalTotal > h2 {
+  margin: 0 auto;
+}
+
+.subtitle {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.gifs{
+  margin: 35px 0 40px;
+  max-width: 380px;
+}
+
+.totalButton{
+  max-width: 260px;
+}
+
+@media screen and (width <= 768px){
+
+  .modalTotal > h2{
+    font-size: 24px;
+  }
+
+  .gifs{
+    max-width: 200px;
+  }
+
+  .totalButton{
+    max-width: 210px;
+  }
+}
+
+@media screen and (width <= 350px) {
+
+  .modalTotal > h2{
+    font-size: 18px;
+  }
+}

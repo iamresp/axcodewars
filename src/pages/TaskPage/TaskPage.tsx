@@ -6,13 +6,17 @@ import { Button } from 'shared/components'
 import {
   Button as ButtonMaterial,
   CircularProgress,
-  Grid,
+  Grid, Modal,
   Typography
 } from '@mui/material'
 import { errorToast } from 'shared/lib/error-toast'
 import cls from './TaskPage.module.css'
 import { Wrapper } from 'entities/Wrapper'
 import { CodeEditors } from 'widgets/CodeEditors'
+import { type IGetConnectUser } from 'entities/UserApi/user.interface'
+import userService from 'entities/UserApi/user.service'
+import { TotalModal } from 'widgets/TotalModal'
+import { useModalState } from 'shared/hooks/useModalState'
 
 export const TaskPage: FC = () => {
   const { id } = useParams()
@@ -30,6 +34,16 @@ export const TaskPage: FC = () => {
   const [open, setOpen] = useState(false)
   const [gameMessage, setGameMessage] = useState('')
 
+  const [opponent, setOpponent] = useState<IGetConnectUser>()
+  const [conId, setConId] = useState('')
+
+  const [isOpen, openModal, closeModal] = useModalState()
+  const [isWin, setIsWin] = useState(false)
+
+  const handleOpen = (): void => {
+    openModal()
+  }
+
   useEffect(() => {
     const getTask = async (): Promise<void> => {
       try {
@@ -43,6 +57,20 @@ export const TaskPage: FC = () => {
 
     void getTask()
   }, [])
+
+  useEffect(() => {
+    const getConnectUsers = async (): Promise<void> => {
+      try {
+        const opponent = await userService.getConnectUser(conId)
+        setOpponent(opponent)
+      } catch (error) {
+        errorToast(error)
+      }
+    }
+    if (conId) {
+      void getConnectUsers()
+    }
+  }, [conId])
 
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
@@ -60,6 +88,7 @@ export const TaskPage: FC = () => {
         case 'connect':
           break
         case 'pair':
+          setConId(message.data)
           setIsOpponent(true)
           break
         case 'ready':
@@ -72,7 +101,8 @@ export const TaskPage: FC = () => {
           break
         case 'lose':
           setGameMessage(`Вы проиграли, было ${attempts} попыток!`)
-          setOpen(true)
+          setIsWin(false)
+          openModal()
           break
         case 'disconnect':
           setIsConnected(false)
@@ -95,8 +125,8 @@ export const TaskPage: FC = () => {
   const handleWin = (): void => {
     const message = { event: 'win' }
     socket.current?.send(JSON.stringify(message))
-    setGameMessage(`Вы победили с ${attempts} попытки!`)
-    setOpen(true)
+    setIsWin(true)
+    openModal()
   }
 
   const handleDisconnect = (): void => {
@@ -111,8 +141,7 @@ export const TaskPage: FC = () => {
   }
 
   const isTimeOutLose = (): void => {
-    setGameMessage(`Вы проиграли, было ${attempts} попыток!`)
-    setOpen(true)
+    openModal()
   }
 
   if (!isOpponent) {
@@ -169,7 +198,9 @@ export const TaskPage: FC = () => {
       >
       </Button>
       <div className={cls.container}>
-        <h1 className={cls.mainTitle}>{taskData?.title}</h1>
+        <div className={cls.header}>
+          <h1 className={cls.mainTitle}>{taskData?.title}</h1>
+        </div>
         <div className={cls.descriptionContainer}>
           <p className={cls.description}>{taskData?.description}</p>
           <div className={cls.results}>
@@ -192,6 +223,11 @@ export const TaskPage: FC = () => {
           isTimeOutLose={isTimeOutLose}
         />
       </div>
+
+      <TotalModal
+        isOpen={isOpen}
+        isWin={isWin}
+      />
     </Wrapper>
   )
 }
