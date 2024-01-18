@@ -10,11 +10,13 @@ import cls from './TaskListPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 import ArrowRight from '../../shared/images/arrow-right.svg'
 import { errorToast } from 'shared/lib/error-toast'
+import { Loading } from 'shared/components/Loading'
 
 export const TaskListPage: FC = () => {
   const [tasks, setTasks] = useState<IGetTaskById[]>([])
   const [filteredTasks, setFilteredTasks] = useState<IGetTaskById[]>([])
   const [getId, setGetId] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
 
   const [isCreateOpen, openCreateModal, closeCreateModal] = useModalState()
   const [isEditOpen, openEditModal, closeEditModal] = useModalState()
@@ -46,6 +48,7 @@ export const TaskListPage: FC = () => {
   )
 
   const fetchTasks = async (): Promise<void> => {
+    setIsLoading(true)
     try {
       const tasks = await taskService.getTasks()
       setTasks(tasks)
@@ -53,6 +56,7 @@ export const TaskListPage: FC = () => {
     } catch (error) {
       errorToast(error)
     }
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -79,34 +83,38 @@ export const TaskListPage: FC = () => {
         </button>
       </div>
       <div className={cls.tasks}>
-        {filteredTasks.length > 0
+        {isLoading
           ? (
-            filteredTasks.map(task => (
-              <div className={cls.task} key={task.title}>
-                <h1 className={cls.taskTitle}>{task.title}</h1>
-                <div className={cls.taskOperations}>
-                  <button
-                    type='button'
-                    className={cls.taskEdit}
-                    onClick={() => {
-                      handleEditOpen(task.uuid)
-                    }}
-                  >
-                                        Редактировать
-                  </button>
-                  <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
-                    <ArrowRight />
-                  </Link>
-                </div>
-              </div>
-            ))
+            <Loading />
           )
-          : (
-            <div className={cls.notFound}>
-              <img src='logo192.png' alt='' />
-              <p>Not Found Tasks</p>
-            </div>
-          )}
+          : filteredTasks.length > 0
+            ? (
+              filteredTasks.map(task => (
+                <div className={cls.task} key={task.title}>
+                  <h1 className={cls.taskTitle}>{task.title}</h1>
+                  <div className={cls.taskOperations}>
+                    <button
+                      type='button'
+                      className={cls.taskEdit}
+                      onClick={() => {
+                        handleEditOpen(task.uuid)
+                      }}
+                    >
+                                        Редактировать
+                    </button>
+                    <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
+                      <ArrowRight />
+                    </Link>
+                  </div>
+                </div>
+              ))
+            )
+            : (
+              <div className={cls.notFound}>
+                <img src='logo192.png' alt='' />
+                <p>Not Found Tasks</p>
+              </div>
+            )}
       </div>
       <CreateTaskModal
         isOpen={isCreateOpen}

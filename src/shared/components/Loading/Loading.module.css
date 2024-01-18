@@ -9,7 +9,7 @@
   animation: rotation 1s linear infinite;
   border-radius: 50%;
   border-right: 4px solid transparent;
-  border-top: 4px solid #FFF;
+  border-top: 4px solid var(--text-color);
   box-sizing: border-box;
   display: inline-block;
   height: 48px;
@@ -17,7 +17,7 @@
 }
 
 .loader::after {
-  border-bottom: 4px solid #FF3D00;
+  border-bottom: 4px solid var(--orange-color);
   border-left: 4px solid transparent;
   border-radius: 50%;
   box-sizing: border-box;
