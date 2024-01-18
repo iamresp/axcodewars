@@ -47,7 +47,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
                 <Delete />
               </button>
             )}
-            <p>Поле {index + 1}</p>
+            <h3>Пара вводимых значений {index + 1}</h3>
           </div>
           <TextAreaCustom
             value={task.args}

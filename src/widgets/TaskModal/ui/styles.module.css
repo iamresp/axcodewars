@@ -13,6 +13,10 @@
   width: 480px;
 }
 
+h2::first-letter {
+  color: var(--orange-color);
+}
+
 .btnGp {
   display: flex;
   gap: 0 44px;

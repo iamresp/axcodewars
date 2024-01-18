@@ -112,6 +112,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
         }}
       >
         <div className={cls.createTask}>
+          <h2>Название таски и описание</h2>
           <InputCustom
             required
             value={title}
