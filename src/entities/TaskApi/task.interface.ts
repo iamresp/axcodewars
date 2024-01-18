@@ -20,4 +20,18 @@ export interface ICreateTask {
   title: string
 }
 
+export interface TaskUpdateInput {
+  description?: string
+  results?: Array<[string, string]>
+  title?: string
+}
+
+export interface IUpdateTask extends TaskUpdateInput {
+  uuid: string
+}
+
+export interface IDeleteTask {
+  uuid: string
+}
+
 export type CreateTaskType = ICreateTask | ICreateTask[]

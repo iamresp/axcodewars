@@ -4,6 +4,7 @@ import { type ICreateTask } from 'entities/TaskApi/task.interface'
 import taskService from 'entities/TaskApi/task.service'
 import { Button } from 'shared/components'
 import {
+  Alert,
   Button as ButtonMaterial,
   CircularProgress,
   Grid, Modal,
@@ -11,7 +12,7 @@ import {
 } from '@mui/material'
 import { errorToast } from 'shared/lib/error-toast'
 import cls from './TaskPage.module.css'
-import { Wrapper } from 'entities/Wrapper'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 import { CodeEditors } from 'widgets/CodeEditors'
 import { type IGetConnectUser } from 'entities/UserApi/user.interface'
 import userService from 'entities/UserApi/user.service'
@@ -153,34 +154,33 @@ export const TaskPage: FC = () => {
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
-          gap: '16px',
+          gap: '10dvh',
           width: '100%',
-          height: '100vh'
+          height: '68vh'
         }}
       >
-        <ButtonMaterial
-          variant='contained'
-          size='large'
-          onClick={connect}
-          disabled={isConnected}
-        >
-          Присоединиться
-        </ButtonMaterial>
-        <ButtonMaterial
-          variant='contained'
-          size='large'
-          onClick={() => {
-            navigate('/tasks')
-          }}
-        >
-          Выйти
-        </ButtonMaterial>
+
         {isConnected && <CircularProgress />}
         {isConnected && (
           <Typography component='div' variant='h6'>
-            Ждем подключение второго пользователя
+              Ждем подключение второго пользователя
           </Typography>
         )}
+        <div className={cls.btnGroupConnect}>
+          <Button
+            text={'Присоединиться'}
+            onClick={connect}
+            disabled={isConnected}
+            className={cls.btnConnect}
+            isOrange
+          />
+          <Button
+            text={'Выйти'}
+            onClick={() => {
+              navigate('/tasks')
+            }}
+          />
+        </div>
       </Grid>
     )
   }
@@ -205,10 +205,10 @@ export const TaskPage: FC = () => {
           <p className={cls.description}>{taskData?.description}</p>
           <div className={cls.results}>
             <p className={cls.resultsText}>
-              Вводимые значения: {taskData?.results[0][0]}
+                Вводимые значения: {taskData?.results[0][0]}
             </p>
             <p className={cls.resultsText}>
-              Результат: {taskData?.results[0][1]}
+                Результат: {taskData?.results[0][1]}
             </p>
           </div>
         </div>
