@@ -36,6 +36,7 @@ export const TaskPage: FC = () => {
   const [opponent, setOpponent] = useState<IGetConnectUser>()
   const [connId, setConnId] = useState('')
   const [conOpponentId, setConOpponentId] = useState('')
+  const [validate, setValidate] = useState<any>()
 
   useEffect(() => {
     const createConnect = async (): Promise<void> => {
@@ -51,6 +52,21 @@ export const TaskPage: FC = () => {
       void createConnect()
     }
   }, [connId])
+
+  useEffect(() => {
+    const getValidate = async (): Promise<void> => {
+      try {
+        const validate = await userService.connectValidate()
+        setValidate(validate)
+      } catch (error) {
+        errorToast(error)
+      }
+    }
+
+    void getValidate()
+  }, [connId, conOpponentId])
+
+  console.log('validate', validate)
 
   useEffect(() => {
     const getConnectUsers = async (): Promise<void> => {

@@ -148,6 +148,24 @@ class UserService {
       throw error
     }
   }
+
+  async connectValidate (): Promise<any> {
+    try {
+      const response = await fetch(`${this._URL}/connector/validate`, {
+        method: 'GET',
+        headers: this._headers
+      })
+
+      if (!response.ok) {
+        throw new Error(
+          this._status[response.status]
+        )
+      }
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
 }
 
 const userService = new UserService()
