@@ -4,7 +4,7 @@ import {
   type IAuthUser,
   type IEditUser,
   type IGetConnectUser,
-  type IGetUser
+  type IGetUser, type ICreateConnect
 } from './user.interface'
 import { serviceStatus } from 'entities/service-status'
 
@@ -110,9 +110,9 @@ class UserService {
     }
   }
 
-  async getConnectUser (id: string): Promise<IGetConnectUser> {
+  async getConnectUser (peerConnUuid: string): Promise<IGetConnectUser> {
     try {
-      const response = await fetch(`${this._URL}/auth/user/${id}`, {
+      const response = await fetch(`${this._URL}/connector/${peerConnUuid}`, {
         method: 'GET',
         headers: this._headers
       })
@@ -124,6 +124,25 @@ class UserService {
       }
 
       return await response.json()
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  async createConnect (connect: ICreateConnect): Promise<void> {
+    try {
+      const response = await fetch(`${this._URL}/connector`, {
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify(connect)
+      })
+
+      if (!response.ok) {
+        throw new Error(
+          this._status[response.status]
+        )
+      }
     } catch (error) {
       console.error(error)
       throw error
