@@ -38,18 +38,19 @@ export const TaskPage: FC = () => {
   const [conOpponentId, setConOpponentId] = useState('')
 
   useEffect(() => {
-    const getTask = async (): Promise<void> => {
+    const createConnect = async (): Promise<void> => {
       try {
-        const data = await taskService.getTaskById(id ?? '')
-        setTaskData(data)
-        setRightResult(data.results[0][1])
+        await userService.createConnect({ connId })
       } catch (error) {
+        console.error(error)
         errorToast(error)
       }
     }
 
-    void getTask()
-  }, [])
+    if (connId !== '') {
+      void createConnect()
+    }
+  }, [connId])
 
   useEffect(() => {
     const getConnectUsers = async (): Promise<void> => {
@@ -67,23 +68,21 @@ export const TaskPage: FC = () => {
     }
   }, [conOpponentId])
 
-  console.log('conID', conOpponentId)
-
   useEffect(() => {
-    console.log('log')
-    const createConnect = async (): Promise<void> => {
+    const getTask = async (): Promise<void> => {
       try {
-        await userService.createConnect({ connId })
+        const data = await taskService.getTaskById(id ?? '')
+        setTaskData(data)
+        setRightResult(data.results[0][1])
       } catch (error) {
-        console.error(error)
         errorToast(error)
       }
     }
 
-    if (connId !== '') {
-      void createConnect()
-    }
-  }, [connId])
+    void getTask()
+  }, [])
+
+  console.log('conID', conOpponentId)
 
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
