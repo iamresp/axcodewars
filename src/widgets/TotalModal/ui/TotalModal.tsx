@@ -3,7 +3,6 @@ import { Button, Modal } from 'shared/components'
 import { useNavigate } from 'react-router-dom'
 
 import cls from './TotalModal.module.css'
-import { AUTH_STATE } from 'pages/AuthPage/constants'
 
 interface TotalModalProps {
   isOpen: boolean
@@ -12,7 +11,7 @@ interface TotalModalProps {
 
 export const TotalModal: FC<TotalModalProps> = ({ isOpen, isWin }) => {
   const navigate = useNavigate()
-  const handleNavigate = () => {
+  const handleNavigate = (): void => {
     navigate('/tasks')
   }
 
@@ -23,8 +22,11 @@ export const TotalModal: FC<TotalModalProps> = ({ isOpen, isWin }) => {
       isOpen={isOpen}
     >
       <div className={cls.modalBlock}>
-        <p className={cls.subtitle}>{ isWin ? 'Вы победили!' : 'Вы проиграли!' }</p>
-        <img src={ isWin ? './gifs/win.gif' : './gifs/lose.gif' } alt='TotalImage' className={cls.gifs}/>
+        <p className={cls.subtitle}>
+          { isWin ? 'Вы победили!' : 'Вы проиграли!' }
+        </p>
+        <img src={ isWin ? './gifs/win.gif' : './gifs/lose.gif' }
+          alt='TotalImage' className={cls.gifs}/>
         <Button
           isOrange
           type={'button'}
