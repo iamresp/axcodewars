@@ -20,6 +20,10 @@ export const AnswerForm: FC<AnswerFormProps> = ({
     setTaskCase(prev => [...prev, { args: '', result: '' }])
   }
 
+  const handleDeleteCase = (index: number): void => {
+    setTaskCase(prev => prev.filter((_, i) => i !== index))
+  }
+
   const handleChangeTaskCase = (
     key: number,
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -41,7 +45,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
                 className={cls.deleteBtn}
                 type='button'
                 onClick={() => {
-                  setTaskCase(prev => prev.filter((_, i) => i !== index))
+                  handleDeleteCase(index)
                 }}
               >
                 <Delete />

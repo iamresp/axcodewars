@@ -46,6 +46,16 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
     setTaskCase(taskObj.taskCase)
   }
 
+  const handleClearFields = (): void => {
+    setTitle('')
+    setDescription('')
+    setTaskCase([
+      { args: '', result: '' },
+      { args: '', result: '' },
+      { args: '', result: '' }
+    ])
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
@@ -99,6 +109,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
           />
         </div>
         <div className={cls.btnGp}>
+          <Button text={'Сбросить'} onClick={handleClearFields} />
           <Button type='submit' isOrange text={'Сохранить'} />
           <Button onClick={handleDelete} text={'Удалить'} />
         </div>

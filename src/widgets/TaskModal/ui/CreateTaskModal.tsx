@@ -43,9 +43,20 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
     setTaskCase([
       { args: '', result: '' },
       { args: '', result: '' },
-      { args: '', result: '' }])
+      { args: '', result: '' }
+    ])
 
     clearStorage()
+  }
+
+  const handleClearFields = (): void => {
+    setTitle('')
+    setDescription('')
+    setTaskCase([
+      { args: '', result: '' },
+      { args: '', result: '' },
+      { args: '', result: '' }
+    ])
   }
 
   const handleSubmit = async (
@@ -136,6 +147,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
           />
         </div>
         <div className={cls.btnGp}>
+          <Button text={'Сбросить'} onClick={handleClearFields} />
           <Button type='submit' isOrange text={'Создать'} />
           <Button onClick={openCSV} text={'Загрузить из файла'} />
         </div>
