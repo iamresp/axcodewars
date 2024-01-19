@@ -13,7 +13,9 @@ import { errorToast } from 'shared/lib/error-toast'
 import cls from './TaskPage.module.css'
 import { Wrapper } from 'entities/Wrapper'
 import { CodeEditors } from 'widgets/CodeEditors'
-import {IGetConnectUser} from "entities/UserApi/user.interface";
+import { type ICreateConnect, type IGetConnectUser } from 'entities/UserApi/user.interface'
+import userService from 'entities/UserApi/user.service'
+import { stringify } from 'node:querystring'
 
 export const TaskPage: FC = () => {
   const { id } = useParams()
@@ -32,7 +34,8 @@ export const TaskPage: FC = () => {
   const [gameMessage, setGameMessage] = useState('')
 
   const [opponent, setOpponent] = useState<IGetConnectUser>()
-  const [conId, setConId] = useState('')
+  const [connId, setConnId] = useState('')
+  const [conOpponentId, setConOpponentId] = useState('')
 
   useEffect(() => {
     const getTask = async (): Promise<void> => {
@@ -50,22 +53,37 @@ export const TaskPage: FC = () => {
 
   useEffect(() => {
     const getConnectUsers = async (): Promise<void> => {
-      console.log('useEffectConId', conId)
+      console.log('useEffectConId', conOpponentId)
       try {
-        const opponent = await userService.getConnectUser(conId)
+        const opponent = await userService.getConnectUser(conOpponentId)
         setOpponent(opponent)
       } catch (error) {
         errorToast(error)
       }
     }
-    if (conId) {
+
+    if (conOpponentId !== '') {
       void getConnectUsers()
     }
-  }, [conId])
+  }, [conOpponentId])
 
-  console.log('conID', conId)
+  console.log('conID', conOpponentId)
 
-  console.log(opponent, 'opp')
+  useEffect(() => {
+    console.log('log')
+    const createConnect = async (): Promise<void> => {
+      try {
+        await userService.createConnect({ connId })
+      } catch (error) {
+        console.error(error)
+        errorToast(error)
+      }
+    }
+
+    if (connId !== '') {
+      void createConnect()
+    }
+  }, [connId])
 
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
@@ -79,14 +97,14 @@ export const TaskPage: FC = () => {
     socket.current.onmessage = (event: MessageEvent<string>) => {
       const message = JSON.parse(event.data)
 
-      // console.log('message.data', message.data)
-
       switch (message.event) {
         case 'connect':
+          setConnId(message.data)
+          console.log('message.data', message.data)
           break
         case 'pair':
-          setConId(message.data)
-          console.log('message.data123', message.data)
+          setConOpponentId(message.data)
+          console.log('OpponentData', message.data)
           setIsOpponent(true)
           break
         case 'ready':
@@ -182,6 +200,7 @@ export const TaskPage: FC = () => {
       </Grid>
     )
   }
+  console.log('opponent', opponent)
 
   return (
     <Wrapper>
@@ -199,9 +218,8 @@ export const TaskPage: FC = () => {
         <div className={cls.header}>
           <h1 className={cls.mainTitle}>{taskData?.title}</h1>
           <div className={cls.opponentBlock}>
-            <p className={cls.opponent}>Оппонент:</p>
-            <img className={cls.opponentAvatar} alt={'Logo'}/>
-            <p className={cls.opponentlink}>glhf</p>
+            <p className={cls.opponent}>Оппонент: {opponent?.username}</p>
+            <img src={process.env.REACT_APP_SERVER_URL + '/' + opponent?.avatar} className={cls.opponentAvatar} alt={'Logo'}/>
           </div>
         </div>
         <div className={cls.descriptionContainer}>

@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, type RouteProps } from 'react-router-dom'
 import { Loading } from 'shared/components/Loading'
 
 const AuthPage = React.lazy(async () => await import('pages/AuthPage').then(module => ({
@@ -32,7 +32,7 @@ const ErrorPage = React.lazy(async () => await import('pages/ErrorPage').then(mo
 }))
 )
 
-export const publicRoutes = [
+export const publicRoutes: RouteProps[] = [
   {
     path: '/auth',
     element: (
@@ -44,7 +44,7 @@ export const publicRoutes = [
   { path: '*', element: <Navigate to='/auth' replace /> }
 ]
 
-export const userRoutes = [
+export const userRoutes: RouteProps[] = [
   {
     path: '/tasks',
     element: (
