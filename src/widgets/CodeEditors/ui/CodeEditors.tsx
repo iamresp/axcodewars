@@ -23,6 +23,7 @@ interface CodeEditorsProps {
 type ResultType = number | string | boolean | null
 
 const taskTime = 300_000
+const regexp = /while\(true\)|while\(!false\)|document\.|sessionstorage|localstorage'|window'/mg
 
 export const CodeEditors: FC<CodeEditorsProps> = ({
   socket,
@@ -46,6 +47,17 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
 
     onAttempt()
 
+    const isSafe = (code: string): RegExpMatchArray | null => {
+      const checkingCode = code.replace(/\s/g, '')
+      const isMatch = checkingCode.match(regexp)
+
+      if (isMatch !== null) {
+        return isMatch
+      }
+
+      return isMatch
+    }
+
     const convertParams = (params: string[]): string => {
       const newArr = params.map(param => {
         try {
@@ -63,6 +75,11 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
     }
 
     if (rightResults === undefined) return ''
+
+    const checkedCode = isSafe(code)
+    if (checkedCode !== null) {
+      return `Недопустимый код: ${checkedCode.toString()}`
+    }
 
     for (const rightResult of rightResults) {
       try {
