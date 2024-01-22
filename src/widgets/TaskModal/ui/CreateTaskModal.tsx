@@ -34,7 +34,6 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   const [description, setDescription] = useState(getStorage.description)
   const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(getStorage.taskCase)
   const [storageRender, setStorageRender] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
 
   const handleClose = (): void => {
     close()
@@ -86,8 +85,6 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
       toast.error('Не удалось загрузить таску!')
     } catch (error) {
       errorToast(error)
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -147,9 +144,11 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
           />
         </div>
         <div className={cls.btnGp}>
-          <Button text={'Сбросить'} onClick={handleClearFields} />
-          <Button type='submit' isOrange text={'Создать'} />
-          <Button onClick={openCSV} text={'Загрузить из файла'} />
+          <Button text={'Очистить поля'} onClick={handleClearFields} />
+          <div className={cls.btnFooter}>
+            <Button type='submit' isOrange text={'Создать'} />
+            <Button onClick={openCSV} text={'Загрузить из файла'} />
+          </div>
         </div>
       </form>
     </Modal>

@@ -19,8 +19,14 @@ h2::first-letter {
 
 .btnGp {
   display: flex;
-  gap: 0 44px;
+  flex-direction: column;
+  gap: 20px 34px;
   margin-top: 40px;
+}
+
+.btnFooter {
+  display: flex;
+  gap: 34px;
 }
 
 .answerForm {

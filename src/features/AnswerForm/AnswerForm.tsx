@@ -1,8 +1,9 @@
 import React, { type Dispatch, type SetStateAction, type FC } from 'react'
-import { Button, TextAreaCustom } from 'shared/components'
+import { TextAreaCustom } from 'shared/components'
 import { type TaskCaseTypes } from 'widgets/TaskModal/constants'
 import classNames from 'classnames'
 import Delete from 'shared/images/delete-modal-field.svg'
+import Add from 'shared/images/add-modal-field.svg'
 import cls from './styles.module.css'
 
 interface AnswerFormProps {
@@ -73,7 +74,14 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           />
         </div>
       ))}
-      <Button text='Добавить поля' onClick={handleAddCase} />
+      <button
+        className={cls.addBtn}
+        type='button'
+        onClick={handleAddCase}
+      >
+        <Add/>
+        <h3>Добавить поле</h3>
+      </button>
     </>
   )
 }

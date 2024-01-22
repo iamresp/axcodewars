@@ -4,8 +4,15 @@
   gap: 10px;
 }
 
-.deleteBtn {
+.deleteBtn, .addBtn {
   background: none;
   border: none;
   outline: none;
+}
+
+.addBtn {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  width: fit-content;
 }

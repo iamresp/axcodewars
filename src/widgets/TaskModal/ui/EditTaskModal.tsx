@@ -109,9 +109,11 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
           />
         </div>
         <div className={cls.btnGp}>
-          <Button text={'Сбросить'} onClick={handleClearFields} />
-          <Button type='submit' isOrange text={'Сохранить'} />
-          <Button onClick={handleDelete} text={'Удалить'} />
+          <Button text={'Очистить поля'} onClick={handleClearFields} />
+          <div className={cls.btnFooter}>
+            <Button type='submit' isOrange text={'Сохранить'}/>
+            <Button onClick={handleDelete} text={'Удалить'}/>
+          </div>
         </div>
       </form>
     </Modal>
