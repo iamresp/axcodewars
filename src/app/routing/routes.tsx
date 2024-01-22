@@ -86,5 +86,5 @@ export const userRoutes = [
       </Suspense>
     )
   },
-  { path: '*', element: <Navigate to='/tasks' replace /> }
+  { path: '*', element: <Navigate to='/error' /> }
 ]

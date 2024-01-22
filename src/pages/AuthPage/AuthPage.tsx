@@ -9,8 +9,11 @@ import { useAuth } from 'shared/hooks/useAuth'
 
 import cls from './AuthPage.module.css'
 import { motion } from 'framer-motion'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const AuthPage: FC = () => {
+  const navigate = useNavigate()
+
   const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
@@ -34,7 +37,7 @@ export const AuthPage: FC = () => {
 
     if (auth === AUTH_STATE.LOGIN) {
       await login(password, username)
-
+      navigate('/tasks')
       setErrorMessage('')
 
       return
@@ -125,8 +128,7 @@ export const AuthPage: FC = () => {
           )}
           {(errorMessage !== '') &&
               (<span className={cls.errorText}>{errorMessage}</span>)
-          }
-          <Button isOrange
+          }<Button isOrange
             text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
             type={'submit'} className={cls.regButton} />
         </form>
