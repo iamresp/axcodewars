@@ -1,16 +1,16 @@
 .control {
-  position: relative;
+  align-items: center;
+  display: flex;
   font-family: var(--font-family);
   font-size: 16px;
   font-weight: 400;
-  display: flex;
-  align-items: center;
+  position: relative;
 }
 
 .control input {
   border: 1px solid var(--orange-color);
-  outline: none;
   height: 59px;
+  outline: none;
   width: 100%;
 }
 
@@ -20,20 +20,20 @@
 }
 
 .control label {
+  align-items: center;
+  display: flex;
+  left: 30px;
+  pointer-events: none;
   position: absolute;
   top: 50%;
-  left: 30px;
   transform: translateY(-50%);
-  pointer-events: none;
-  display: flex;
-  align-items: center;
   transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .control label span {
-  display: inline-block;
-  color: var(--black-color);
   background-color: #fff;
+  color: var(--black-color);
+  display: inline-block;
   transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
