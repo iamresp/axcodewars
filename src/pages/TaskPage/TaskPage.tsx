@@ -36,37 +36,21 @@ export const TaskPage: FC = () => {
   const [opponent, setOpponent] = useState<IGetConnectUser>()
   const [connId, setConnId] = useState('')
   const [conOpponentId, setConOpponentId] = useState('')
-  const [validate, setValidate] = useState<any>()
 
   useEffect(() => {
-    const createConnect = async (): Promise<void> => {
+    const getTask = async (): Promise<void> => {
       try {
-        await userService.createConnect({ connId })
-      } catch (error) {
-        console.error(error)
-        errorToast(error)
-      }
-    }
-
-    if (connId !== '') {
-      void createConnect()
-    }
-  }, [connId])
-
-  useEffect(() => {
-    const getValidate = async (): Promise<void> => {
-      try {
-        const validate = await userService.connectValidate()
-        setValidate(validate)
+        const data = await taskService.getTaskById(id ?? '')
+        console.log(data)
+        setTaskData(data)
+        setRightResult(data.results[0][1])
       } catch (error) {
         errorToast(error)
       }
     }
 
-    void getValidate()
-  }, [connId, conOpponentId])
-
-  console.log('validate', validate)
+    void getTask()
+  }, [])
 
   useEffect(() => {
     const getConnectUsers = async (): Promise<void> => {
@@ -84,21 +68,23 @@ export const TaskPage: FC = () => {
     }
   }, [conOpponentId])
 
+  console.log('conID', conOpponentId)
+
   useEffect(() => {
-    const getTask = async (): Promise<void> => {
+    console.log('log')
+    const createConnect = async (): Promise<void> => {
       try {
-        const data = await taskService.getTaskById(id ?? '')
-        setTaskData(data)
-        setRightResult(data.results[0][1])
+        await userService.createConnect({ connId })
       } catch (error) {
+        console.error(error)
         errorToast(error)
       }
     }
 
-    void getTask()
-  }, [])
-
-  console.log('conID', conOpponentId)
+    if (connId !== '') {
+      void createConnect()
+    }
+  }, [connId])
 
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
@@ -195,7 +181,7 @@ export const TaskPage: FC = () => {
           onClick={connect}
           disabled={isConnected}
         >
-          Присоединиться
+        Присоединиться
         </ButtonMaterial>
         <ButtonMaterial
           variant='contained'
@@ -204,12 +190,12 @@ export const TaskPage: FC = () => {
             navigate('/tasks')
           }}
         >
-          Выйти
+        Выйти
         </ButtonMaterial>
         {isConnected && <CircularProgress />}
         {isConnected && (
           <Typography component='div' variant='h6'>
-            Ждем подключение второго пользователя
+          Ждем подключение второго пользователя
           </Typography>
         )}
       </Grid>
@@ -241,10 +227,10 @@ export const TaskPage: FC = () => {
           <p className={cls.description}>{taskData?.description}</p>
           <div className={cls.results}>
             <p className={cls.resultsText}>
-              Вводимые значения: {taskData?.results[0][0]}
+            Вводимые значения: {taskData?.results[0][0]}
             </p>
             <p className={cls.resultsText}>
-              Результат: {taskData?.results[0][1]}
+            Результат: {taskData?.results[0][1]}
             </p>
           </div>
         </div>

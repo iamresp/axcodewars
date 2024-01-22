@@ -10,19 +10,19 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ handleToggle }) => {
 
   return (
     <>
-      <input
-        checked={themeIsOn}
-        onChange={handleToggle}
-        className={cls.switchCheckbox}
-        id='switch-new'
-        type='checkbox'
-      />
       <label
         style={{ background: themeIsOn ? 'var(--black-color)' : '' }}
-        className={cls.switchLabel}
+        className={cls.switch}
         htmlFor='switch-new'
       >
-        <span className={cls.switchButton}>{}</span>
+        <input
+          checked={themeIsOn}
+          onChange={handleToggle}
+          className={cls.switchCheckbox}
+          id='switch-new'
+          type='checkbox'
+        />
+        <span className={cls.slider}>{}</span>
       </label>
     </>
   )

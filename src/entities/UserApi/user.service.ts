@@ -55,16 +55,15 @@ class UserService {
       }
 
       const responseData: { [FIELD_LOCAL_STORAGE.ACCESS_TOKEN]: string } =
-          await response.json()
+  await response.json()
 
       localStorage.setItem(
         FIELD_LOCAL_STORAGE.ACCESS_TOKEN,
         responseData[FIELD_LOCAL_STORAGE.ACCESS_TOKEN]
       )
 
-      this._token = responseData.access_token
-
-      window.location.reload()
+      this._token = responseData[FIELD_LOCAL_STORAGE.ACCESS_TOKEN]
+      this._headers.Authorization = `Bearer ${this._token}`
     } catch (error) {
       console.error(error)
       throw error
@@ -136,24 +135,6 @@ class UserService {
         method: 'POST',
         headers: this._headers,
         body: JSON.stringify(connect)
-      })
-
-      if (!response.ok) {
-        throw new Error(
-          this._status[response.status]
-        )
-      }
-    } catch (error) {
-      console.error(error)
-      throw error
-    }
-  }
-
-  async connectValidate (): Promise<any> {
-    try {
-      const response = await fetch(`${this._URL}/connector/validate`, {
-        method: 'GET',
-        headers: this._headers
       })
 
       if (!response.ok) {
