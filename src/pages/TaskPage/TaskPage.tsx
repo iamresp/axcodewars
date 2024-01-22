@@ -18,6 +18,7 @@ import { type IGetConnectUser } from 'entities/UserApi/user.interface'
 import userService from 'entities/UserApi/user.service'
 import { TotalModal } from 'widgets/TotalModal'
 import { useModalState } from 'shared/hooks/useModalState'
+import { motion } from 'framer-motion'
 
 export const TaskPage: FC = () => {
   const { id } = useParams()
@@ -197,7 +198,15 @@ export const TaskPage: FC = () => {
         }}
       >
       </Button>
-      <div className={cls.container}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className={cls.container}>
         <div className={cls.header}>
           <h1 className={cls.mainTitle}>{taskData?.title}</h1>
         </div>
@@ -222,7 +231,7 @@ export const TaskPage: FC = () => {
           onWin={handleWin}
           isTimeOutLose={isTimeOutLose}
         />
-      </div>
+      </motion.div>
 
       <TotalModal
         isOpen={isOpen}
