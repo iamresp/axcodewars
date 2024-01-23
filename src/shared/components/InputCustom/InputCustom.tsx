@@ -3,7 +3,8 @@ import classNames from 'classnames'
 
 import cls from './styles.module.css'
 
-interface InputCustomProps extends InputHTMLAttributes<HTMLInputElement> { label: string }
+interface InputCustomProps extends InputHTMLAttributes<HTMLInputElement>
+{ label: string }
 
 export const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(
   ({ className, type = 'text', label, ...props }, ref) => {
@@ -17,7 +18,8 @@ export const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(
         />
         <label>
           {label.split('').map((element, index) => {
-            return <span style={{ transitionDelay: `${index * 50}ms` }}>{element}</span>
+            return <span key={index}
+              style={{ transitionDelay: `${index * 50}ms` }}>{element}</span>
           })}
         </label>
       </div>

@@ -119,7 +119,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             onChange={e => {
               setDescription(e.target.value)
             }}
-            placeholder='Описание'
+            label={'Описание'}
           />
           <AnswerForm
             className={cls.answerForm}
