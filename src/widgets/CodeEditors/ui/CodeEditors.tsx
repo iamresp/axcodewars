@@ -21,7 +21,7 @@ interface CodeEditorsProps {
 }
 
 const taskTime = 300_000
-const regexp = /while\(true\)|while\(!false\)|document\.|cookie|sessionstorage|localstorage|window/mg
+const regexp = /while\(true\)|while\(!false\)|document\.|cookie|sessionstorage|localstorage|window|navigator|location|XMLHttpRequest|fetch/mg
 
 export const CodeEditors: FC<CodeEditorsProps> = ({
   socket,
