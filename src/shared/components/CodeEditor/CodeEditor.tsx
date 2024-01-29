@@ -65,7 +65,9 @@ export const CodeEditor: FC<CodeEditorProps> = ({
       />
       {!isOpponent && (
         <div className={cls.submitContainer}>
-          {message?.length > 0 && <div className={cls.alarm}>{message}</div>}
+          {message?.length > 0 && (
+            <div className={cls.alarmMessage}>{message}</div>
+          )}
           {isReady && (
             <Button
               className={cls.submitButton}

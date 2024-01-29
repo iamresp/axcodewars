@@ -6,6 +6,7 @@ import React, {
 } from 'react'
 import { TimerCustom } from 'features/TimerCustom'
 import { Button, CodeEditor } from 'shared/components'
+import { isSafe, convertParams, convertResult } from '../lib'
 import cls from './CodeEditors.module.css'
 import { type ResultsType } from 'entities/TaskApi/task.interface'
 
@@ -21,7 +22,6 @@ interface CodeEditorsProps {
 }
 
 const taskTime = 300_000
-const regexp = /while\(true\)|while\(!false\)|document\.|cookie|sessionstorage|localstorage|window|navigator|location|XMLHttpRequest|fetch/mg
 
 export const CodeEditors: FC<CodeEditorsProps> = ({
   socket,
@@ -44,37 +44,6 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
     let result: unknown = null
 
     onAttempt()
-
-    const isSafe = (code: string): RegExpMatchArray | null => {
-      const checkingCode = code.replace(/\s/g, '')
-      const isMatch = checkingCode.match(regexp)
-
-      return isMatch
-    }
-
-    const convertParams = (params: string[]): string => {
-      const newArr = params.map(param => {
-        try {
-          if (JSON.parse(param) !== undefined) {
-            return param
-          }
-
-          return param
-        } catch (e) {
-          return JSON.stringify(param)
-        }
-      })
-
-      return newArr.join(', ')
-    }
-
-    const convertResult = (result: unknown): string => {
-      if (typeof result === 'object') {
-        return JSON.stringify(result)
-      }
-
-      return String(result)
-    }
 
     if (rightResults === undefined) return ''
 
