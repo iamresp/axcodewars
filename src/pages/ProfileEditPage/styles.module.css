@@ -65,15 +65,14 @@
   }
 
   &::-ms-reveal {
-    height: 0;
-    width : 0;
+    display: none;
   }
 }
 
 .inputLabel {
   flex: 0 0 220px;
   font-weight: 500;
-  text-wrap: nowrap;
+  text-wrap: initial;
 }
 
 .inputPassword {
