@@ -34,9 +34,6 @@ export const TaskPage: FC = () => {
   const [open, setOpen] = useState(false)
   const [gameMessage, setGameMessage] = useState('')
 
-  const [opponent, setOpponent] = useState<IGetConnectUser>()
-  const [conId, setConId] = useState('')
-
   const [isOpen, openModal, closeModal] = useModalState()
   const [isWin, setIsWin] = useState(false)
 
@@ -58,20 +55,6 @@ export const TaskPage: FC = () => {
     void getTask()
   }, [])
 
-  useEffect(() => {
-    const getConnectUsers = async (): Promise<void> => {
-      try {
-        const opponent = await userService.getConnectUser(conId)
-        setOpponent(opponent)
-      } catch (error) {
-        errorToast(error)
-      }
-    }
-    if (conId) {
-      void getConnectUsers()
-    }
-  }, [conId])
-
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
 
@@ -88,7 +71,6 @@ export const TaskPage: FC = () => {
         case 'connect':
           break
         case 'pair':
-          setConId(message.data)
           setIsOpponent(true)
           break
         case 'ready':
