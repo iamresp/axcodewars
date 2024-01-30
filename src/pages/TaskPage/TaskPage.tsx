@@ -68,7 +68,7 @@ export const TaskPage: FC = () => {
     }
   }, [conOpponentId])
 
-  console.log('conID', conOpponentId)
+  console.log('conOpponentId', conOpponentId)
 
   useEffect(() => {
     console.log('log')
