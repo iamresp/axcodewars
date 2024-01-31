@@ -4,14 +4,31 @@ import { Link } from 'react-router-dom'
 import { Wrapper } from 'entities/Wrapper'
 
 import cls from './ProfilePage.module.css'
+import { motion } from 'framer-motion'
 
 export const ProfilePage: FC = () => {
   const { isLoading, user } = useAuth()
 
   return (
     <Wrapper>
-      <h1 className={cls.mainTitle}>Профиль</h1>
-      <div className={cls.profileCont}>
+      <motion.h1
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className={cls.mainTitle}>Профиль</motion.h1>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className={cls.profileCont}>
         {isLoading && 'Loading...'}
         {!isLoading && (
           <div className={cls.profileContTop}>
@@ -62,7 +79,7 @@ export const ProfilePage: FC = () => {
             <p className={cls.userHistorySubtext}>Статус: победа</p>
           </div>
         </div>
-      </div>
+      </motion.div>
     </Wrapper>
   )
 }

@@ -8,8 +8,12 @@ import { errorToast } from 'shared/lib/error-toast'
 import { useAuth } from 'shared/hooks/useAuth'
 
 import cls from './AuthPage.module.css'
+import { motion } from 'framer-motion'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const AuthPage: FC = () => {
+  const navigate = useNavigate()
+
   const [auth, setAuth] = useState(AUTH_STATE.LOGIN)
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
@@ -35,7 +39,7 @@ export const AuthPage: FC = () => {
 
     if (auth === AUTH_STATE.LOGIN) {
       await login(password, username)
-
+      navigate('/tasks')
       setErrorMessage('')
 
       return
@@ -58,12 +62,27 @@ export const AuthPage: FC = () => {
 
   return (
     <Wrapper className={cls.main}>
-      <img
+      <motion.img
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
         className={cls.regImage}
         src='/images/reg-img.svg'
         alt='reg-avatar'
       />
-      <div className={cls.regFormContainer}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className={cls.regFormContainer}>
         {auth === AUTH_STATE.LOGIN ? 'Логин' : 'Регистрация'}
         <div className={cls.regSelectText}>
           {auth === AUTH_STATE.LOGIN ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
@@ -111,12 +130,11 @@ export const AuthPage: FC = () => {
           )}
           {(errorMessage !== '') &&
               (<span className={cls.errorText}>{errorMessage}</span>)
-          }
-          <Button isOrange
+          }<Button isOrange
             text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
             type={'submit'} className={cls.regButton} />
         </form>
-      </div>
+      </motion.div>
     </Wrapper>
   )
 }

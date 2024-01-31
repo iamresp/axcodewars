@@ -15,6 +15,7 @@ import { type IEditUser } from 'entities/UserApi/user.interface'
 
 import cls from './styles.module.css'
 import { Wrapper } from 'entities/Wrapper'
+import { motion } from 'framer-motion'
 
 export const ProfileEditPage: FC = () => {
   const { user, isLoading, fetchUser } = useAuth()
@@ -91,8 +92,24 @@ export const ProfileEditPage: FC = () => {
 
   return (
     <Wrapper className={cls.profileEditPage}>
-      <h2 className='main_title'>Редактирование профиля</h2>
-      <div className={cls.content}>
+      <motion.h2
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className='main_title'>Редактирование профиля</motion.h2>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className={cls.content}>
         {isLoading && 'LOADING...'}
         {!isLoading && (
           <div className={cls.contentUser}>
@@ -196,7 +213,7 @@ export const ProfileEditPage: FC = () => {
             text={'Сохранить'}
           />
         </form>
-      </div>
+      </motion.div>
     </Wrapper>
   )
 }
