@@ -2,37 +2,42 @@ import React, { Suspense } from 'react'
 import { Navigate } from 'react-router-dom'
 import { Loading } from 'shared/components/Loading'
 
-const AuthPage = React.lazy(async () => await import('pages/AuthPage').then(module => ({
-  default: module.AuthPage
-}))
-)
+export interface RoutesType {
+  path: string
+  element: JSX.Element
+}
 
-const ProfilePage = React.lazy(async () => await import('pages/ProfilePage').then(module => ({
-  default: module.ProfilePage
-}))
+const AuthPage = React.lazy(async () => await import('pages/AuthPage')
+  .then(module => ({
+    default: module.AuthPage
+  }))
 )
-
-const ProfileEditPage = React.lazy(async () => await import('pages/ProfileEditPage').then(module => ({
-  default: module.ProfileEditPage
-}))
+const ProfilePage = React.lazy(async () => await import('pages/ProfilePage')
+  .then(module => ({
+    default: module.ProfilePage
+  }))
 )
-
-const TaskListPage = React.lazy(async () => await import('pages/TaskListPage').then(module => ({
-  default: module.TaskListPage
-}))
+const ProfileEditPage = React.lazy(async () => await import('pages/ProfileEditPage')
+  .then(module => ({
+    default: module.ProfileEditPage
+  }))
 )
-
-const TaskPage = React.lazy(async () => await import('pages/TaskPage').then(module => ({
-  default: module.TaskPage
-}))
+const TaskListPage = React.lazy(async () => await import('pages/TaskListPage')
+  .then(module => ({
+    default: module.TaskListPage
+  }))
 )
-
-const ErrorPage = React.lazy(async () => await import('pages/ErrorPage').then(module => ({
-  default: module.ErrorPage
-}))
+const TaskPage = React.lazy(async () => await import('pages/TaskPage')
+  .then(module => ({
+    default: module.TaskPage
+  }))
 )
-
-export const publicRoutes = [
+const ErrorPage = React.lazy(async () => await import('pages/ErrorPage')
+  .then(module => ({
+    default: module.ErrorPage
+  }))
+)
+export const publicRoutes: RoutesType[] = [
   {
     path: '/auth',
     element: (
