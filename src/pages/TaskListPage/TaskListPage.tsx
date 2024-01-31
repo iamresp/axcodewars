@@ -100,7 +100,7 @@ export const TaskListPage: FC = () => {
                         handleEditOpen(task.uuid)
                       }}
                     >
-                                        Редактировать
+                      Редактировать
                     </button>
                     <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
                       <ArrowRight />
