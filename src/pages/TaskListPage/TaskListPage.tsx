@@ -1,14 +1,14 @@
 import React, { type FC, useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SearchInput } from 'shared/components'
+import { SearchInput } from 'shared/components/SearchInput/SearchInput'
 import taskService from 'entities/TaskApi/task.service'
 import { useModalState } from 'shared/hooks/useModalState'
 import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
 import cls from './TaskListPage.module.css'
-import { Wrapper } from 'entities/Wrapper'
-import ArrowRight from 'shared/images/arrow-right.svg'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
+import ArrowRight from '../../shared/images/arrow-right.svg'
 import { errorToast } from 'shared/lib/error-toast'
 
 export const TaskListPage: FC = () => {
@@ -38,7 +38,7 @@ export const TaskListPage: FC = () => {
     (searchTerm: string) => {
       const filtered = tasks.filter(
         task => task.title?.length > 0 &&
-          task.title.toLowerCase().includes(searchTerm.toLowerCase())
+                    task.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredTasks(filtered)
     },
@@ -69,7 +69,7 @@ export const TaskListPage: FC = () => {
             onClick={handleCreateOpen}
             className={cls.createTask}
           >
-            Создать таску
+              Создать таску
           </button>
           <SearchInput onSearch={handleSearch} />
         </div>
@@ -92,7 +92,7 @@ export const TaskListPage: FC = () => {
                       handleEditOpen(task.uuid)
                     }}
                   >
-                  Редактировать
+                      Редактировать
                   </button>
                   <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
                     <ArrowRight />
