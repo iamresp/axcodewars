@@ -2,7 +2,9 @@ import { FIELD_LOCAL_STORAGE } from 'shared/constants'
 import {
   type CreateTaskResponseType,
   type IGetTaskById,
-  type IGetTasks, type CreateTaskType
+  type IGetTasks,
+  type TaskUpdateInput,
+  type CreateTaskType
 } from './task.interface'
 import { serviceStatus } from 'entities/service-status'
 
@@ -76,6 +78,43 @@ class TaskService {
         throw new Error(
           this._status[response.status]
         )
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  async updateTask (taskUuid: string, body: TaskUpdateInput): Promise<IGetTaskById> {
+    try {
+      const response = await fetch(`${this._URL}/tasks/${taskUuid}`, {
+        method: 'PUT',
+        headers: this._headers,
+        body: JSON.stringify(body)
+      })
+
+      if (!response.ok) {
+        throw new Error(this._status[response.status])
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  async deleteTask (taskUuid: string): Promise<boolean> {
+    try {
+      const response = await fetch(`${this._URL}/tasks/${taskUuid}`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+
+      if (!response.ok) {
+        throw new Error(this._status[response.status])
       }
 
       return await response.json()

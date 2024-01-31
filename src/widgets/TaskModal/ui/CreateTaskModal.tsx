@@ -120,14 +120,14 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
         }}
       >
         <div className={cls.createTask}>
-          <h2>Название таски и описание</h2>
+          <h2 className={cls.title}>Название и описание таски</h2>
           <InputCustom
             required
             value={title}
             onChange={e => {
               setTitle(e.target.value)
             }}
-            label={'Название'}
+            label='Название'
           />
           <TextAreaCustom
             required
