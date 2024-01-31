@@ -1,8 +1,8 @@
 import { FIELD_LOCAL_STORAGE } from 'shared/constants'
 import {
-  type ICreateTask,
+  type CreateTaskResponseType,
   type IGetTaskById,
-  type IGetTasks
+  type IGetTasks, type CreateTaskType
 } from './task.interface'
 import { serviceStatus } from 'entities/service-status'
 
@@ -23,7 +23,12 @@ class TaskService {
     try {
       const response = await fetch(`${this._URL}/tasks`, {
         method: 'GET',
-        headers: this._headers
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem(
+            FIELD_LOCAL_STORAGE.ACCESS_TOKEN
+          )}`
+        }
       })
 
       if (!response.ok) {
@@ -39,7 +44,7 @@ class TaskService {
     }
   }
 
-  async createTask (body: ICreateTask): Promise<void> {
+  async createTask (body: CreateTaskType): Promise<CreateTaskResponseType> {
     try {
       const res = await fetch(`${this._URL}/tasks`, {
         method: 'POST',

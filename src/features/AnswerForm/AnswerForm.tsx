@@ -1,6 +1,10 @@
 import React, { type Dispatch, type SetStateAction, type FC } from 'react'
 import { TextAreaCustom } from 'shared/components'
 import { type TaskCaseTypes } from 'widgets/TaskModal/constants'
+import classNames from 'classnames'
+import DeleteIcon from 'shared/images/delete-modal-field.svg'
+import AddIcon from 'shared/images/add-modal-field.svg'
+import cls from './styles.module.css'
 
 interface AnswerFormProps {
   className?: string
@@ -13,6 +17,14 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   setTaskCase,
   className
 }) => {
+  const handleAddCase = (): void => {
+    setTaskCase(prev => [...prev, { args: '', result: '' }])
+  }
+
+  const handleDeleteCase = (index: number): void => {
+    setTaskCase(prev => prev.filter((_, i) => i !== index))
+  }
+
   const handleChangeTaskCase = (
     key: number,
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -26,20 +38,34 @@ export const AnswerForm: FC<AnswerFormProps> = ({
 
   return (
     <>
-      {taskCase.map((taskCase, index) => (
-        <div className={className} key={index}>
+      {taskCase.map((task, index) => (
+        <div className={classNames(className, cls.answerForm)} key={index}>
+          <div className={cls.label}>
+            {taskCase.length > 3 && (
+              <button
+                className={cls.deleteBtn}
+                type='button'
+                onClick={() => {
+                  handleDeleteCase(index)
+                }}
+              >
+                <DeleteIcon />
+              </button>
+            )}
+            <h3>Пара вводимых значений {index + 1}</h3>
+          </div>
           <TextAreaCustom
-            value={taskCase.args}
+            value={task.args}
             onChange={e => {
               handleChangeTaskCase(index, e)
             }}
-            label={'Вводимые данные'}
+            label='Вводимые данные'
             name='args'
             required
           />
           <TextAreaCustom
-            label={'Правильный ответ'}
-            value={taskCase.result}
+            label='Правильный ответ'
+            value={task.result}
             onChange={e => {
               handleChangeTaskCase(index, e)
             }}
@@ -48,6 +74,14 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           />
         </div>
       ))}
+      <button
+        className={cls.addBtn}
+        type='button'
+        onClick={handleAddCase}
+      >
+        <AddIcon/>
+        <h3>Добавить поле</h3>
+      </button>
     </>
   )
 }

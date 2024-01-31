@@ -5,6 +5,7 @@ import { AvatarLoading } from 'features/AvatarLoading'
 import { Button, InputCustom } from 'shared/components'
 import { Wrapper } from 'entities/Wrapper'
 import { errorToast } from 'shared/lib/error-toast'
+import { useAuth } from 'shared/hooks/useAuth'
 
 import cls from './AuthPage.module.css'
 
@@ -14,6 +15,8 @@ export const AuthPage: FC = () => {
   const [username, setUsername] = useState('')
   const [image, setImage] = useState<File>()
   const [errorMessage, setErrorMessage] = useState('')
+
+  const { login } = useAuth()
 
   const handleAuth = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
@@ -29,12 +32,9 @@ export const AuthPage: FC = () => {
     }
 
     if (auth === AUTH_STATE.LOGIN) {
-      try {
-        await userService.authenticateUser({ hash: password, username })
-        setErrorMessage('')
-      } catch (error) {
-        errorToast(error)
-      }
+      await login(password, username)
+
+      setErrorMessage('')
 
       return
     }
@@ -45,8 +45,10 @@ export const AuthPage: FC = () => {
         hash: password,
         username
       })
+
       setErrorMessage('')
-      await userService.authenticateUser({ hash: password, username })
+
+      await login(password, username)
     } catch (error) {
       errorToast(error)
     }

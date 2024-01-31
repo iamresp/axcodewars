@@ -62,9 +62,8 @@ class UserService {
         responseData[FIELD_LOCAL_STORAGE.ACCESS_TOKEN]
       )
 
-      this._token = responseData.access_token
-
-      window.location.reload()
+      this._token = responseData[FIELD_LOCAL_STORAGE.ACCESS_TOKEN]
+      this._headers.Authorization = `Bearer ${this._token}`
     } catch (error) {
       console.error(error)
       throw error
