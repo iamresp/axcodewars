@@ -6,11 +6,13 @@ import React, {
 } from 'react'
 import { TimerCustom } from 'features/TimerCustom'
 import { Button, CodeEditor } from 'shared/components'
+import { isSafe, convertParams, convertResult } from '../lib'
 import cls from './CodeEditors.module.css'
+import { type ResultsType } from 'entities/TaskApi/task.interface'
 
 interface CodeEditorsProps {
   socket: MutableRefObject<WebSocket | null | undefined>
-  rightResult: string
+  rightResults: ResultsType | undefined
   attempts: number
   opponentCode: string
   opponentAttempts: number
@@ -23,7 +25,7 @@ const taskTime = 300_000
 
 export const CodeEditors: FC<CodeEditorsProps> = ({
   socket,
-  rightResult,
+  rightResults,
   attempts,
   opponentCode,
   opponentAttempts,
@@ -39,42 +41,40 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
     timeout = false,
     code = ''
   ): string => {
-    let result = null
-
-    try {
-      result = eval(code)
-    } catch (e) {
-      if (e instanceof Error) {
-        return `Ошибка в коде: ${e.message}`
-      }
-    }
+    let result: unknown = null
 
     onAttempt()
 
-    if (result !== null && result?.toString() !== code) {
-      if ((result ?? '').toString() === rightResult) {
-        onWin()
-        setIsWin(true)
+    if (rightResults === undefined) return ''
 
-        return 'Результат выполнения совпал с ответом'
-      } else {
-        if (timeout) {
-          isTimeOutLose()
+    const checkedCode = isSafe(code)
+    if (checkedCode !== null) {
+      return `Недопустимый код: ${checkedCode.toString()}`
+    }
 
-          return ''
+    for (const rightResult of rightResults) {
+      try {
+        const taskParams = rightResult[0].split(' ')
+        result = eval(`${code}\ntask(${convertParams(taskParams)})`)
+      } catch (e) {
+        if (e instanceof Error) {
+          return `Ошибка в коде: ${e.message}`
         }
+      }
 
+      if (convertResult(result) !== rightResult[1].toString()) {
         return 'Результат выполнения не совпал с ответом'
       }
-    } else {
-      if (timeout) {
-        isTimeOutLose()
-
-        return ''
-      }
-
-      return 'Ошибка в коде'
     }
+
+    onWin()
+    setIsWin(true)
+
+    if (timeout) {
+      isTimeOutLose()
+    }
+
+    return 'Результат выполнения совпал с ответом'
   }
 
   useEffect(() => {

@@ -31,7 +31,6 @@ export const TaskPage: FC = () => {
   const [opponentAttempts, setOpponentAttempts] = useState(0)
   const [taskData, setTaskData] = useState<ICreateTask>()
   const [attempts, setAttempts] = useState(0)
-  const [rightResult, setRightResult] = useState('')
 
   const [open, setOpen] = useState(false)
   const [gameMessage, setGameMessage] = useState('')
@@ -51,7 +50,6 @@ export const TaskPage: FC = () => {
       try {
         const data = await taskService.getTaskById(id ?? '')
         setTaskData(data)
-        setRightResult(data.results[0][1])
       } catch (error) {
         errorToast(error)
       }
@@ -223,7 +221,7 @@ export const TaskPage: FC = () => {
         </div>
         <CodeEditors
           socket={socket}
-          rightResult={rightResult}
+          rightResults={taskData?.results}
           attempts={attempts}
           opponentCode={opponentCode}
           opponentAttempts={opponentAttempts}

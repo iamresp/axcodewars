@@ -36,7 +36,7 @@ export const ProfilePage: FC = () => {
               className={cls.userAvatar}
               src={
                 user.avatar !== ''
-                  ? process.env.REACT_APP_SERVER_URL + user.avatar
+                  ? process.env.REACT_APP_SERVER_URL + '/' + user.avatar
                   : './images/userlogo.png'
               }
               alt={'user.avatar'}
