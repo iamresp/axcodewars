@@ -34,6 +34,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   const [description, setDescription] = useState(getStorage.description)
   const [taskCase, setTaskCase] = useState<TaskCaseTypes[]>(getStorage.taskCase)
   const [storageRender, setStorageRender] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleClose = (): void => {
     close()
