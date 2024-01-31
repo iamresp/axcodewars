@@ -69,7 +69,7 @@ export const TaskListPage: FC = () => {
             onClick={handleCreateOpen}
             className={cls.createTask}
           >
-                        Создать таску
+              Создать таску
           </button>
           <SearchInput onSearch={handleSearch} />
         </div>
@@ -92,7 +92,7 @@ export const TaskListPage: FC = () => {
                       handleEditOpen(task.uuid)
                     }}
                   >
-                                        Редактировать
+                      Редактировать
                   </button>
                   <Link to={`/tasks/${task.uuid}`} className={cls.taskEnter}>
                     <ArrowRight />
