@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react'
+<<<<<<<<< Temporary merge branch 1
 
 import { Navigate, type RouteProps } from 'react-router-dom'
 import { Loading } from 'shared/components'
