@@ -6,6 +6,8 @@ import taskService from 'entities/TaskApi/task.service'
 
 import cls from './styles.module.css'
 import { errorToast } from 'shared/lib/error-toast'
+import { type TaskUpdateInput } from 'entities/TaskApi/task.interface'
+import { toast } from 'react-toastify'
 
 interface EditTaskModalProps {
   isOpen: boolean
@@ -46,19 +48,32 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
     setTaskCase(taskObj.taskCase)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
     try {
+      const taskToUpdate: TaskUpdateInput = {
+        title,
+        description,
+        results: taskCase.map(({ args, result }) => [args, result])
+      }
+      console.log(taskToUpdate)
+      await taskService.updateTask(id, taskToUpdate)
       handleClose()
-      void getTasks()
+      await getTasks()
     } catch (error) {
-      console.error(error)
+      toast.error('Не удалось отредактировать таску!')
     }
   }
 
-  const handleDelete = (): void => {
-    console.log('this button to delete')
+  const handleDelete = async (): Promise<void> => {
+    try {
+      await taskService.deleteTask(id)
+      handleClose()
+      await getTasks()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   useEffect(() => {
@@ -71,7 +86,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
     <Modal title='Редактирование таски' isOpen={isOpen} close={close}>
       <form
         onSubmit={e => {
-          handleSubmit(e)
+          void handleSubmit(e)
         }}
       >
         <div className={cls.createTask}>

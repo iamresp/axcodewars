@@ -14,3 +14,17 @@ export interface ICreateTask {
   results: ResultsType
   title: string
 }
+
+export interface TaskUpdateInput {
+  description?: string
+  results?: Array<[string, string]>
+  title?: string
+}
+
+export interface IUpdateTask extends TaskUpdateInput {
+  uuid: string
+}
+
+export interface IDeleteTask {
+  uuid: string
+}

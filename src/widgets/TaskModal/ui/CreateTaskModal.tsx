@@ -76,6 +76,16 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
     close()
   }
 
+  const addField = (): void => {
+    setTaskCase([...taskCase, { args: '', result: '' }])
+  }
+
+  const removeField = (index: number): void => {
+    const newTaskCase = [...taskCase]
+    newTaskCase.splice(index, 1)
+    setTaskCase(newTaskCase)
+  }
+
   useEffect(() => {
     const isAllEmpty = (): boolean => {
       return (
@@ -105,13 +115,14 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
         }}
       >
         <div className={cls.createTask}>
+          <h2 className={cls.title}>Название и описание таски</h2>
           <InputCustom
             required
             value={title}
             onChange={e => {
               setTitle(e.target.value)
             }}
-            placeholder='Название'
+            placeholder='Сумма чисел'
           />
           <TextAreaCustom
             required
@@ -119,18 +130,24 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             onChange={e => {
               setDescription(e.target.value)
             }}
-            placeholder='Описание'
+            placeholder='Даны 2 числа. Найдите сумму их цифр.'
           />
           <AnswerForm
             className={cls.answerForm}
             taskCase={taskCase}
             setTaskCase={setTaskCase}
+            showRemoveButton={true}
           />
         </div>
-        <div className={cls.btnGp}>
-          <Button type='submit' isOrange text={'Создать'} />
-          <Button onClick={openCSV} text={'Загрузить из файла'} />
+
+        <div>
+          <Button className={cls.btnAdd} onClick={addField} text={'Добавить поле'} />
+          <div className={cls.btnGp}>
+            <Button type='submit' isOrange text={'Создать'} />
+            <Button onClick={openCSV} text={'Загрузить из файла'} />
+          </div>
         </div>
+
       </form>
     </Modal>
   )

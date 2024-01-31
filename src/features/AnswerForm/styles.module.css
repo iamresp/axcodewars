@@ -1,0 +1,11 @@
+.controlPanel {
+  align-items: center;
+  display: flex;
+  gap: 10px
+}
+
+.btnDeleteField{
+  background: none;
+  border: none;
+  padding-top: 2px;
+}

@@ -1,6 +1,11 @@
 import React, { Suspense } from 'react'
 import { Navigate } from 'react-router-dom'
-import { Loading } from 'shared/components/Loading'
+import { Loading } from 'shared/components'
+
+export interface RoutesType {
+  path: string
+  element: JSX.Element
+}
 
 export interface RoutesType {
   path: string

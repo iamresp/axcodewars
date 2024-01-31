@@ -13,31 +13,28 @@
   width: 480px;
 }
 
+.title::first-letter{
+  color: var(--orange-color);
+}
+
 .btnGp {
   display: flex;
   gap: 0 44px;
   margin-top: 40px;
 }
 
+.btnAdd {
+  margin-top: 5dvh;
+  width: 100%;
+}
+
 .answerForm {
   display: flex;
   flex-direction: column;
   gap: var(--input-gap);
-  padding-top: 35px;
   position: relative;
-
-  &::before {
-    background: var(--orange-color);
-    content: '';
-    display: block;
-    height: 1px;
-    max-width: 200px;
-    position: absolute;
-    top: 0;
-    transform: translateX(50%);
-    width: 100%;
-  }
 }
+
 
 .createTask::-webkit-scrollbar {
   background-color: var(--main-color);
