@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
-import { Navigate } from 'react-router-dom'
-import { Loading } from 'shared/components/Loading'
+
+import { Navigate, type RouteProps } from 'react-router-dom'
+import { Loading } from 'shared/components'
 
 export interface RoutesType {
   path: string
@@ -90,5 +91,5 @@ export const userRoutes = [
       </Suspense>
     )
   },
-  { path: '*', element: <Navigate to='/tasks' replace /> }
+  { path: '*', element: <Navigate to='/error' /> }
 ]

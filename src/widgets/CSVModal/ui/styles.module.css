@@ -8,6 +8,10 @@
   background-color: var(--btn-disabled-color);
   box-shadow: none;
   outline: none;
+
+  &:hover {
+    background-color: var(--btn-disabled-color);
+  }
 }
 
 @media (width <= 768px) {

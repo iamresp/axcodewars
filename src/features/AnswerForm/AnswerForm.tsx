@@ -1,6 +1,9 @@
 import React, { type Dispatch, type SetStateAction, type FC } from 'react'
-import { TextAreaCustom } from 'shared/components'
+import { Button, TextAreaCustom } from 'shared/components'
 import { type TaskCaseTypes } from 'widgets/TaskModal/constants'
+import classNames from 'classnames'
+import Delete from 'shared/images/delete-modal-field.svg'
+import cls from './styles.module.css'
 
 interface AnswerFormProps {
   className?: string
@@ -13,6 +16,10 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   setTaskCase,
   className
 }) => {
+  const handleAddCase = (): void => {
+    setTaskCase(prev => [...prev, { args: '', result: '' }])
+  }
+
   const handleChangeTaskCase = (
     key: number,
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -26,10 +33,24 @@ export const AnswerForm: FC<AnswerFormProps> = ({
 
   return (
     <>
-      {taskCase.map((taskCase, index) => (
-        <div className={className} key={index}>
+      {taskCase.map((task, index) => (
+        <div className={classNames(className, cls.answerForm)} key={index}>
+          <div className={cls.label}>
+            {taskCase.length > 3 && (
+              <button
+                className={cls.deleteBtn}
+                type='button'
+                onClick={() => {
+                  setTaskCase(prev => prev.filter((_, i) => i !== index))
+                }}
+              >
+                <Delete />
+              </button>
+            )}
+            <h3>Пара вводимых значений {index + 1}</h3>
+          </div>
           <TextAreaCustom
-            value={taskCase.args}
+            value={task.args}
             onChange={e => {
               handleChangeTaskCase(index, e)
             }}
@@ -39,7 +60,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           />
           <TextAreaCustom
             placeholder='Правильный ответ'
-            value={taskCase.result}
+            value={task.result}
             onChange={e => {
               handleChangeTaskCase(index, e)
             }}
@@ -48,6 +69,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           />
         </div>
       ))}
+      <Button text='Добавить поля' onClick={handleAddCase} />
     </>
   )
 }

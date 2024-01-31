@@ -1,19 +1,19 @@
-import * as React from 'react'
-import { useContext, useRef, useState } from 'react'
+import React, { type FC, useContext, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { ThemeSwitcher } from 'widgets/ThemeSwitcher'
 import { PopOver } from 'widgets/PopOver'
 import { useAuth } from 'shared/hooks/useAuth'
 import { ThemeContext } from 'app/context/ThemeContext'
-
-import cls from '../ui/Header.module.css'
-import { Link } from 'react-router-dom'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
 import { Wrapper } from 'entities/Wrapper'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
+import cls from '../ui/Header.module.css'
 
-export default function Header (): JSX.Element {
-  const [value, setValue] = React.useState(false)
-  const { isAuth, user } = useAuth()
+export const Header: FC = () => {
+  const { pathname } = useLocation()
+
+  const [value, setValue] = useState(false)
+  const { user } = useAuth()
   const [display, setDisplay] = useState(false)
 
   const node = useRef<HTMLDivElement | null>(null)
@@ -62,7 +62,7 @@ export default function Header (): JSX.Element {
           </Link>
         </div>
         <div className={cls.headerRight}>
-          {isAuth && (
+          {pathname !== '/auth' && (
             <div
               tabIndex={0}
               role={'button'}
@@ -82,7 +82,6 @@ export default function Header (): JSX.Element {
               {display && (<PopOver/>)}
             </div>
           )}
-
           <ThemeSwitcher
             isOn={value}
             handleToggle={handleToggle}

@@ -1,0 +1,11 @@
+.label {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  outline: none;
+}

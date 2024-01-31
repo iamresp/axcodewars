@@ -15,9 +15,10 @@ import { type IEditUser } from 'entities/UserApi/user.interface'
 
 import cls from './styles.module.css'
 import { Wrapper } from 'entities/Wrapper'
+import { motion } from 'framer-motion'
 
 export const ProfileEditPage: FC = () => {
-  const { user, isLoading } = useAuth()
+  const { user, isLoading, fetchUser } = useAuth()
 
   const [isVisible, setIsVisible] = useState(false)
   const [isVisibleCompare, setIsVisibleCompare] = useState(false)
@@ -26,7 +27,6 @@ export const ProfileEditPage: FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passCompare, setPassCompare] = useState('')
-  const [error, setError] = useState('')
 
   const handleVisible = (type: 'password' | 'pass-compare'): void => {
     type === 'password'
@@ -76,9 +76,7 @@ export const ProfileEditPage: FC = () => {
       if (password === passCompare) {
         bodyObj.hash = password
       } else {
-        setError('Пароли не совпадают!')
-
-        throw new Error()
+        throw new Error('Пароли не совпадают!')
       }
     }
 
@@ -86,7 +84,7 @@ export const ProfileEditPage: FC = () => {
 
     try {
       await userService.editUser(bodyObj)
-      setError('')
+      void fetchUser()
     } catch (error) {
       throw new Error()
     }
@@ -94,8 +92,24 @@ export const ProfileEditPage: FC = () => {
 
   return (
     <Wrapper className={cls.profileEditPage}>
-      <h2 className='main_title'>Редактирование профиля</h2>
-      <div className={cls.content}>
+      <motion.h2
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className='main_title'>Редактирование профиля</motion.h2>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className={cls.content}>
         {isLoading && 'LOADING...'}
         {!isLoading && (
           <div className={cls.contentUser}>
@@ -191,9 +205,6 @@ export const ProfileEditPage: FC = () => {
                 </button>
               </div>
             </div>
-            <span className={cls.error}>
-              {error}
-            </span>
           </div>
           <Button
             className={cls.submitBtn}
@@ -202,7 +213,7 @@ export const ProfileEditPage: FC = () => {
             text={'Сохранить'}
           />
         </form>
-      </div>
+      </motion.div>
     </Wrapper>
   )
 }

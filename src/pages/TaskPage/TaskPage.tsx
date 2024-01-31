@@ -4,15 +4,21 @@ import { type ICreateTask } from 'entities/TaskApi/task.interface'
 import taskService from 'entities/TaskApi/task.service'
 import { Button } from 'shared/components'
 import {
+  Alert,
   Button as ButtonMaterial,
   CircularProgress,
-  Grid,
+  Grid, Modal,
   Typography
 } from '@mui/material'
 import { errorToast } from 'shared/lib/error-toast'
 import cls from './TaskPage.module.css'
-import { Wrapper } from 'entities/Wrapper'
+import { Wrapper } from 'entities/Wrapper/Wrapper'
 import { CodeEditors } from 'widgets/CodeEditors'
+import { type IGetConnectUser } from 'entities/UserApi/user.interface'
+import userService from 'entities/UserApi/user.service'
+import { TotalModal } from 'widgets/TotalModal'
+import { useModalState } from 'shared/hooks/useModalState'
+import { motion } from 'framer-motion'
 
 export const TaskPage: FC = () => {
   const { id } = useParams()
@@ -29,6 +35,16 @@ export const TaskPage: FC = () => {
   const [open, setOpen] = useState(false)
   const [gameMessage, setGameMessage] = useState('')
 
+  const [opponent, setOpponent] = useState<IGetConnectUser>()
+  const [conId, setConId] = useState('')
+
+  const [isOpen, openModal, closeModal] = useModalState()
+  const [isWin, setIsWin] = useState(false)
+
+  const handleOpen = (): void => {
+    openModal()
+  }
+
   useEffect(() => {
     const getTask = async (): Promise<void> => {
       try {
@@ -41,6 +57,20 @@ export const TaskPage: FC = () => {
 
     void getTask()
   }, [])
+
+  useEffect(() => {
+    const getConnectUsers = async (): Promise<void> => {
+      try {
+        const opponent = await userService.getConnectUser(conId)
+        setOpponent(opponent)
+      } catch (error) {
+        errorToast(error)
+      }
+    }
+    if (conId) {
+      void getConnectUsers()
+    }
+  }, [conId])
 
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
@@ -58,6 +88,7 @@ export const TaskPage: FC = () => {
         case 'connect':
           break
         case 'pair':
+          setConId(message.data)
           setIsOpponent(true)
           break
         case 'ready':
@@ -70,7 +101,8 @@ export const TaskPage: FC = () => {
           break
         case 'lose':
           setGameMessage(`Вы проиграли, было ${attempts} попыток!`)
-          setOpen(true)
+          setIsWin(false)
+          openModal()
           break
         case 'disconnect':
           setIsConnected(false)
@@ -93,8 +125,8 @@ export const TaskPage: FC = () => {
   const handleWin = (): void => {
     const message = { event: 'win' }
     socket.current?.send(JSON.stringify(message))
-    setGameMessage(`Вы победили с ${attempts} попытки!`)
-    setOpen(true)
+    setIsWin(true)
+    openModal()
   }
 
   const handleDisconnect = (): void => {
@@ -109,8 +141,7 @@ export const TaskPage: FC = () => {
   }
 
   const isTimeOutLose = (): void => {
-    setGameMessage(`Вы проиграли, было ${attempts} попыток!`)
-    setOpen(true)
+    openModal()
   }
 
   if (!isOpponent) {
@@ -122,34 +153,33 @@ export const TaskPage: FC = () => {
           alignItems: 'center',
           justifyContent: 'center',
           flexDirection: 'column',
-          gap: '16px',
+          gap: '10dvh',
           width: '100%',
-          height: '100vh'
+          height: '68vh'
         }}
       >
-        <ButtonMaterial
-          variant='contained'
-          size='large'
-          onClick={connect}
-          disabled={isConnected}
-        >
-          Присоединиться
-        </ButtonMaterial>
-        <ButtonMaterial
-          variant='contained'
-          size='large'
-          onClick={() => {
-            navigate('/tasks')
-          }}
-        >
-          Выйти
-        </ButtonMaterial>
+
         {isConnected && <CircularProgress />}
         {isConnected && (
           <Typography component='div' variant='h6'>
-            Ждем подключение второго пользователя
+              Ждем подключение второго пользователя
           </Typography>
         )}
+        <div className={cls.btnGroupConnect}>
+          <Button
+            text={'Присоединиться'}
+            onClick={connect}
+            disabled={isConnected}
+            className={cls.btnConnect}
+            isOrange
+          />
+          <Button
+            text={'Выйти'}
+            onClick={() => {
+              navigate('/tasks')
+            }}
+          />
+        </div>
       </Grid>
     )
   }
@@ -166,16 +196,26 @@ export const TaskPage: FC = () => {
         }}
       >
       </Button>
-      <div className={cls.container}>
-        <h1 className={cls.mainTitle}>{taskData?.title}</h1>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          duration: 1,
+          delay: 0.2,
+          ease: 'easeOut'
+        }}
+        className={cls.container}>
+        <div className={cls.header}>
+          <h1 className={cls.mainTitle}>{taskData?.title}</h1>
+        </div>
         <div className={cls.descriptionContainer}>
           <p className={cls.description}>{taskData?.description}</p>
           <div className={cls.results}>
             <p className={cls.resultsText}>
-              Вводимые значения: {taskData?.results[0][0]}
+                Вводимые значения: {taskData?.results[0][0]}
             </p>
             <p className={cls.resultsText}>
-              Результат: {taskData?.results[0][1]}
+                Результат: {taskData?.results[0][1]}
             </p>
           </div>
         </div>
@@ -189,7 +229,12 @@ export const TaskPage: FC = () => {
           onWin={handleWin}
           isTimeOutLose={isTimeOutLose}
         />
-      </div>
+      </motion.div>
+
+      <TotalModal
+        isOpen={isOpen}
+        isWin={isWin}
+      />
     </Wrapper>
   )
 }

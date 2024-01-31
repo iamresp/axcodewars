@@ -63,6 +63,11 @@
   &:focus-visible {
     outline: 1px solid var(--orange-color);
   }
+
+  &::-ms-reveal {
+    height: 0;
+    width : 0;
+  }
 }
 
 .inputLabel {
@@ -88,11 +93,6 @@
 
 .submitBtn {
   max-width: 219px;
-}
-
-.error {
-  color: red;
-  text-align: center;
 }
 
 @media (width <= 1200px) {

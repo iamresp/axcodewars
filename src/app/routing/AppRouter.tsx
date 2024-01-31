@@ -1,12 +1,12 @@
 import React, { type FC } from 'react'
+import { Route, type RouteProps, Routes } from 'react-router-dom'
 import { publicRoutes, userRoutes } from './routes'
-import { Route, Routes } from 'react-router-dom'
 import { useAuth } from 'shared/hooks/useAuth'
 
 const AppRouter: FC = () => {
   const { isAuth } = useAuth()
 
-  const getRoutes = () => {
+  const getRoutes = (): RouteProps[] => {
     if (!isAuth) {
       return publicRoutes
     }
@@ -17,7 +17,7 @@ const AppRouter: FC = () => {
   return (
     <Routes>
       {getRoutes().map(route => (
-        <Route path={route.path} element={route.element} key={route.path}/>
+        <Route path={route.path} element={route.element} key={route.path} />
       ))}
     </Routes>
   )

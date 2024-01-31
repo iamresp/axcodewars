@@ -1,8 +1,8 @@
 import { FIELD_LOCAL_STORAGE } from 'shared/constants'
 import {
-  type ICreateTask,
+  type CreateTaskResponseType,
   type IGetTaskById,
-  type IGetTasks
+  type IGetTasks, type CreateTaskType, type TaskUpdateInput
 } from './task.interface'
 import { serviceStatus } from 'entities/service-status'
 
@@ -23,7 +23,12 @@ class TaskService {
     try {
       const response = await fetch(`${this._URL}/tasks`, {
         method: 'GET',
-        headers: this._headers
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem(
+            FIELD_LOCAL_STORAGE.ACCESS_TOKEN
+          )}`
+        }
       })
 
       if (!response.ok) {
@@ -39,7 +44,7 @@ class TaskService {
     }
   }
 
-  async createTask (body: ICreateTask): Promise<void> {
+  async createTask (body: CreateTaskType): Promise<CreateTaskResponseType> {
     try {
       const res = await fetch(`${this._URL}/tasks`, {
         method: 'POST',
@@ -71,6 +76,43 @@ class TaskService {
         throw new Error(
           this._status[response.status]
         )
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  async updateTask (taskUuid: string, body: TaskUpdateInput): Promise<IGetTaskById> {
+    try {
+      const response = await fetch(`${this._URL}/tasks/${taskUuid}`, {
+        method: 'PUT',
+        headers: this._headers,
+        body: JSON.stringify(body)
+      })
+
+      if (!response.ok) {
+        throw new Error(this._status[response.status])
+      }
+
+      return await response.json()
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+  async deleteTask (taskUuid: string): Promise<boolean> {
+    try {
+      const response = await fetch(`${this._URL}/tasks/${taskUuid}`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+
+      if (!response.ok) {
+        throw new Error(this._status[response.status])
       }
 
       return await response.json()
