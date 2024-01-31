@@ -2,8 +2,8 @@ import React, { type Dispatch, type SetStateAction, type FC } from 'react'
 import { TextAreaCustom } from 'shared/components'
 import { type TaskCaseTypes } from 'widgets/TaskModal/constants'
 import classNames from 'classnames'
-import Delete from 'shared/images/delete-modal-field.svg'
-import Add from 'shared/images/add-modal-field.svg'
+import DeleteIcon from 'shared/images/delete-modal-field.svg'
+import AddIcon from 'shared/images/add-modal-field.svg'
 import cls from './styles.module.css'
 
 interface AnswerFormProps {
@@ -49,7 +49,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
                   handleDeleteCase(index)
                 }}
               >
-                <Delete />
+                <DeleteIcon />
               </button>
             )}
             <h3>Пара вводимых значений {index + 1}</h3>
@@ -79,7 +79,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
         type='button'
         onClick={handleAddCase}
       >
-        <Add/>
+        <AddIcon/>
         <h3>Добавить поле</h3>
       </button>
     </>

@@ -39,11 +39,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
     close()
     setTitle('')
     setDescription('')
-    setTaskCase([
-      { args: '', result: '' },
-      { args: '', result: '' },
-      { args: '', result: '' }
-    ])
+    setTaskCase(taskObj.taskCase)
 
     clearStorage()
   }
@@ -51,11 +47,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   const handleClearFields = (): void => {
     setTitle('')
     setDescription('')
-    setTaskCase([
-      { args: '', result: '' },
-      { args: '', result: '' },
-      { args: '', result: '' }
-    ])
+    setTaskCase(taskObj.taskCase)
   }
 
   const handleSubmit = async (
@@ -144,10 +136,10 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
           />
         </div>
         <div className={cls.btnGp}>
-          <Button text={'Очистить поля'} onClick={handleClearFields} />
+          <Button text='Очистить поля' onClick={handleClearFields} />
           <div className={cls.btnFooter}>
-            <Button type='submit' isOrange text={'Создать'} />
-            <Button onClick={openCSV} text={'Загрузить из файла'} />
+            <Button type='submit' isOrange text='Создать' />
+            <Button onClick={openCSV} text='Загрузить из файла' />
           </div>
         </div>
       </form>
