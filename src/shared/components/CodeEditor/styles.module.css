@@ -21,7 +21,7 @@
   width: 180px;
 }
 
-.alarm {
+.alarmMessage {
   background: var(--submain-color);
   border-radius: 3px;
   margin: 17px 0 0;
@@ -45,7 +45,7 @@
     margin: 10px 0 50px;
   }
 
-  .alarm {
+  .alarmMessage {
     flex: 1 1 0;
     margin: 0;
   }
@@ -61,7 +61,7 @@
     display: block;
   }
 
-  .alarm {
+  .alarmMessage {
     margin-bottom: 20px;
   }
 }

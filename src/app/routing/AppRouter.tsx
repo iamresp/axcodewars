@@ -15,11 +15,11 @@ const AppRouter: FC = () => {
   }
 
   return (
-    <Routes>
-      {getRoutes().map(route => (
-        <Route path={route.path} element={route.element} key={route.path} />
-      ))}
-    </Routes>
+      <Routes>
+        {getRoutes().map(route => (
+            <Route path={route.path} element={route.element} key={route.path} />
+        ))}
+      </Routes>
   )
 }
 
