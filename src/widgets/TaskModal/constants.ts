@@ -19,4 +19,10 @@ export const taskObj: TaskObjTypes = {
   title: ''
 }
 
+export const taskCaseInitial: TaskCaseTypes[] = [
+  { args: '', result: '' },
+  { args: '', result: '' },
+  { args: '', result: '' }
+]
+
 export const STORAGE = 'create_task'

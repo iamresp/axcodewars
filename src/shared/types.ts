@@ -3,6 +3,7 @@ export interface UserType {
   avatar: string
   token: string
 }
+
 export interface AuthContextType {
   isLoading: boolean
   isAuth: boolean

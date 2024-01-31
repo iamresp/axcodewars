@@ -43,7 +43,21 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
     close()
     setTitle('')
     setDescription('')
-    setTaskCase(taskObj.taskCase)
+    setTaskCase([
+      { args: '', result: '' },
+      { args: '', result: '' },
+      { args: '', result: '' }
+    ])
+  }
+
+  const handleClearFields = (): void => {
+    setTitle('')
+    setDescription('')
+    setTaskCase([
+      { args: '', result: '' },
+      { args: '', result: '' },
+      { args: '', result: '' }
+    ])
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -75,6 +89,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
         }}
       >
         <div className={cls.createTask}>
+          <h2>Название таски и описание</h2>
           <InputCustom
             required
             value={title}
@@ -98,8 +113,11 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
           />
         </div>
         <div className={cls.btnGp}>
-          <Button type='submit' isOrange text={'Сохранить'} />
-          <Button onClick={handleDelete} text={'Удалить'} />
+          <Button text='Очистить поля' onClick={handleClearFields} />
+          <div className={cls.btnFooter}>
+            <Button type='submit' isOrange text='Сохранить'/>
+            <Button onClick={handleDelete} text='Удалить'/>
+          </div>
         </div>
       </form>
     </Modal>
