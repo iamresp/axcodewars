@@ -1,7 +1,7 @@
 import React, { type FC } from 'react'
 import { publicRoutes, userRoutes, type RoutesType } from './routes'
 import { Route, Routes } from 'react-router-dom'
-import { Loading } from 'shared/components/Loading'
+import { Loading } from 'shared/components'
 import { useAuth } from 'shared/hooks/useAuth'
 
 const AppRouter: FC = () => {

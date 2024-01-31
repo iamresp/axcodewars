@@ -7,6 +7,7 @@ import taskService from 'entities/TaskApi/task.service'
 import cls from './styles.module.css'
 import { errorToast } from 'shared/lib/error-toast'
 import { type TaskUpdateInput } from 'entities/TaskApi/task.interface'
+import { toast } from 'react-toastify'
 
 interface EditTaskModalProps {
   isOpen: boolean
@@ -61,7 +62,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
       handleClose()
       await getTasks()
     } catch (error) {
-      console.error(error)
+      toast.error('Не удалось отредактировать таску!')
     }
   }
 
