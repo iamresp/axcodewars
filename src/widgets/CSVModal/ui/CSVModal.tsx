@@ -96,7 +96,7 @@ export const CSVModal: FC<CSVModalProps> = ({ isOpen, close, getTasks }) => {
       <DropzoneCsv data={data} setData={setData} />
       <div className={cls.btnGr}>
         <Button
-          className={!isBtnDisabled ? cls.btnDisabled : ''}
+          className={isBtnDisabled ? cls.btnDisabled : ''}
           onClick={e => {
             void handleSubmit(e)
           }}

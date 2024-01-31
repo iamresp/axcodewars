@@ -7,8 +7,8 @@ import { CreateTaskModal, EditTaskModal } from 'widgets/TaskModal'
 import { CSVModal } from 'widgets/CSVModal'
 import { type IGetTaskById } from 'entities/TaskApi/task.interface'
 import cls from './TaskListPage.module.css'
-import { Wrapper } from 'entities/Wrapper/Wrapper'
-import ArrowRight from '../../shared/images/arrow-right.svg'
+import { Wrapper } from 'entities/Wrapper'
+import ArrowRight from 'shared/images/arrow-right.svg'
 import { errorToast } from 'shared/lib/error-toast'
 import { Loading } from 'shared/components/Loading'
 
@@ -40,7 +40,7 @@ export const TaskListPage: FC = () => {
     (searchTerm: string) => {
       const filtered = tasks.filter(
         task => task.title?.length > 0 &&
-                    task.title.toLowerCase().includes(searchTerm.toLowerCase())
+            task.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
       setFilteredTasks(filtered)
     },
