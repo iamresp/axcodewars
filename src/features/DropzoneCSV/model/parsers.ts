@@ -1,14 +1,15 @@
-import { CSVSeparator, type IRegexParser } from '../lib/types'
+import { CSVSeparator, type IRegexParser } from './types'
 
-// New parser can be easily added by changing
-// every comma in comma regex with the separator of choice
+const createRegexParser = (separator: CSVSeparator): IRegexParser => {
+  return {
+    regValid: new RegExp(`^\\s*(?:'[^'\\\\]*(?:\\\\[\\S\\s][^'\\\\]*)*'|"[^"\\\\]*(?:\\\\[\\S\\s][^"\\\\]*)*"|[^${separator}'"\\s\\\\]*(?:\\s+[^${separator}'"\\s\\\\]+)*)\s*(?:${separator}\\s*(?:'[^'\\\\]*(?:\\\\[\\S\\s][^'\\\\]*)*'|"[^"\\\\]*(?:\\\\[\\S\\s][^"\\\\]*)*"|[^${separator}'"\\s\\\\]*(?:\\s+[^${separator}'"\\s\\\\]+)*)\\s*)*$`),
+    regValue: new RegExp(`(?!\\s*$)\\s*(?:'([^'\\\\]*(?:\\\\[\\S\\s][^'\\\\]*)*)'|"([^"\\\\]*(?:\\\\[\\S\\s][^"\\\\]*)*)"|([^${separator}'"\\s\\\\]*(?:\\s+[^${separator}'"\\s\\\\]+)*))\\s*(?:${separator}|$)`, "g")
+  } as IRegexParser
+}
+
+// New parser can be easily added by adding separator to CSVSeparator
+// and using createRegexParser that generate parser of choice
 export const Parsers: Record<CSVSeparator, IRegexParser> = {
-  [CSVSeparator.COMMA]: {
-    regValid: /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/,
-    regValue: /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g
-  },
-  [CSVSeparator.SEMICOLON]: {
-    regValid: /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^;'"\s\\]*(?:\s+[^;'"\s\\]+)*)\s*(?:;\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^;'"\s\\]*(?:\s+[^;'"\s\\]+)*)\s*)*$/,
-    regValue: /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^;'"\s\\]*(?:\s+[^;'"\s\\]+)*))\s*(?:;|$)/g
-  }
+  [CSVSeparator.COMMA]: createRegexParser(CSVSeparator.COMMA),
+  [CSVSeparator.SEMICOLON]: createRegexParser(CSVSeparator.SEMICOLON)
 }

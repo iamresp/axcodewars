@@ -1,7 +1,7 @@
-import { CSVSeparator } from './types'
+import {CSVSeparator} from '../model/types'
 import { Parsers } from '../model/parsers'
 
-export function arrBufToStr (buf: ArrayBuffer): string {
+export const arrBufToStr = (buf: ArrayBuffer): string => {
   return String.fromCharCode.apply(null, Array.from(new Uint16Array(buf)))
 }
 
@@ -9,7 +9,7 @@ const isValidCSVrow = (row: string[]): boolean => (
   row.length > 4 && row.length % 2 === 0
 )
 
-function parseCSVstring (str: string, separator: CSVSeparator): string[] {
+const parseCSVstring = (str: string, separator: CSVSeparator): string[] => {
   // Return empty array if input string is not well formed CSV string.
   if (!Parsers[separator].regValid.test(str)) return []
   const a = [] // Initialize array to receive values.
@@ -32,7 +32,7 @@ function parseCSVstring (str: string, separator: CSVSeparator): string[] {
   return a
 }
 
-function getAllSeparators (): CSVSeparator[] {
+const getAllSeparators = (): CSVSeparator[] => {
   const separatorsArr: CSVSeparator[] = []
   Object.values(CSVSeparator).forEach(separator => {
     if (isNaN(Number(separator))) {
@@ -43,7 +43,7 @@ function getAllSeparators (): CSVSeparator[] {
   return separatorsArr
 }
 
-export function CSVtoArray (text: string): string[][] {
+export const CSVtoArray = (text: string): string[][] => {
   // split CSV table to array of rows
   const CSVData: string[] = text.split(/\r\n|\r|\n/)
   // go through all separators
@@ -60,7 +60,7 @@ export function CSVtoArray (text: string): string[][] {
     if (currentData.length > 0 && currentData.at(-1)?.length === 0) {
       currentData.pop()
     }
-
+    console.log('currentData', currentData)
     // validation: go through array and check
     // if all subarrays length more than 4 and divides by 2
     if (currentData.every(isValidCSVrow)) return currentData
