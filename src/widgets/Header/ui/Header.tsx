@@ -74,7 +74,7 @@ export const Header: FC = () => {
               <div className={cls.profileCont}>
                 <img className={cls.profileImg}
                   src={(user.avatar !== '')
-                    ? process.env.REACT_APP_SERVER_URL + user.avatar
+                    ? process.env.REACT_APP_SERVER_URL + '/' + user.avatar
                     : './images/userlogo.png'}
                   alt={'user.avatar'}/>
                 <p className={cls.profileUsername}>{user.username}</p>

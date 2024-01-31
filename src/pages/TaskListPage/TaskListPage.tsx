@@ -82,7 +82,7 @@ export const TaskListPage: FC = () => {
         {filteredTasks.length > 0
           ? (
             filteredTasks.map(task => (
-              <div className={cls.task} key={task.title}>
+              <div className={cls.task} key={task.uuid}>
                 <h1 className={cls.taskTitle}>{task.title}</h1>
                 <div className={cls.taskOperations}>
                   <button
