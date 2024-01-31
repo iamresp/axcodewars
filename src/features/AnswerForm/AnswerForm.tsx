@@ -59,12 +59,12 @@ export const AnswerForm: FC<AnswerFormProps> = ({
             onChange={e => {
               handleChangeTaskCase(index, e)
             }}
-            placeholder='Вводимые данные'
+            label='Вводимые данные'
             name='args'
             required
           />
           <TextAreaCustom
-            placeholder='Правильный ответ'
+            label='Правильный ответ'
             value={task.result}
             onChange={e => {
               handleChangeTaskCase(index, e)

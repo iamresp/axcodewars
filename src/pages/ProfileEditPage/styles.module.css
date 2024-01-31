@@ -63,12 +63,16 @@
   &:focus-visible {
     outline: 1px solid var(--orange-color);
   }
+
+  &::-ms-reveal {
+    display: none;
+  }
 }
 
 .inputLabel {
   flex: 0 0 220px;
   font-weight: 500;
-  text-wrap: nowrap;
+  text-wrap: initial;
 }
 
 .inputPassword {

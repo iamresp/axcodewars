@@ -7,7 +7,7 @@ export default function Footer (): JSX.Element {
   return (
     <Wrapper className={cls.wrapper}>
       <footer className={cls.footer}>
-        <p>© 2023, ООО «АксТим»</p>
+        <p>©{new Date().getFullYear()}, ООО «АксТим»</p>
       </footer>
     </Wrapper>
   )

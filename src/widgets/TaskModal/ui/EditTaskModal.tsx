@@ -43,13 +43,21 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
     close()
     setTitle('')
     setDescription('')
-    setTaskCase(taskObj.taskCase)
+    setTaskCase([
+      { args: '', result: '' },
+      { args: '', result: '' },
+      { args: '', result: '' }
+    ])
   }
 
   const handleClearFields = (): void => {
     setTitle('')
     setDescription('')
-    setTaskCase(taskObj.taskCase)
+    setTaskCase([
+      { args: '', result: '' },
+      { args: '', result: '' },
+      { args: '', result: '' }
+    ])
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -88,7 +96,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
             onChange={e => {
               setTitle(e.target.value)
             }}
-            placeholder='Название'
+            label={'Название'}
           />
           <TextAreaCustom
             required
@@ -96,7 +104,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
             onChange={e => {
               setDescription(e.target.value)
             }}
-            placeholder='Описание'
+            label={'Описание'}
           />
           <AnswerForm
             className={cls.answerForm}

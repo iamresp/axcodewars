@@ -8,7 +8,7 @@ import {
   type TaskObjTypes,
   STORAGE,
   taskObj,
-  type TaskCaseTypes
+  type TaskCaseTypes, taskCaseInitial
 } from '../constants'
 import { errorToast } from 'shared/lib/error-toast'
 import { toast } from 'react-toastify'
@@ -39,7 +39,11 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
     close()
     setTitle('')
     setDescription('')
-    setTaskCase(taskObj.taskCase)
+    setTaskCase([
+      { args: '', result: '' },
+      { args: '', result: '' },
+      { args: '', result: '' }
+    ])
 
     clearStorage()
   }
@@ -47,7 +51,11 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
   const handleClearFields = (): void => {
     setTitle('')
     setDescription('')
-    setTaskCase(taskObj.taskCase)
+    setTaskCase([
+      { args: '', result: '' },
+      { args: '', result: '' },
+      { args: '', result: '' }
+    ])
   }
 
   const handleSubmit = async (
@@ -119,7 +127,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             onChange={e => {
               setTitle(e.target.value)
             }}
-            placeholder='Название'
+            label={'Название'}
           />
           <TextAreaCustom
             required
@@ -127,7 +135,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             onChange={e => {
               setDescription(e.target.value)
             }}
-            placeholder='Описание'
+            label='Описание'
           />
           <AnswerForm
             className={cls.answerForm}
