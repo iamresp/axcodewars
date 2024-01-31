@@ -37,6 +37,7 @@ const ErrorPage = React.lazy(async () => await import('pages/ErrorPage')
     default: module.ErrorPage
   }))
 )
+
 export const publicRoutes: RoutesType[] = [
   {
     path: '/auth',
@@ -48,7 +49,6 @@ export const publicRoutes: RoutesType[] = [
   },
   { path: '*', element: <Navigate to='/auth' replace /> }
 ]
-
 export const userRoutes = [
   {
     path: '/tasks',

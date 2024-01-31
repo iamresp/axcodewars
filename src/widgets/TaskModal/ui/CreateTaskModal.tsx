@@ -111,7 +111,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             onChange={e => {
               setTitle(e.target.value)
             }}
-            placeholder='Название'
+            label={'Название'}
           />
           <TextAreaCustom
             required
@@ -119,7 +119,7 @@ export const CreateTaskModal: FC<CreateTaskModalProps> = ({
             onChange={e => {
               setDescription(e.target.value)
             }}
-            placeholder='Описание'
+            label='Описание'
           />
           <AnswerForm
             className={cls.answerForm}
