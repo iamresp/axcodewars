@@ -7,7 +7,7 @@ import { ThemeContext } from 'app/context/ThemeContext'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
 import { Wrapper } from 'entities/Wrapper'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
-import cls from '../ui/Header.module.css'
+import cls from './Header.module.css'
 
 export const Header: FC = () => {
   const { pathname } = useLocation()

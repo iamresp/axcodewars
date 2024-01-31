@@ -11,6 +11,7 @@ import { type UserType } from 'shared/types'
 interface AuthContextProps {
   children: ReactNode
 }
+
 export const AuthProvider: FC<AuthContextProps> = ({ children }) => {
   const token = localStorage.getItem(FIELD_LOCAL_STORAGE.ACCESS_TOKEN)
 

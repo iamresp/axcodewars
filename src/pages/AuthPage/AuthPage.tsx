@@ -18,8 +18,10 @@ export const AuthPage: FC = () => {
 
   const { login } = useAuth()
 
-  const handleAuth = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault()
+  const handleAuth = async (
+    event: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    event.preventDefault()
 
     if (
       username === '' ||
