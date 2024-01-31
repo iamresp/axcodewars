@@ -23,7 +23,12 @@ class TaskService {
     try {
       const response = await fetch(`${this._URL}/tasks`, {
         method: 'GET',
-        headers: this._headers
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem(
+            FIELD_LOCAL_STORAGE.ACCESS_TOKEN
+          )}`
+        }
       })
 
       if (!response.ok) {

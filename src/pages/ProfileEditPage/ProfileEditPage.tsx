@@ -17,7 +17,7 @@ import cls from './styles.module.css'
 import { Wrapper } from 'entities/Wrapper'
 
 export const ProfileEditPage: FC = () => {
-  const { user, isLoading } = useAuth()
+  const { user, isLoading, fetchUser } = useAuth()
 
   const [isVisible, setIsVisible] = useState(false)
   const [isVisibleCompare, setIsVisibleCompare] = useState(false)
@@ -26,7 +26,6 @@ export const ProfileEditPage: FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passCompare, setPassCompare] = useState('')
-  const [error, setError] = useState('')
 
   const handleVisible = (type: 'password' | 'pass-compare'): void => {
     type === 'password'
@@ -76,9 +75,7 @@ export const ProfileEditPage: FC = () => {
       if (password === passCompare) {
         bodyObj.hash = password
       } else {
-        setError('Пароли не совпадают!')
-
-        throw new Error()
+        throw new Error('Пароли не совпадают!')
       }
     }
 
@@ -86,7 +83,7 @@ export const ProfileEditPage: FC = () => {
 
     try {
       await userService.editUser(bodyObj)
-      setError('')
+      void fetchUser()
     } catch (error) {
       throw new Error()
     }
@@ -191,9 +188,6 @@ export const ProfileEditPage: FC = () => {
                 </button>
               </div>
             </div>
-            <span className={cls.error}>
-              {error}
-            </span>
           </div>
           <Button
             className={cls.submitBtn}
