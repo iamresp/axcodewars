@@ -73,7 +73,7 @@ export const TaskListPage: FC = () => {
             onClick={handleCreateOpen}
             className={cls.createTask}
           >
-                        Создать таску
+              Создать таску
           </button>
           <SearchInput onSearch={handleSearch} />
         </div>
