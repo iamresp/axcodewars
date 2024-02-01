@@ -1,13 +1,16 @@
-import cls from './PopOver.module.css'
-import { Link } from 'react-router-dom'
 import React, { type FC } from 'react'
+import { Link } from 'react-router-dom'
 import {
   PopOverExit,
   PopOverProfile,
   PopOverTask
 } from 'widgets/Header/assets/SvgComponents/LogoSvgComponent'
+import { useAuth } from 'shared/hooks/useAuth'
+import cls from './PopOver.module.css'
 
 export const PopOver: FC = () => {
+  const { logout } = useAuth()
+
   return (
     <>
       <div className={cls.popOver}>
@@ -23,9 +26,7 @@ export const PopOver: FC = () => {
                 Таски
           </p>
         </Link>
-        <Link to={'/auth'} className={cls.popOverSection} onClick={() => {
-          localStorage.removeItem('access_token')
-        }} >
+        <Link to={'/auth'} className={cls.popOverSection} onClick={logout} >
           <PopOverExit />
           <p className={cls.p}>
               Выйти

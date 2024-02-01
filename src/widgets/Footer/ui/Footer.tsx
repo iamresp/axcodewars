@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React, { type FC } from 'react'
 import { Wrapper } from 'entities/Wrapper'
 
-import cls from '../ui/Footer.module.css'
+import cls from './Footer.module.css'
 
-export default function Footer (): JSX.Element {
+export const Footer: FC = () => {
   return (
     <Wrapper className={cls.wrapper}>
       <footer className={cls.footer}>
