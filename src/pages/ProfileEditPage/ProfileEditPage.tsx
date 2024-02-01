@@ -2,7 +2,7 @@ import React, {
   type FC,
   useState,
   type FormEvent,
-  type ChangeEvent
+  type ChangeEvent, type ReactNode
 } from 'react'
 import userService from 'entities/UserApi/user.service'
 import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
@@ -10,7 +10,8 @@ import { useAuth } from 'shared/hooks/useAuth'
 import { AvatarLoading } from 'features/AvatarLoading'
 import { Button } from 'shared/components'
 import Avatar from 'shared/images/userlogo.png'
-import PasswordVisible from 'shared/images/password-visible.svg'
+import PasswordHide from 'shared/images/password-closed.svg'
+import PasswordVisible from 'shared/images/password-open.svg'
 import { type IEditUser } from 'entities/UserApi/user.interface'
 
 import cls from './styles.module.css'
@@ -33,6 +34,12 @@ export const ProfileEditPage: FC = () => {
     type === 'password'
       ? setIsVisible(prev => !prev)
       : setIsVisibleCompare(prev => !prev)
+  }
+
+  const handlePasswordIcon = (visible: boolean): ReactNode => {
+    return visible
+      ? <PasswordVisible />
+      : <PasswordHide />
   }
 
   const handleValue = (
@@ -176,7 +183,7 @@ export const ProfileEditPage: FC = () => {
                   }}
                   type='button'
                 >
-                  <PasswordVisible />
+                  {handlePasswordIcon(isVisible)}
                 </button>
               </div>
             </div>
@@ -202,7 +209,7 @@ export const ProfileEditPage: FC = () => {
                   }}
                   type='button'
                 >
-                  <PasswordVisible />
+                  {handlePasswordIcon(isVisibleCompare)}
                 </button>
               </div>
             </div>
