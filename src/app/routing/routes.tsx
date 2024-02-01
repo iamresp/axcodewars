@@ -51,7 +51,7 @@ export const publicRoutes: RouteProps[] = [
   { path: '*', element: <Navigate to='/auth' replace /> }
 ]
 
-export const userRoutes = [
+export const userRoutes: RouteProps[] = [
   {
     path: '/tasks',
     element: (

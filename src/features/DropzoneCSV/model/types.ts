@@ -1,6 +1,6 @@
 export enum CSVSeparator {
-  SEMICOLON = 'semicolon',
-  COMMA = 'comma'
+  SEMICOLON = ';',
+  COMMA = ','
 }
 
 export interface IRegexParser {

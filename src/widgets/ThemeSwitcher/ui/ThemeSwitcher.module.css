@@ -1,39 +1,50 @@
-.switchCheckbox {
-  display: none;
+.switch {
+  --width-of-switch: 3.5em;
+  --height-of-switch: 2em;
+  --size-of-icon: 1.4em;
+  --slider-offset: 0.3em;
+
+  display: block;
+  height: var(--height-of-switch);
+  position: relative;
+  width: var(--width-of-switch);
+}
+
+.switch input {
   height: 0;
-  visibility: hidden;
+  opacity: 0;
   width: 0;
 }
 
-.switchLabel {
-  align-items: center;
-  background: white;
+.slider {
+  background-color: #f4f4f5;
   border: 1px solid var(--orange-color);
-  border-radius: 100px;
+  border-radius: 30px;
   cursor: pointer;
-  display: flex;
-  height: 35px;
-  justify-content: space-between;
-  position: relative;
-  transition: background-color 0.2s;
-  width: 70px;
-}
-
-.switchLabel .switchButton {
-  background: var(--orange-color);
-  border-radius: 45px;
-  box-shadow: 0 0 2px 0 rgb(10 10 10 / 29%);
-  content: '';
-  height: 23px;
-  left: 10px;
+  inset: 0;
   position: absolute;
-  top: 6px;
-  transition: 0.3s;
-  width: 23px;
+  transition: .4s;
 }
 
-.switchCheckbox:checked + .switchLabel .switchButton {
-  background: var(--orange-color);
-  left: calc(100% - 8px);
-  transform: translateX(-100%);
+.slider::before {
+  background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
+  border-radius: 20px;
+  content: "";
+  height: var(--size-of-icon,1.4em);
+  left: var(--slider-offset,0.3em);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: .4s;
+  width: var(--size-of-icon,1.4em);
+}
+
+input:checked + .slider {
+  background-color: var(--black-color);
+}
+
+input:checked + .slider::before {
+  background: none;
+  box-shadow: inset -3px -2px 5px -2px, inset -10px -4px 0 0 #fff;
+  left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
 }
