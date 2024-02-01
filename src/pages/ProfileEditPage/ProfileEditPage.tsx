@@ -16,6 +16,7 @@ import { type IEditUser } from 'entities/UserApi/user.interface'
 import cls from './styles.module.css'
 import { Wrapper } from 'entities/Wrapper'
 import { motion } from 'framer-motion'
+import UserLogo from 'shared/images/userLogo.jpg'
 
 export const ProfileEditPage: FC = () => {
   const { user, isLoading, fetchUser } = useAuth()
@@ -114,7 +115,7 @@ export const ProfileEditPage: FC = () => {
         {!isLoading && (
           <div className={cls.contentUser}>
             <img
-              src={imageSrc() ?? Avatar}
+              src={/* imageSrc() ?? */ `${UserLogo}`}
               alt='user_avatar'
               className={cls.userAvatar}
             />

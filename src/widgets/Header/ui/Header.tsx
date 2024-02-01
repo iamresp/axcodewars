@@ -7,6 +7,7 @@ import { ThemeContext } from 'app/context/ThemeContext'
 import { LogoSvgComponent } from '../assets/SvgComponents/LogoSvgComponent'
 import { Wrapper } from 'entities/Wrapper'
 import { useOnClickOutside } from 'shared/hooks/useOnClickOutside'
+import UserLogo from 'shared/images/userLogo.jpg'
 import cls from './Header.module.css'
 
 export const Header: FC = () => {
@@ -73,9 +74,12 @@ export const Header: FC = () => {
             >
               <div className={cls.profileCont}>
                 <img className={cls.profileImg}
-                  src={(user.avatar !== '')
-                    ? process.env.REACT_APP_SERVER_URL + '/' + user.avatar
-                    : './images/userlogo.png'}
+                  src={
+                    UserLogo
+                    // user.avatar !== ''
+                    //   ? process.env.REACT_APP_SERVER_URL + '/' + user.avatar
+                    //   : `${UserLogo}`
+                  }
                   alt={'user.avatar'}/>
                 <p className={cls.profileUsername}>{user.username}</p>
               </div>

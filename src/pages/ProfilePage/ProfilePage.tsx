@@ -5,6 +5,7 @@ import { Wrapper } from 'entities/Wrapper'
 
 import cls from './ProfilePage.module.css'
 import { motion } from 'framer-motion'
+import UserLogo from 'shared/images/userLogo.jpg'
 
 export const ProfilePage: FC = () => {
   const { isLoading, user } = useAuth()
@@ -35,9 +36,10 @@ export const ProfilePage: FC = () => {
             <img
               className={cls.userAvatar}
               src={
-                user.avatar !== ''
-                  ? process.env.REACT_APP_SERVER_URL + '/' + user.avatar
-                  : './images/userlogo.png'
+                UserLogo
+                // user.avatar !== ''
+                //   ? process.env.REACT_APP_SERVER_URL + '/' + user.avatar
+                //   : `${UserLogo}`
               }
               alt={'user.avatar'}
             />

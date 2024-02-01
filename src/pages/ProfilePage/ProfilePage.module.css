@@ -51,7 +51,6 @@
 }
 
 .profileContBottom{
-  border: 1px solid var(--orange-color);
   box-sizing: border-box;
   margin-top: 100px;
   padding: 50px 100px;
