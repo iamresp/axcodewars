@@ -92,5 +92,5 @@ export const userRoutes: RouteProps[] = [
       </Suspense>
     )
   },
-  { path: '*', element: <Navigate to='/error' /> }
+  { path: '*', element: <Navigate to='/tasks' /> }
 ]
