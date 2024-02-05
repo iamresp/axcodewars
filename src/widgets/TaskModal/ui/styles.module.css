@@ -71,10 +71,9 @@ h2::first-letter {
     transform: translateX(40%);
   }
 
-  .btnGp {
+  .btnGp, .btnFooter  {
     flex-direction: column;
     gap: var(--input-gap);
-    margin-top: 35px;
   }
 }
 

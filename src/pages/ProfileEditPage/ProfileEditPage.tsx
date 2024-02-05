@@ -9,10 +9,8 @@ import { toastFetchStatus } from 'shared/lib/toastFetchingStatus'
 import { useAuth } from 'shared/hooks/useAuth'
 import { AvatarLoading } from 'features/AvatarLoading'
 import { Button } from 'shared/components'
-import Avatar from 'shared/images/userlogo.png'
 import PasswordHide from 'shared/images/password-closed.svg'
 import PasswordVisible from 'shared/images/password-open.svg'
-import { type IEditUser } from 'entities/UserApi/user.interface'
 
 import cls from './styles.module.css'
 import { Wrapper } from 'entities/Wrapper'
@@ -20,7 +18,7 @@ import { motion } from 'framer-motion'
 import UserLogo from 'shared/images/userLogo.jpg'
 
 export const ProfileEditPage: FC = () => {
-  const { user, isLoading, fetchUser } = useAuth()
+  const { user, fetchUser } = useAuth()
 
   const [isVisible, setIsVisible] = useState(false)
   const [isVisibleCompare, setIsVisibleCompare] = useState(false)
@@ -63,35 +61,42 @@ export const ProfileEditPage: FC = () => {
     }
   }
 
-  const imageSrc = (): string | undefined => {
+  const getAvatar = (): string | undefined => {
     if (avatar != null) {
       return URL.createObjectURL(avatar)
     }
 
     if (user.avatar.length > 0) {
-      return process.env.REACT_APP_SERVER_URL + '/' + user.avatar
+      return user.avatar
     }
+
+    return UserLogo
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
-    const bodyObj: IEditUser = {
-      avatar: avatar?.name
+    if (password.trim() === '' && passCompare.trim() === '' &&
+        username.trim() === '' && avatar === undefined) {
+      throw new Error('Заполните поля для редактирования!')
     }
+
+    const formData = new FormData()
+
+    avatar !== undefined && formData.append('avatar', avatar)
 
     if (password.trim() !== '') {
       if (password === passCompare) {
-        bodyObj.hash = password
+        formData.append('hash', password)
       } else {
         throw new Error('Пароли не совпадают!')
       }
     }
 
-    if (username.length > 0) bodyObj.username = username
+    username.trim().length > 0 && formData.append('username', username)
 
     try {
-      await userService.editUser(bodyObj)
+      await userService.editUser(formData)
       void fetchUser()
     } catch (error) {
       throw new Error()
@@ -118,25 +123,22 @@ export const ProfileEditPage: FC = () => {
           ease: 'easeOut'
         }}
         className={cls.content}>
-        {isLoading && 'LOADING...'}
-        {!isLoading && (
-          <div className={cls.contentUser}>
-            <img
-              src={/* imageSrc() ?? */ `${UserLogo}`}
-              alt='user_avatar'
-              className={cls.userAvatar}
-            />
-            <h3 className={cls.username}>
-              {user.username.length > 0 ? user.username : 'USERNAME'}
-            </h3>
-            <AvatarLoading
-              isProfile
-              className={cls.avatarLoading}
-              image={avatar}
-              setImage={setAvatar}
-            />
-          </div>
-        )}
+        <div className={cls.contentUser}>
+          <img
+            src={getAvatar()}
+            alt='user_avatar'
+            className={cls.userAvatar}
+          />
+          <h3 className={cls.username}>
+            {user.username.length > 0 ? user.username : 'USERNAME'}
+          </h3>
+          <AvatarLoading
+            isProfile
+            className={cls.avatarLoading}
+            image={avatar}
+            setImage={setAvatar}
+          />
+        </div>
         <form
           onSubmit={e => {
             toastFetchStatus(handleSubmit(e), {

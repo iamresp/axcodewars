@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import UserLogo from 'shared/images/userLogo.jpg'
 
 export const ProfilePage: FC = () => {
-  const { isLoading, user } = useAuth()
+  const { user } = useAuth()
 
   return (
     <Wrapper>
@@ -30,25 +30,17 @@ export const ProfilePage: FC = () => {
           ease: 'easeOut'
         }}
         className={cls.profileCont}>
-        {isLoading && 'Loading...'}
-        {!isLoading && (
-          <div className={cls.profileContTop}>
-            <img
-              className={cls.userAvatar}
-              src={
-                UserLogo
-                // user.avatar !== ''
-                //   ? process.env.REACT_APP_SERVER_URL + '/' + user.avatar
-                //   : `${UserLogo}`
-              }
-              alt={'user.avatar'}
-            />
-            <span className={cls.userUsername}>{user.username}</span>
-            <Link className={cls.userEdit} to={'/profile/edit'}>
+        <div className={cls.profileContTop}>
+          <img
+            className={cls.userAvatar}
+            src={user.avatar !== '' ? user.avatar : UserLogo}
+            alt={'user.avatar'}
+          />
+          <span className={cls.userUsername}>{user.username}</span>
+          <Link className={cls.userEdit} to={'/profile/edit'}>
               Редактировать
-            </Link>
-          </div>
-        )}
+          </Link>
+        </div>
         <div className={cls.profileContBottom}>
           <div className={cls.userHistory}>
             <p className={cls.userHistoryTitle}>Название таски</p>

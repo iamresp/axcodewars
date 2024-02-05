@@ -1,5 +1,5 @@
 export interface ICreateUser {
-  avatar: string
+  avatar: File | undefined
   hash: string
   username: string
 }

@@ -39,7 +39,7 @@ export const AvatarLoading: FC<AvatarLoadingProps> = ({
           <img src='/images/avatarDownload.svg' alt='avatarLoadingIcon' />
         )}
         <span className={cls.regSpan}>
-          {image != null ? image.name : 'Загрузить аватар'}
+          {image != null && !isProfile ? image.name : 'Загрузить аватар'}
         </span>
       </label>
     </>
