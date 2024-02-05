@@ -6,15 +6,15 @@ import classNames from 'classnames'
 interface TimerCustomProps {
   isWin: boolean
   ms: number
-  time: boolean
-  setTime: (bool: boolean) => void
+  isLose: boolean
+  setIsLose: (bool: boolean) => void
 }
 
 export const TimerCustom: FC<TimerCustomProps> = ({
   isWin,
   ms,
-  time,
-  setTime
+  isLose,
+  setIsLose
 }) => {
   const Ref = useRef<NodeJS.Timer | null>(null)
 
@@ -24,7 +24,7 @@ export const TimerCustom: FC<TimerCustomProps> = ({
     [cls.timer],
     {
       [cls.timerGreen]: isWin,
-      [cls.timerRed]: time
+      [cls.timerRed]: isLose
     })
 
   const startTimer = (date: Date): void => {
@@ -39,7 +39,7 @@ export const TimerCustom: FC<TimerCustomProps> = ({
       )
     }
 
-    setTime(total === 0)
+    setIsLose(total === 0)
   }
 
   const clearTimer = (date: Date): void => {
@@ -65,7 +65,7 @@ export const TimerCustom: FC<TimerCustomProps> = ({
 
   useEffect(() => {
     clearTimer(getDeadTime())
-  }, [time, isWin])
+  }, [isLose, isWin])
 
-  return <h2 className={timerStyle}>{timer}</h2>
+  return <h3 className={timerStyle}>{timer}</h3>
 }

@@ -7,6 +7,10 @@
   height: 670px;
 }
 
+.selectNone * {
+  user-select: none !important;
+}
+
 .attempts {
   font-weight: 500;
   margin: 0 0 10px;
