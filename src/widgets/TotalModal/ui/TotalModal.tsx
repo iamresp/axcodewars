@@ -1,20 +1,19 @@
 import React, { type FC } from 'react'
 import { Button, Modal } from 'shared/components'
-import { useNavigate } from 'react-router-dom'
 
 import cls from './TotalModal.module.css'
 
 interface TotalModalProps {
   isOpen: boolean
   isWin: boolean
+  onDecline: () => void
 }
 
-export const TotalModal: FC<TotalModalProps> = ({ isOpen, isWin }) => {
-  const navigate = useNavigate()
-  const handleNavigate = (): void => {
-    navigate('/tasks')
-  }
-
+export const TotalModal: FC<TotalModalProps> = ({
+  isOpen,
+  isWin,
+  onDecline
+}) => {
   return (
     <Modal
       className={cls.modalTotal}
@@ -31,7 +30,7 @@ export const TotalModal: FC<TotalModalProps> = ({ isOpen, isWin }) => {
           isOrange
           type={'button'}
           className={cls.totalButton}
-          onClick={handleNavigate}
+          onClick={onDecline}
           text={'Вернуться к задачам'} />
       </div>
     </Modal>

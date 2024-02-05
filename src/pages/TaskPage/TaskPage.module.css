@@ -24,6 +24,11 @@ main {
   perspective-origin: 50% 50%;
   position: fixed;
 }
+.connectTitle {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 32px;
+}
 
 h4 {
   color: inherit;
@@ -81,60 +86,14 @@ h4 {
   color: var(--orange-color);
 }
 
-.descriptionContainer {
-  display: flex;
-  gap: 70px;
-}
-
-.description {
-  margin: 0;
-  max-width: 670px;
-  width: 100%;
-}
-
-.results {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  max-width: 670px;
-  width: 100%;
-}
-
-.resultsText {
-  margin: 0;
-}
-
 @media (width <= 1200px) {
 
   .main {
     max-width: 1000px;
   }
-
-  .descriptionContainer {
-    display: block;
-  }
-
-  .resultsText {
-    margin-top: 40px;
-  }
-
-  .results {
-    gap: 0;
-  }
-}
-
-@media (width <= 768px) {
-
-  .main {
-    max-width: 700px;
-  }
 }
 
 @media (width <= 480px) {
-
-  .main {
-    max-width: 420px;
-  }
 
   .container {
     padding: 20px;
@@ -142,10 +101,6 @@ h4 {
 }
 
 @media (width <= 380px) {
-
-  .main {
-    max-width: 290px;
-  }
 
   .leaveRoomButton {
     margin: 50px 0;

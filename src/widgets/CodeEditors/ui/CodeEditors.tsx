@@ -1,44 +1,59 @@
 import React, {
   useState,
   useEffect,
-  type FC,
-  type MutableRefObject
+  type FC
 } from 'react'
 import { TimerCustom } from 'features/TimerCustom'
-import { Button, CodeEditor } from 'shared/components'
+import { Button, CodeEditor, Loading } from 'shared/components'
 import { isSafe, convertParams, convertResult } from '../lib'
 import cls from './CodeEditors.module.css'
-import { type ResultsType } from 'entities/TaskApi/task.interface'
+import {
+  type ICreateTask,
+  type ResultsType
+} from 'entities/TaskApi/task.interface'
+import classNames from 'classnames'
 
 interface CodeEditorsProps {
-  socket: MutableRefObject<WebSocket | null | undefined>
+  isOpponentReady: boolean
+  onReady: () => void
+  onCode: (value: string) => void
+  taskData: ICreateTask | undefined
   rightResults: ResultsType | undefined
   attempts: number
   opponentCode: string
   opponentAttempts: number
   onAttempt: () => void
   onWin: () => void
-  isTimeOutLose: () => void
+  isWin: boolean
+  isLose: boolean
+  setIsLose: (bool: boolean) => void
 }
 
 const taskTime = 300_000
 
 export const CodeEditors: FC<CodeEditorsProps> = ({
-  socket,
+  isOpponentReady,
+  onReady,
+  onCode,
+  taskData,
   rightResults,
   attempts,
   opponentCode,
   opponentAttempts,
   onAttempt,
   onWin,
-  isTimeOutLose
+  isWin,
+  isLose,
+  setIsLose
 }) => {
   const [isReady, setIsReady] = useState(false)
-  const [timer, setTimer] = useState(false)
-  const [isWin, setIsWin] = useState(false)
+
+  const handleReady = (): void => {
+    onReady()
+    setIsReady(true)
+  }
 
   const handleValidateCode = (
-    timeout = false,
     code = ''
   ): string => {
     let result: unknown = null
@@ -66,55 +81,77 @@ export const CodeEditors: FC<CodeEditorsProps> = ({
         return 'Результат выполнения не совпал с ответом'
       }
     }
-
     onWin()
-    setIsWin(true)
-
-    if (timeout) {
-      isTimeOutLose()
-    }
 
     return 'Результат выполнения совпал с ответом'
   }
 
   useEffect(() => {
-    if (timer && !isWin) {
-      void handleValidateCode(timer)
+    if (isLose && !isWin) {
+      void handleValidateCode()
     }
-  }, [timer])
+  }, [isLose])
+
+  const codeEditorsStyle = classNames(
+    [cls.codeEditorsContainer],
+    {
+      [cls.codeEditorsDisabled]: !(isReady && isOpponentReady)
+    }
+  )
 
   return (
     <>
-      {isReady
+      {isReady && isOpponentReady
         ? (
-          <TimerCustom
-            isWin={isWin}
-            ms={taskTime}
-            time={timer}
-            setTime={setTimer} />
+          <>
+            <div className={cls.descriptionContainer}>
+              <p className={cls.description}>{taskData?.description}</p>
+              <div className={cls.results}>
+                <p className={cls.resultsText}>
+                Вводимые значения: {taskData?.results[0][0]}
+                </p>
+                <p className={cls.resultsText}>
+                Результат: {taskData?.results[0][1]}
+                </p>
+              </div>
+            </div>
+            <TimerCustom
+              isWin={isWin}
+              ms={taskTime}
+              isLose={isLose}
+              setIsLose={setIsLose}
+            />
+          </>
         )
-        : (
-          <Button
-            className={cls.readyButton}
-            type='button'
-            text='Готов'
-            isOrange
-            onClick={() => {
-              setIsReady(true)
-            }}
-          >
-          </Button>
-        )}
-      <div className={cls.codeEditorsContainer}>
+        : isReady
+          ? <>
+            <h3 className={cls.readyTitle}>
+              Ждем пока соперник не будет готов...
+            </h3>
+            <Loading height={150} />
+          </>
+          : (
+            <Button
+              className={cls.readyButton}
+              type='button'
+              text='Готов'
+              isOrange
+              onClick={handleReady}
+            >
+            </Button>
+          )}
+      <div className={codeEditorsStyle}>
         <CodeEditor
-          socket={socket}
+          onCode={onCode}
           isReady={isReady}
+          isOpponentReady={isOpponentReady}
           attempts={attempts}
           onValidateCode={handleValidateCode}
           isOpponent={false}
         />
         <CodeEditor
           isReady={isReady}
+          isOpponentReady={isOpponentReady}
           attempts={opponentAttempts}
           onValidateCode={handleValidateCode}
           opponentCode={opponentCode}

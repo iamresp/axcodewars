@@ -1,4 +1,4 @@
-import React, { type FC, useContext, useEffect, useRef, useState } from 'react'
+import React, { type FC, useEffect, useRef, useState, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { type ICreateTask } from 'entities/TaskApi/task.interface'
 import taskService from 'entities/TaskApi/task.service'
@@ -7,8 +7,6 @@ import { errorToast } from 'shared/lib/error-toast'
 import cls from './TaskPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
 import { CodeEditors } from 'widgets/CodeEditors'
-import { type IGetConnectUser } from 'entities/UserApi/user.interface'
-import userService from 'entities/UserApi/user.service'
 import { TotalModal } from 'widgets/TotalModal'
 import { useModalState } from 'shared/hooks/useModalState'
 import { motion, MotionConfig } from 'framer-motion'
@@ -17,6 +15,8 @@ import { ThemeContext } from 'app/context/ThemeContext'
 import { transition } from 'widgets/Connection/constants'
 import { Scene } from 'widgets/Connection/ui/Canvas'
 
+const initialOpponentCode = 'const task = () => {\n  //TO DO\n}'
+
 export const TaskPage: FC = () => {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -24,16 +24,14 @@ export const TaskPage: FC = () => {
 
   const [isConnected, setIsConnected] = useState(false)
   const [isOpponent, setIsOpponent] = useState(false)
-  const [opponentCode, setOpponentCode] = useState('')
+  const [opponentCode, setOpponentCode] = useState(initialOpponentCode)
   const [opponentAttempts, setOpponentAttempts] = useState(0)
   const [taskData, setTaskData] = useState<ICreateTask>()
   const [attempts, setAttempts] = useState(0)
-
-  const [open, setOpen] = useState(false)
-  const [gameMessage, setGameMessage] = useState('')
-
-  const [isOpen, openModal, closeModal] = useModalState()
+  const [isOpponentReady, setIsOpponentReady] = useState(false)
+  const [isOpen, openModal] = useModalState()
   const [isWin, setIsWin] = useState(false)
+  const [isLose, setIsLose] = useState(false)
 
   const [isOn, setOn] = useState(false)
   const [timer, setTimer] = useState(0)
@@ -79,22 +77,18 @@ export const TaskPage: FC = () => {
   function connect (): void {
     socket.current = new WebSocket('ws://134.0.116.26:4442')
 
-    socket.current.onopen = () => {
-      setIsConnected(true)
-      const message = { event: 'ready' }
-      socket.current?.send(JSON.stringify(message))
-    }
-
     socket.current.onmessage = (event: MessageEvent<string>) => {
       const message = JSON.parse(event.data)
 
       switch (message.event) {
         case 'connect':
+          setIsConnected(true)
           break
         case 'pair':
           setIsOpponent(true)
           break
         case 'ready':
+          setIsOpponentReady(true)
           break
         case 'pull':
           setOpponentCode(message.data)
@@ -103,8 +97,7 @@ export const TaskPage: FC = () => {
           setOpponentAttempts(opponentAttempts => opponentAttempts + 1)
           break
         case 'lose':
-          setGameMessage(`Вы проиграли, было ${attempts} попыток!`)
-          setIsWin(false)
+          setIsLose(true)
           openModal()
           break
         case 'disconnect':
@@ -117,6 +110,19 @@ export const TaskPage: FC = () => {
           break
       }
     }
+  }
+
+  const handleReady = (): void => {
+    const message = { event: 'ready' }
+    socket.current?.send(JSON.stringify(message))
+  }
+
+  const handleCode = (value: string): void => {
+    const message = {
+      event: 'push',
+      data: value
+    }
+    socket.current?.send(JSON.stringify(message))
   }
 
   const handleAttempt = (): void => {
@@ -132,7 +138,7 @@ export const TaskPage: FC = () => {
     openModal()
   }
 
-  const handleDisconnect = (): void => {
+  const handleDecline = (): void => {
     const message = { event: 'decline' }
     socket.current?.send(JSON.stringify(message))
 
@@ -141,10 +147,6 @@ export const TaskPage: FC = () => {
     socket.current?.close()
     socket.current = null
     navigate('/tasks')
-  }
-
-  const isTimeOutLose = (): void => {
-    openModal()
   }
 
   if (!isOpponent) {
@@ -176,9 +178,7 @@ export const TaskPage: FC = () => {
         type='button'
         isOrange={false}
         text='Выйти из комнаты'
-        onClick={() => {
-          handleDisconnect()
-        }}
+        onClick={handleDecline}
       >
       </Button>
       <motion.div
@@ -193,32 +193,28 @@ export const TaskPage: FC = () => {
         <div className={cls.header}>
           <h1 className={cls.mainTitle}>{taskData?.title}</h1>
         </div>
-        <div className={cls.descriptionContainer}>
-          <p className={cls.description}>{taskData?.description}</p>
-          <div className={cls.results}>
-            <p className={cls.resultsText}>
-                Вводимые значения: {taskData?.results[0][0]}
-            </p>
-            <p className={cls.resultsText}>
-                Результат: {taskData?.results[0][1]}
-            </p>
-          </div>
-        </div>
+
         <CodeEditors
-          socket={socket}
+          isOpponentReady={isOpponentReady}
+          onReady={handleReady}
+          onCode={handleCode}
+          taskData={taskData}
           rightResults={taskData?.results}
           attempts={attempts}
           opponentCode={opponentCode}
           opponentAttempts={opponentAttempts}
           onAttempt={handleAttempt}
           onWin={handleWin}
-          isTimeOutLose={isTimeOutLose}
+          isWin={isWin}
+          isLose={isLose}
+          setIsLose={setIsLose}
         />
       </motion.div>
 
       <TotalModal
         isOpen={isOpen}
         isWin={isWin}
+        onDecline={handleDecline}
       />
     </Wrapper>
   )
