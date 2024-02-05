@@ -122,7 +122,7 @@ export const ProfileEditPage: FC = () => {
         {!isLoading && (
           <div className={cls.contentUser}>
             <img
-              src={/* imageSrc() ?? */ `${UserLogo}`}
+              src={imageSrc() ?? `${UserLogo}`}
               alt='user_avatar'
               className={cls.userAvatar}
             />
