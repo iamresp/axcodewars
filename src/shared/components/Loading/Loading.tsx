@@ -1,5 +1,5 @@
 import React, { type FC } from 'react'
-import cls from './Loading.module.css'
+import cls from './styles.module.css'
 
 interface LoadingProps {
   height?: number

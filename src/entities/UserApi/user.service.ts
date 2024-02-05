@@ -18,14 +18,11 @@ class UserService {
 
   private readonly _status = { ...serviceStatus }
 
-  async createUser (data: ICreateUser): Promise<void> {
+  async createUser (data: FormData): Promise<void> {
     try {
       const response = await fetch(`${this._URL}/user`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+        body: data
       })
 
       if (!response.ok) {
@@ -90,12 +87,14 @@ class UserService {
     }
   }
 
-  async editUser (data: IEditUser): Promise<void> {
+  async editUser (data: FormData): Promise<void> {
     try {
       const response = await fetch(`${this._URL}/auth/user`, {
         method: 'PUT',
-        headers: this._headers,
-        body: JSON.stringify(data)
+        headers: {
+          Authorization: `Bearer ${this._token}`
+        },
+        body: data
       })
 
       if (!response.ok) {

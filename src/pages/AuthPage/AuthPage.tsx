@@ -9,7 +9,7 @@ import { useAuth } from 'shared/hooks/useAuth'
 
 import cls from './AuthPage.module.css'
 import { motion } from 'framer-motion'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const AuthPage: FC = () => {
   const navigate = useNavigate()
@@ -18,7 +18,6 @@ export const AuthPage: FC = () => {
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
   const [image, setImage] = useState<File>()
-  const [errorMessage, setErrorMessage] = useState('')
 
   const { login } = useAuth()
 
@@ -27,12 +26,8 @@ export const AuthPage: FC = () => {
   ): Promise<void> => {
     event.preventDefault()
 
-    if (
-      username === '' ||
-      password === '' ||
-      (auth === AUTH_STATE.REGISTRATION && image === undefined)
-    ) {
-      setErrorMessage('Поля не должны быть пустыми')
+    if (username.trim() === '' || password.trim() === '') {
+      errorToast('Поля не должны быть пустыми!')
 
       return
     }
@@ -40,21 +35,21 @@ export const AuthPage: FC = () => {
     if (auth === AUTH_STATE.LOGIN) {
       await login(password, username)
       navigate('/tasks')
-      setErrorMessage('')
 
       return
     }
 
     try {
-      await userService.createUser({
-        avatar: image?.name ?? '',
-        hash: password,
-        username
-      })
+      const formData: FormData = new FormData()
 
-      setErrorMessage('')
+      formData.append('hash', password)
+      formData.append('username', username)
+      image !== undefined && formData.append('avatar', image)
+
+      await userService.createUser(formData)
 
       await login(password, username)
+      navigate('/tasks')
     } catch (error) {
       errorToast(error)
     }
@@ -95,7 +90,6 @@ export const AuthPage: FC = () => {
                   ? AUTH_STATE.REGISTRATION
                   : AUTH_STATE.LOGIN
               )
-              setErrorMessage('')
             }}
           >
             {auth === AUTH_STATE.LOGIN ? 'Регистрация' : 'Войти'}
@@ -108,7 +102,6 @@ export const AuthPage: FC = () => {
           }}
         >
           <InputCustom
-            required
             className={cls.formInput}
             label='Имя'
             value={username}
@@ -117,7 +110,6 @@ export const AuthPage: FC = () => {
             }}
           />
           <InputCustom
-            required
             label='Пароль'
             type='password'
             value={password}
@@ -128,9 +120,7 @@ export const AuthPage: FC = () => {
           {auth === 'registration' && (
             <AvatarLoading image={image} setImage={setImage}/>
           )}
-          {(errorMessage !== '') &&
-              (<span className={cls.errorText}>{errorMessage}</span>)
-          }<Button isOrange
+          <Button isOrange
             text={auth === AUTH_STATE.LOGIN ? 'Войти' : 'Регистрация'}
             type={'submit'} className={cls.regButton} />
         </form>
