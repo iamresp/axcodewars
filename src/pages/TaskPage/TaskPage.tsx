@@ -1,15 +1,8 @@
-import React, { type FC, useEffect, useRef, useState } from 'react'
+import React, { type FC, useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { type ICreateTask } from 'entities/TaskApi/task.interface'
 import taskService from 'entities/TaskApi/task.service'
 import { Button } from 'shared/components'
-import {
-  Alert,
-  Button as ButtonMaterial,
-  CircularProgress,
-  Grid, Modal,
-  Typography
-} from '@mui/material'
 import { errorToast } from 'shared/lib/error-toast'
 import cls from './TaskPage.module.css'
 import { Wrapper } from 'entities/Wrapper/Wrapper'
@@ -18,7 +11,11 @@ import { type IGetConnectUser } from 'entities/UserApi/user.interface'
 import userService from 'entities/UserApi/user.service'
 import { TotalModal } from 'widgets/TotalModal'
 import { useModalState } from 'shared/hooks/useModalState'
-import { motion } from 'framer-motion'
+import { motion, MotionConfig } from 'framer-motion'
+import { Connection } from 'widgets/Connection'
+import { ThemeContext } from 'app/context/ThemeContext'
+import { transition } from 'widgets/Connection/constants'
+import { Scene } from 'widgets/Connection/ui/Canvas'
 
 export const TaskPage: FC = () => {
   const { id } = useParams()
@@ -38,8 +35,32 @@ export const TaskPage: FC = () => {
   const [isOpen, openModal, closeModal] = useModalState()
   const [isWin, setIsWin] = useState(false)
 
-  const handleOpen = (): void => {
-    openModal()
+  const [isOn, setOn] = useState(false)
+  const [timer, setTimer] = useState(0)
+  const { currentTheme } = useContext(ThemeContext)
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null
+    if (isOn) {
+      interval = setInterval(() => {
+        setTimer(prevTimer => prevTimer + 1)
+      }, 1000)
+    } else if (!isOn && timer !== 0) {
+      setTimer(0)
+      if (interval !== null && interval !== undefined) {
+        clearInterval(interval)
+      }
+    }
+
+    return () => {
+      if (interval !== null && interval !== undefined) {
+        clearInterval(interval)
+      }
+    }
+  }, [isOn, timer])
+
+  const toggleTimer = () => {
+    setOn(!isOn)
   }
 
   useEffect(() => {
@@ -128,41 +149,23 @@ export const TaskPage: FC = () => {
 
   if (!isOpponent) {
     return (
-      <Grid
-        container
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          gap: '10dvh',
-          width: '100%',
-          height: '68vh'
-        }}
-      >
-
-        {isConnected && <CircularProgress />}
-        {isConnected && (
-          <Typography component='div' variant='h6'>
-              Ждем подключение второго пользователя
-          </Typography>
-        )}
-        <div className={cls.btnGroupConnect}>
-          <Button
-            text={'Присоединиться'}
-            onClick={connect}
-            disabled={isConnected}
-            className={cls.btnConnect}
-            isOrange
-          />
-          <Button
-            text={'Выйти'}
-            onClick={() => {
-              navigate('/tasks')
+      <MotionConfig transition={transition}>
+        <motion.div className={cls.main}>
+          <motion.div
+            className={cls.containerConnect}
+            initial={false}
+            animate={{
+              backgroundColor: currentTheme === 'light' ? 'white' : 'black',
+              color: '#F37022'
             }}
-          />
-        </div>
-      </Grid>
+          >
+            <h4 className={cls.open}>{isOn ? 'Поиск' : 'Перекати'}</h4>
+            <h4 className={cls.close}>{isOn ? 'игрока' : 'шарик'}</h4>
+            <motion.h4>{timer}</motion.h4>
+            <Scene isOn={isOn} setOn={setOn} connect={connect} />
+          </motion.div>
+        </motion.div>
+      </MotionConfig>
     )
   }
 

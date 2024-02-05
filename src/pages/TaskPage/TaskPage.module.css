@@ -1,25 +1,62 @@
-.connect {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: calc(100dvh - (var(--header-height) + var(--footer-height)));
-  justify-content: center;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+main,
+#root {
+  height: calc(100vh - (var(--header-height) + var(--footer-height)));
+  margin: 0;
+  padding: 0;
+  -webkit-touch-callout: none;
+  user-select: none;
   width: 100%;
 }
 
-
-.btnGroupConnect {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 20dvw;
+main {
+  color: black;
+  font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+    "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+  overscroll-behavior-y: none;
+  perspective: 2500px;
+  perspective-origin: 50% 50%;
+  position: fixed;
 }
 
-.main {
-  background: var(--main-color);
-  margin: 0 auto;
-  max-width: 1530px;
+h4 {
+  color: inherit;
+  display: inline-block;
+  font-family: Roboto, sans-serif;
+  font-size: 400px;
+  font-style: normal;
+  font-weight: 800;
+  left: 50%;
+  letter-spacing: -10px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0) rotate3d(1, 0, 0, 55deg)
+    rotate3d(0, 0, 1, 45deg);
+}
+
+.containerConnect,
+.bg {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.containerConnect > .close,
+.containerConnect > .open {
+  font-size: 230px;
+  letter-spacing: -10px;
+  margin-top: -230px;
+}
+
+.containerConnect > .close {
+  margin-top: 230px;
 }
 
 .container {
