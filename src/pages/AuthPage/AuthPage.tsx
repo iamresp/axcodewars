@@ -102,6 +102,7 @@ export const AuthPage: FC = () => {
           }}
         >
           <InputCustom
+            required
             className={cls.formInput}
             label='Имя'
             value={username}
@@ -110,6 +111,7 @@ export const AuthPage: FC = () => {
             }}
           />
           <InputCustom
+            required
             label='Пароль'
             type='password'
             value={password}
