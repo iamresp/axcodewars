@@ -86,7 +86,7 @@ export const EditTaskModal: FC<EditTaskModalProps> = ({
       handleClose()
       await getTasks()
     } catch (error) {
-      console.error(error)
+      errorToast(error)
     }
   }
 
