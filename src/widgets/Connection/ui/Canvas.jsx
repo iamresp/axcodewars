@@ -3,7 +3,6 @@ import { motion, MotionCanvas } from 'framer-motion-3d'
 import { useGLTF, useTexture, Shadow, meshBounds } from '@react-three/drei'
 import { useCursor } from 'shared/hooks/useCursor'
 import { transition } from 'shared/constants/transition'
-import { extend } from '@react-three/fiber'
 
 function Switch ({ isOn, setOn, connect }) {
   const { nodes, materials } = useGLTF('/switch.glb')
