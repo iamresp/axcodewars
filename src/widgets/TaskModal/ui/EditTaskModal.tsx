@@ -9,6 +9,17 @@ import { errorToast } from 'shared/lib/error-toast'
 import { type TaskUpdateInput } from 'entities/TaskApi/task.interface'
 import { toast } from 'react-toastify'
 
+/**
+ * Модальное окно для редактирования таски. Позволяет пользователю обновлять информацию о таске,
+ * включая название, описание и кейсы тестирования. Интегрирует функционал для удаления таски.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {boolean} props.isOpen Состояние открытия модального окна.
+ * @param {Function} props.close Функция для закрытия модального окна.
+ * @param {string} props.id Уникальный идентификатор редактируемой таски.
+ * @param {Function} props.getTasks Функция для обновления списка тасок после успешного редактирования или удаления.
+ */
+
 interface EditTaskModalProps {
   isOpen: boolean
   close: () => void

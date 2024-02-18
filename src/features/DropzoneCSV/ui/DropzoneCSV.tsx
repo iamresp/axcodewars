@@ -10,6 +10,16 @@ import UploadSvg from 'shared/images/file-upload.svg'
 
 import cls from './Dropzone.module.css'
 
+/**
+ * Компонент для загрузки и обработки CSV-файлов.
+ * Поддерживает загрузку файлов через перетаскивание или выбор файла,
+ * и преобразует содержимое файла в двумерный массив строк.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {string[][]} props.data Текущие данные файла в виде двумерного массива строк.
+ * @param {Dispatch<SetStateAction<string[][]>>} props.setData Функция для установки данных файла.
+ */
+
 interface DropzoneCsvProps {
   data: string[][]
   setData: Dispatch<SetStateAction<string[][]>>
@@ -19,7 +29,10 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
   const [isDragActive, setIsDragActive] = React.useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // handle drag events
+  /**
+   * Обрабатывает события перетаскивания файлов.
+   * @param {React.DragEvent<HTMLDivElement | HTMLFormElement>} e Событие перетаскивания.
+   */
   const handleDrag = function (
     e: React.DragEvent<HTMLDivElement | HTMLFormElement>
   ): void {
@@ -32,7 +45,10 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
     }
   }
 
-  // triggers when file is dropped
+  /**
+   * Обрабатывает событие выброса файла.
+   * @param {React.DragEvent<HTMLFormElement>} e Событие выброса файла.
+   */
   const handleDrop = function (e: React.DragEvent<HTMLFormElement>): void {
     e.preventDefault()
     e.stopPropagation()
@@ -40,6 +56,10 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
     handleFile(e.dataTransfer.files?.[0])
   }
 
+  /**
+   * Читает и обрабатывает файл.
+   * @param {File} file Выбранный файл.
+   */
   const handleFile = (file: File): void => {
     const fr = new FileReader()
     fr.onload = receivedText
@@ -62,6 +82,10 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
     }
   }
 
+  /**
+   * Обрабатывает изменения в элементе ввода файла.
+   * @param {React.ChangeEvent<HTMLInputElement>} e Событие изменения.
+   */
   // triggers when file is selected
   const handleChange = function (e: React.ChangeEvent<HTMLInputElement>): void {
     e.preventDefault()
@@ -73,11 +97,18 @@ export const DropzoneCsv: FC<DropzoneCsvProps> = ({ data, setData }) => {
     }
   }
 
+  /**
+   * Инициирует клик по элементу ввода файла.
+   */
   // triggers the input when the button is clicked
   const onButtonClick = (): void => {
     inputRef.current?.click()
   }
 
+  /**
+   * Возвращает статус загрузки файла.
+   * @return {string} Статус загрузки файла.
+   */
   const handleCSVStatus = (): string => {
     if (data.length > 0) {
       if (data[0][0] === '') {

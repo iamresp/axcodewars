@@ -1,14 +1,34 @@
-import {CSVSeparator} from '../model/types'
+import { CSVSeparator } from '../model/types'
 import { Parsers } from '../model/parsers'
+
+/**
+ * Преобразует ArrayBuffer в строку.
+ *
+ * @param {ArrayBuffer} buf Буфер для преобразования.
+ * @return {string} Строка, полученная из ArrayBuffer.
+ */
 
 export const arrBufToStr = (buf: ArrayBuffer): string => {
   return String.fromCharCode.apply(null, Array.from(new Uint16Array(buf)))
 }
 
+/**
+ * Проверяет, является ли строка массива допустимой строкой CSV.
+ *
+ * @param {string[]} row Строка массива для проверки.
+ * @return {boolean} Возвращает true, если строка допустима.
+ */
 const isValidCSVrow = (row: string[]): boolean => (
   row.length > 4 && row.length % 2 === 0
 )
 
+/**
+ * Разбирает строку CSV и возвращает массив значений.
+ *
+ * @param {string} str Строка для разбора.
+ * @param {CSVSeparator} separator Разделитель для использования.
+ * @return {string[]} Массив значений, извлеченных из строки CSV.
+ */
 const parseCSVstring = (str: string, separator: CSVSeparator): string[] => {
   // Return empty array if input string is not well formed CSV string.
   if (!Parsers[separator].regValid.test(str)) return []
@@ -32,6 +52,11 @@ const parseCSVstring = (str: string, separator: CSVSeparator): string[] => {
   return a
 }
 
+/**
+ * Возвращает все возможные разделители CSV.
+ *
+ * @return {CSVSeparator[]} Массив всех разделителей.
+ */
 const getAllSeparators = (): CSVSeparator[] => {
   const separatorsArr: CSVSeparator[] = []
   Object.values(CSVSeparator).forEach(separator => {
@@ -43,6 +68,12 @@ const getAllSeparators = (): CSVSeparator[] => {
   return separatorsArr
 }
 
+/**
+ * Преобразует текст CSV в массив строк.
+ *
+ * @param {string} text Текст для преобразования.
+ * @return {string[][]} Массив строк, полученных из текста CSV.
+ */
 export const CSVtoArray = (text: string): string[][] => {
   // split CSV table to array of rows
   const CSVData: string[] = text.split(/\r\n|\r|\n/)

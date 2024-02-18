@@ -8,6 +8,18 @@ import { errorToast } from 'shared/lib/error-toast'
 
 import cls from './styles.module.css'
 
+/**
+ * Модальное окно для загрузки тасок из CSV-файла.
+ * Позволяет пользователю загрузить таски через интерфейс перетаскивания файлов (drag and drop),
+ * обрабатывает загруженные данные и отправляет их на сервер. Предоставляет обратную связь
+ * через всплывающие уведомления (toasts) о результатах загрузки каждой таски.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {boolean} props.isOpen Состояние видимости модального окна.
+ * @param {Function} props.close Функция для закрытия модального окна.
+ * @param {Function} props.getTasks Функция для получения задач после их успешной загрузки.
+ */
+
 interface CSVModalProps {
   isOpen: boolean
   close: () => void

@@ -13,6 +13,27 @@ import {
 } from 'entities/TaskApi/task.interface'
 import classNames from 'classnames'
 
+/**
+ * Компонент для редактирования кода с поддержкой проверки безопасности, валидации выполнения
+ * и отображения результатов. Предоставляет пользовательский интерфейс для написания кода,
+ * его проверки и получения немедленной обратной связи по результатам проверки.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {boolean} props.isOpponentReady Статус готовности соперника.
+ * @param {Function} props.onReady Функция, вызываемая при готовности пользователя.
+ * @param {Function} props.onCode Функция для обработки введенного пользователем кода.
+ * @param {ICreateTask | undefined} props.taskData Данные текущей задачи.
+ * @param {ResultsType | undefined} props.rightResults Правильные результаты для задачи.
+ * @param {number} props.attempts Количество попыток пользователя.
+ * @param {string} props.opponentCode Код соперника.
+ * @param {number} props.opponentAttempts Количество попыток соперника.
+ * @param {Function} props.onAttempt Функция, вызываемая при каждой попытке выполнения кода.
+ * @param {Function} props.onWin Функция, вызываемая при успешном выполнении кода.
+ * @param {boolean} props.isWin Статус победы пользователя.
+ * @param {boolean} props.isLose Статус проигрыша пользователя.
+ * @param {Function} props.setIsLose Функция для установки статуса проигрыша пользователя.
+ */
+
 interface CodeEditorsProps {
   isOpponentReady: boolean
   onReady: () => void

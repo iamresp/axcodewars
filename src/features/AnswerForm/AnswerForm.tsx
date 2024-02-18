@@ -6,6 +6,16 @@ import DeleteIcon from 'shared/images/delete-modal-field.svg'
 import AddIcon from 'shared/images/add-modal-field.svg'
 import cls from './styles.module.css'
 
+/**
+ * Компонент формы для управления тестовыми кейсами задачи.
+ * Позволяет добавлять, удалять и редактировать вводимые данные и ожидаемые результаты для каждого кейса.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {string} [props.className] Дополнительный класс CSS для кастомизации стилей.
+ * @param {TaskCaseTypes[]} props.taskCase Массив текущих тестовых кейсов задачи.
+ * @param {Dispatch<SetStateAction<TaskCaseTypes[]>>} props.setTaskCase Функция обновления состояния тестовых кейсов.
+ */
+
 interface AnswerFormProps {
   className?: string
   taskCase: TaskCaseTypes[]

@@ -3,6 +3,15 @@ import { Button, Modal } from 'shared/components'
 
 import cls from './TotalModal.module.css'
 
+/**
+ * Итоговая модалка, отображающая результат игры (победа или поражение) и предлагающая возврат к списку задач.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {boolean} props.isOpen Состояние открытия модального окна.
+ * @param {boolean} props.isWin Флаг победы пользователя в игре.
+ * @param {Function} props.onDecline Функция, вызываемая при нажатии кнопки для возврата к задачам.
+ */
+
 interface TotalModalProps {
   isOpen: boolean
   isWin: boolean
