@@ -4,7 +4,8 @@ import {
   type IGetTaskById,
   type IGetTasks,
   type TaskUpdateInput,
-  type CreateTaskType
+  type CreateTaskType,
+  type GetTasksRequestType
 } from './task.interface'
 import { serviceStatus } from 'entities/service-status'
 
@@ -21,17 +22,32 @@ class TaskService {
 
   private readonly _status = { ...serviceStatus }
 
-  async getTasks (sortField = 'createdAt', sortOrder = 'ASC', page = 1, size = 10): Promise<IGetTasks> {
+  async getTasks ({
+    sortField = 'createdAt',
+    sortOrder = 'ASC',
+    pageNumber = 1,
+    pageSize = 9,
+    search = '',
+    tag = ''
+  }: GetTasksRequestType): Promise<IGetTasks> {
     try {
-      const response = await fetch(`${this._URL}/tasks?sort=${sortField}&order=${sortOrder}&page=${page}&size=${size}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem(
-            FIELD_LOCAL_STORAGE.ACCESS_TOKEN
-          )}`
-        }
-      })
+      const response = await fetch(
+        `${this._URL}/tasks?
+        tag=${tag}&
+        sort=${sortField}&
+        search=${search}&
+        order=${sortOrder}&
+        page=${pageNumber}&
+        size=${pageSize}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem(
+              FIELD_LOCAL_STORAGE.ACCESS_TOKEN
+            )}`
+          }
+        })
 
       if (!response.ok) {
         throw new Error(

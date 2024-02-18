@@ -27,12 +27,13 @@ export interface TaskUpdateInput {
   title?: string
 }
 
-export interface IUpdateTask extends TaskUpdateInput {
-  uuid: string
-}
-
-export interface IDeleteTask {
-  uuid: string
-}
-
 export type CreateTaskType = ICreateTask | ICreateTask[]
+
+export interface GetTasksRequestType {
+  sortField?: 'createdAt' | 'description' | 'title' | 'updatedAt'
+  sortOrder?: 'ASC' | 'DESC'
+  pageNumber?: number
+  pageSize?: number
+  search?: string
+  tag?: 'my' | ''
+}

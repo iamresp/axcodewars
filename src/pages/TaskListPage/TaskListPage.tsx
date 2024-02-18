@@ -65,7 +65,14 @@ export const TaskListPage: FC = () => {
   const fetchTasks = async (): Promise<void> => {
     setIsLoading(true)
     try {
-      const tasks = await taskService.getTasks()
+      const tasks = await taskService.getTasks({
+        sortField: 'createdAt',
+        sortOrder: 'ASC',
+        pageNumber: 1,
+        pageSize: 10,
+        search: '',
+        tag: ''
+      })
       setTasks(tasks)
       setFilteredTasks(tasks)
     } catch (error) {
