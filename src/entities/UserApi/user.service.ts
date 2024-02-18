@@ -8,6 +8,10 @@ import {
 } from './user.interface'
 import { serviceStatus } from 'entities/service-status'
 
+/**
+ * Сервис для работы с пользователями. Позволяет создавать пользователя, аутентифицировать,
+ * получать информацию о пользователе, редактировать данные пользователя и получать данные о подключённом пользователе.
+ */
 class UserService {
   private readonly _URL = process.env.REACT_APP_SERVER_URL
   private _token = localStorage.getItem(FIELD_LOCAL_STORAGE.ACCESS_TOKEN)
@@ -18,6 +22,11 @@ class UserService {
 
   private readonly _status = { ...serviceStatus }
 
+  /**
+   * Создает нового пользователя.
+   * @param {FormData} data Данные пользователя.
+   * @return {Promise<void>} Промис без возвращаемого значения, сигнализирующий об успешном создании пользователя.
+   */
   async createUser (data: FormData): Promise<void> {
     try {
       const response = await fetch(`${this._URL}/user`, {
@@ -36,6 +45,11 @@ class UserService {
     }
   }
 
+  /**
+   * Аутентифицирует пользователя.
+   * @param {IAuthUser} data Данные для аутентификации пользователя.
+   * @return {Promise<void>} Промис без возвращаемого значения, сигнализирующий об успешной аутентификации.
+   */
   async authenticateUser (data: IAuthUser): Promise<void> {
     try {
       const response = await fetch(`${this._URL}/auth`, {
@@ -67,6 +81,10 @@ class UserService {
     }
   }
 
+  /**
+   * Получает информацию о текущем пользователе.
+   * @return {Promise<IGetUser>} Промис с объектом данных пользователя.
+   */
   async getUser (): Promise<IGetUser> {
     try {
       const response = await fetch(`${this._URL}/auth/user`, {
@@ -87,6 +105,11 @@ class UserService {
     }
   }
 
+  /**
+   * Редактирует данные пользователя.
+   * @param {FormData} data Обновленные данные пользователя.
+   * @return {Promise<void>} Промис без возвращаемого значения, сигнализирующий об успешном обновлении данных пользователя.
+   */
   async editUser (data: FormData): Promise<void> {
     try {
       const response = await fetch(`${this._URL}/auth/user`, {
@@ -108,6 +131,11 @@ class UserService {
     }
   }
 
+  /**
+   * Получает данные о подключении другого пользователя.
+   * @param {string} id Идентификатор пользователя, данные о подключении которого требуется получить.
+   * @return {Promise<IGetConnectUser>} Промис с объектом данных о подключении пользователя.
+   */
   async getConnectUser (id: string): Promise<IGetConnectUser> {
     try {
       const response = await fetch(`${this._URL}/auth/user/${id}`, {

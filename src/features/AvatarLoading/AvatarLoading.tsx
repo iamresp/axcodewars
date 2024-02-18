@@ -2,6 +2,17 @@ import React, { type ChangeEvent, type FC } from 'react'
 import classNames from 'classnames'
 import cls from './AvatarLoading.module.css'
 
+/**
+ * Компонент для загрузки и отображения аватара пользователя.
+ * Позволяет пользователю выбрать файл изображения с его устройства и отображает имя файла после выбора.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {File | undefined} props.image Текущее выбранное изображение аватара.
+ * @param {React.Dispatch<React.SetStateAction<File | undefined>>} props.setImage Функция установки выбранного изображения аватара.
+ * @param {boolean} [props.isProfile=false] Флаг, указывающий, используется ли компонент в профиле пользователя.
+ * @param {string} [props.className] Дополнительный класс для стилизации.
+ */
+
 interface AvatarLoadingProps {
   image?: File
   setImage: React.Dispatch<React.SetStateAction<File | undefined>>
@@ -15,7 +26,13 @@ export const AvatarLoading: FC<AvatarLoadingProps> = ({
   isProfile = false,
   className
 }) => {
+    /**
+     * Обрабатывает выбор файла изображения и обновляет состояние компонента.
+     *
+     * @param {ChangeEvent<HTMLInputElement>} event Событие изменения входного файла.
+     */
   const handleImage = (event: ChangeEvent<HTMLInputElement>): void => {
+    // Установка выбранного файла, если он есть
     if (event.target.files?.[0] != null) {
       setImage(event.target.files[0])
     }

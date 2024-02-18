@@ -3,6 +3,17 @@ import { getTimeRemaining } from '../lib/getTimeRemaining'
 import cls from './TimerCustom.module.css'
 import classNames from 'classnames'
 
+/**
+ * Компонент для отображения таймера обратного отсчета.
+ * Изменяет свой стиль в зависимости от результата игры (победа или поражение).
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {boolean} props.isWin Флаг победы в игре.
+ * @param {number} props.ms Время в миллисекундах для таймера обратного отсчета.
+ * @param {boolean} props.isLose Флаг поражения в игре.
+ * @param {Function} props.setIsLose Функция для установки состояния поражения.
+ */
+
 interface TimerCustomProps {
   isWin: boolean
   ms: number
@@ -20,6 +31,7 @@ export const TimerCustom: FC<TimerCustomProps> = ({
 
   const [timer, setTimer] = useState('')
 
+  // Стилизация таймера в зависимости от результата игры
   const timerStyle = classNames(
     [cls.timer],
     {
@@ -27,6 +39,11 @@ export const TimerCustom: FC<TimerCustomProps> = ({
       [cls.timerRed]: isLose
     })
 
+  /**
+   * Запускает таймер обратного отсчета до заданной даты.
+   *
+   * @param {Date} date Дата, до которой будет идти обратный отсчет.
+   */
   const startTimer = (date: Date): void => {
     const { total, hours, minutes, seconds } = getTimeRemaining(date)
     if (total >= 0) {
@@ -42,6 +59,11 @@ export const TimerCustom: FC<TimerCustomProps> = ({
     setIsLose(total === 0)
   }
 
+  /**
+   * Очищает таймер и устанавливает новый таймер обратного отсчета.
+   *
+   * @param {Date} date Дата, до которой будет идти обратный отсчет.
+   */
   const clearTimer = (date: Date): void => {
     if (Ref.current !== null) {
       clearInterval(Ref.current)
@@ -56,6 +78,11 @@ export const TimerCustom: FC<TimerCustomProps> = ({
     Ref.current = timerId
   }
 
+  /**
+   * Возвращает дату окончания обратного отсчета.
+   *
+   * @return {Date} Дата окончания обратного отсчета.
+   */
   const getDeadTime = (): Date => {
     const deadline = new Date()
     deadline.setSeconds(deadline.getSeconds() + ms / 1000)

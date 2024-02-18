@@ -1,6 +1,15 @@
 import React, { type FC } from 'react'
 import cls from './ThemeSwitcher.module.css'
 
+/**
+ * Компонент для переключения темы интерфейса.
+ * Использует значение, сохраненное в localStorage, для определения текущей темы
+ * и позволяет пользователю переключать тему интерфейса между светлой и темной.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {Function} props.handleToggle Функция, вызываемая при переключении темы.
+ */
+
 interface ThemeSwitcherProps {
   isOn: boolean
   handleToggle: () => void

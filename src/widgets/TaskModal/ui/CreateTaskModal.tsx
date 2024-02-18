@@ -14,6 +14,18 @@ import { errorToast } from 'shared/lib/error-toast'
 import { toast } from 'react-toastify'
 import cls from './styles.module.css'
 
+/**
+ * Модальное окно для создания новой таски. Позволяет пользователю ввести название, описание и кейсы для таски.
+ * Интегрирует функционал сохранения ввода в sessionStorage для удобства пользователя и предотвращения потери данных.
+ * Предоставляет опцию для загрузки тасок из CSV-файла и отправки созданной таски на сервер.
+ *
+ * @param {Object} props Свойства компонента.
+ * @param {boolean} props.isOpen Состояние открытия модального окна.
+ * @param {Function} props.close Функция для закрытия модального окна.
+ * @param {Function} props.getTasks Функция для получения списка тасок после создания новой задачи.
+ * @param {Function} props.openCSV Функция для открытия модального окна загрузки задач из CSV-файла.
+ */
+
 interface CreateTaskModalProps {
   isOpen: boolean
   close: () => void
