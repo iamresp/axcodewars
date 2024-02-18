@@ -21,9 +21,9 @@ class TaskService {
 
   private readonly _status = { ...serviceStatus }
 
-  async getTasks (): Promise<IGetTasks> {
+  async getTasks (sortField = 'createdAt', sortOrder = 'ASC', page = 1, size = 10): Promise<IGetTasks> {
     try {
-      const response = await fetch(`${this._URL}/tasks`, {
+      const response = await fetch(`${this._URL}/tasks?sort=${sortField}&order=${sortOrder}&page=${page}&size=${size}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

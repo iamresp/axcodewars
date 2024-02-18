@@ -5,6 +5,7 @@ export interface IGetTaskById {
   results: ResultsType
   title: string
   uuid: string
+  createdAt: string
 }
 
 export type IGetTasks = IGetTaskById[]

@@ -24,6 +24,7 @@ main {
   perspective-origin: 50% 50%;
   position: fixed;
 }
+
 .connectTitle {
   font-size: 18px;
   font-weight: 500;

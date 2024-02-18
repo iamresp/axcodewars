@@ -23,6 +23,20 @@ export const TaskListPage: FC = () => {
   const [isEditOpen, openEditModal, closeEditModal] = useModalState()
   const [isCSVOpen, openCSVModal, closeCSVModal] = useModalState()
 
+  const [sortOrder, setSortOrder] = useState('ASC')
+
+  const handleSort = (): void => {
+    const sortedTasks = [...filteredTasks].sort((a, b) => {
+      if (sortOrder === 'ASC') {
+        return a.createdAt > b.createdAt ? 1 : -1
+      } else {
+        return a.createdAt < b.createdAt ? 1 : -1
+      }
+    })
+    setSortOrder(sortOrder === 'ASC' ? 'DESC' : 'ASC')
+    setFilteredTasks(sortedTasks)
+  }
+
   const handleCreateOpen = (): void => {
     openCreateModal()
   }
@@ -95,7 +109,7 @@ export const TaskListPage: FC = () => {
           </button>
           <SearchInput onSearch={handleSearch} />
         </div>
-        <button type='button' className={cls.taskSortDate}>
+        <button type='button' onClick={handleSort} className={cls.taskSortDate}>
           <p>по дате добавления</p>
         </button>
       </motion.div>
